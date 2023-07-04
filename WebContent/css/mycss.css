@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+.parent{
+  display: flex;	/*横並びを指定*/
+}
+
+.child{
+  display: flex;	/*横並びを指定*/
+  padding-right: 40px;	/*間隔をあける*/
+}
