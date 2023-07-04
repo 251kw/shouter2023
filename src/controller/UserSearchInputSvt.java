@@ -54,7 +54,7 @@ public class UserSearchInputSvt extends HttpServlet {
 
 		// 送信情報の取得
 		//indexで宣言されているloginId、passwordを引っ張てくる
-		String loginId = request.getParameter("LoginId");
+		String loginId = request.getParameter("LoginID");
 		String username = request.getParameter("Username");
 		String icon = request.getParameter("Icon");
 		String icon1 = request.getParameter("Iconn");

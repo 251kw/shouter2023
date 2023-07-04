@@ -209,9 +209,15 @@ public class DBManager extends SnsDAO {
 		ArrayList<String> SearchDT = new ArrayList<>();
 		ArrayList<UserDTO> Search_list = new ArrayList<UserDTO>();
 
+
+if(loginId == "" && username == ""  && icon == null && icon1 == null && profile == "") {
+sql = sql + ";";
+
+}
+else {
 		//lodinIDに何か入力された場合
-		if (loginId != null) {
-			SearchDT.add(" loginId=" + loginId);
+		if (loginId != "") {
+			SearchDT.add(" loginId=" +"'" +loginId+"'");
 		}
 
 		//usernameに何か入力された場合
@@ -231,14 +237,15 @@ public class DBManager extends SnsDAO {
 		}
 		//profile何か入力された場合
 		if (profile != "") {
-			SearchDT.add(" like " + "'%" + profile + "%' ");
+			SearchDT.add(" profile like " + "'%" + profile + "%' ");
 		}
+
 
 		sql = sql + " where" + SearchDT.get(0);
 		for (int i = 1; i < SearchDT.size(); i++) {
 			sql = sql + " and" + SearchDT.get(i);
 		}
-
+}
 		try {
 			// データベース接続情報取得
 			conn = getConnection();
