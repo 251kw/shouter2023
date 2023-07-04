@@ -1,6 +1,7 @@
 package src.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -54,12 +55,12 @@ public class UserSearchInputSvt extends HttpServlet {
 		String message = null;
 
 
-
 		DBManager dbm = new DBManager();
-		UserDTO user = dbm.getSearchUserlogin(loginId);
-		UserDTO user = dbm.getSearchUsername(userName);
-		UserDTO user = dbm.getSearchUserprof(profile);
-		//UserDTO user = dbm.getSearchUser();
+		//UserDTO user = dbm.getSearchUserlogin(loginId);
+		//UserDTO user = dbm.getSearchUsername(userName);
+		//UserDTO user = dbm.getSearchUserprof(profile);
+		//UserDTO user = dbm.getSearchUsericon(icon);//できてない
+		ArrayList<UserDTO> user = dbm.getUserList() ;//できてない
 		HttpSession session = request.getSession();
 		// ログインユーザ情報、書き込み内容リストとしてセッションに保存
 		session.setAttribute("user", user);

@@ -60,9 +60,7 @@
 						<%--編集--%>
 						<td class="color-main text-left"></td>
 					</tr>
-					<%--
-for(user user:userId){
---%>
+
 
 					<%-- checkbox --%>
 					<tr>
@@ -70,67 +68,19 @@ for(user user:userId){
 								value=""> </label>
 						<td class="text-left"><label>${user.loginId}</label></td>
 
-						<td class="text-left"><label>${user.userName }</label></td>
+						<td class="text-left"><label>${user.userName}</label></td>
 
-						<td><span class="${user.icon } pe-2x pe-va"></span></td>
+						<td><span class="${user.icon} pe-2x pe-va"></span></td>
 
-						<td class="text-left"><label>${user.profile }</label></td>
-
-						<%--編集--%>
-						<td class="color-main text-left">編集</td>
-
-					</tr>
-
-					<tr>
-						<td><label><input type="checkbox" name="selectbox"
-								value=""> </label>
-						<td class="text-left"><label>${user.loginId}</label></td>
-
-						<td class="text-left"><label>${user.userName }</label></td>
-
-						<td><span class="${user.icon } pe-2x pe-va"></span></td>
-
-						<td class="text-left"><label>${user.profile }</label></td>
+						<td class="text-left"><label>${user.profile}</label></td>
 
 						<%--編集--%>
 						<td class="color-main text-left">編集</td>
 
 					</tr>
 
-					<tr>
-						<td><label><input type="checkbox" name="selectbox"
-								value=""> </label>
-						<td class="text-left"><label>${user.loginId}</label></td>
 
-						<td class="text-left"><label>${user.userName }</label></td>
 
-						<td><span class="${user.icon } pe-2x pe-va"></span></td>
-
-						<td class="text-left"><label>${user.profile }</label></td>
-
-						<%--編集--%>
-						<td class="color-main text-left">編集</td>
-
-					</tr>
-
-					<tr>
-						<td><label><input type="checkbox" name="selectbox"
-								value=""> </label>
-						<td class="text-left"><label>${user.loginId}</label></td>
-
-						<td class="text-left"><label>${user.userName }</label></td>
-
-						<td><span class="${user.icon } pe-2x pe-va"></span></td>
-
-						<td class="text-left"><label>${user.profile }</label></td>
-
-						<%--編集--%>
-						<td class="color-main text-left">編集</td>
-
-					</tr>
-					<%--
-}
---%>
 
 					<tr>
 						<td colspan="2" class="text-right"><input class="btn"
