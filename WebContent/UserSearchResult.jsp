@@ -37,17 +37,13 @@
 									 <label for="whiteSpace"></label>
 								</th>
 
-									<th nowrap>
-										<div class="text-right">
-											<button class="btn" type="button"  id="checke-btn">全選択</button>
-										</div>
-									</th>
+								<th nowrap>
+									<button class="resultBtn" type="button"  id="check-btn">全選択</button>
+								</th>
 
-									<th nowrap>
-										<div class="text-right">
-											<button class="btn" type="button"  id="uncheck-btn" >解除</button>
-										</div>
-									</th>
+								<th nowrap>
+									<button class="resultBtn" type="button"  id="uncheck-btn" >解除</button>
+								</th>
 							</tr>
 
 							<tr>
@@ -68,7 +64,7 @@
 
 							<c:forEach var="user" items="${user}">
 								<tr>
-									<td><input type="checkbox" name="checkbox" value="${user.loginId}"></td><!-- チェックボックス -->
+									<td><input type="checkbox" name="checkbox" value="${user.loginId}" class="checks"></td><!-- チェックボックス -->
 									<td class="text-left"><input class="form-control" type="hidden" name="loginId" value="" size="20" autofocus>
 										${user.loginId}
 									</td>
@@ -79,8 +75,8 @@
 										<input type="hidden" name="icon" id="icon" value="${user.icon}" checked>
 									</td>
 									<td class="text-left"><input class="form-control" type="hidden" name="profile" value="" size="20" />
-										${user.profile
-									}</td>
+										${user.profile}
+									</td>
 
 									<td colspan="2" class="text-right"><button class="btn" type="submit" value="編集" formaction="">編集</button></td>
 								</tr>
@@ -92,15 +88,11 @@
 								</th>
 
 								<th nowrap>
-									<div class="text-right">
-										<button class="btn" type="button"  id="checke-btn">全選択</button>
-									</div>
+									<button class="resultBtn" type="button"  id="check-btn">全選択</button>
 								</th>
 
 								<th nowrap>
-									<div class="text-right">
-										<button class="btn" type="button"  id="uncheck-btn" >解除</button>
-									</div>
+									<button class="resultBtn" type="button"  id="uncheck-btn" >解除</button>
 								</th>
 							</tr>
 						</table>
@@ -134,7 +126,6 @@
 		        el[i].checked = false;
 		    }
 		};
-
 		//全選択ボタンをクリックした時「checkAll」を実行
 		checkBtn.addEventListener("click", checkAll, false);
 		//全選択ボタンをクリックした時「uncheckAll」を実行
