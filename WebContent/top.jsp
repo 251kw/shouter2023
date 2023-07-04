@@ -67,6 +67,9 @@
 				</c:if>
 				</table>
 			</form>
+			<form action="./bbs" action="get">
+				<input class="btn" type="submit" name="search" value="ユーザー検索" />
+			</form>
 		</div>
 	</div>
 	<div class="padding-y-5 text-center">

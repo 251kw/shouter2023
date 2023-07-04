@@ -27,3 +27,7 @@ tr{
 .tableData{
 	width: 60%;
 }
+.icon{
+	display: flex;
+	margin: 10px;
+}

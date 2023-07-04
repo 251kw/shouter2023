@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class UserInfoResult
  */
-@WebServlet("/UserInfoResult")
+@WebServlet("/usr")
 public class UserInfoResult extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -28,7 +28,11 @@ public class UserInfoResult extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+		RequestDispatcher dispatcher = null;
+		String turnback = request.getParameter("return");
+		if(turnback!=null) {
+			dispatcher = request.getRequestDispatcher("UserSearchInput.jsp");
+		}
 		dispatcher.forward(request, response);
 
 	}

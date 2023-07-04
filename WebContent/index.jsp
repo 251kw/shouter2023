@@ -45,8 +45,6 @@
 							type="submit" name="login" value="ログイン" /></td>
 						<td colspan="2" class="text-right"><input class="btn"
 							type="submit" name="register" value="ユーザー登録" /></td><!-- ユーザー登録ボタン -->
-						<td colspan="2" class="text-right"><input class="btn"
-							type="submit" name="search" value="ユーザー検索" /></td>
 					</tr>
 					<%-- リクエストスコープに alert があれば --%>
 					<c:if test="${requestScope.alert != null && requestScope.alert != ''}">

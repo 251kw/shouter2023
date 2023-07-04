@@ -9,33 +9,14 @@
 <link rel="stylesheet" href="./css/skyblue.css">
 <link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 <link rel="stylesheet" href="./css/helper.css">
-<link rel="stylesheet" href="./css/style.css">
 <script>
-//全選択ボタンを取得する
-const checkBtn = document.getElementById("check-btn");
-//全解除ボタンを取得する
-const uncheckBtn = document.getElementById("uncheck-btn");
-//チェックボックスを取得する
-const el = document.getElementsByClassName("checks");
+const checkbox3 = document.getElementsByName("checks")
 
-//全てのチェックボックスにチェックを付ける
-const checkAll = () => {
-    for (let i = 0; i < el.length; i++) {
-        el[i].checked = true;
-    }
-};
-
-//全てのチェックボックスのチェックを外す
-const uncheckAll = () => {
-    for (let i = 0; i < el.length; i++) {
-        el[i].checked = false;
-    }
-};
-
-//全選択ボタンをクリックした時「checkAll」を実行
-checkBtn.addEventListener("click", checkAll, false);
-//全選択ボタンをクリックした時「uncheckAll」を実行
-uncheckBtn.addEventListener("click", uncheckAll, false);
+function checkAllBox(trueOrFalse) {
+  for(i = 0; i < checkbox3.length; i++) {
+    checkbox3[i].checked = trueOrFalse
+  }
+}
 </script>
 </head>
 <body>
@@ -45,15 +26,15 @@ uncheckBtn.addEventListener("click", uncheckAll, false);
 		</div>
 	</div>
 	<%-- action 属性にサーブレットを指定 --%>
-	<form action="./usi" method="get">
+	<form action="./usr" method="get">
 		<div class="padding-y-5">
-			<div style="width: 40%" class="container padding-y-5">
+			<div style="width: 60%" class="container padding-y-5">
 				<%-- リストにある要素の数だけ繰り返し --%>
 				<table class="table table-striped table-bordered">
 					<tr>
 						<th></th>
-							<th><button id="check-btn" type="button">全選択</button></th>
-           					<th><button id="uncheck-btn" type="button">全解除</button></th>
+						<th>	<input class="btn btn-success btn-sm" type="button" onClick="checkAllBox(true)" value="全選択"></th>
+						<th>	<input class="btn btn-success btn-sm" type="button" onClick="checkAllBox(false)" value="全解除"></th>
 					<tr>
 						<%-- ログインID 入力欄の名前は loginId --%>
 						<th class="color-main text-left"></th>
@@ -66,22 +47,26 @@ uncheckBtn.addEventListener("click", uncheckAll, false);
 					<%-- リストにある要素の数だけ繰り返し --%>
 					<c:forEach var="searchUser" items="${searchUser}">
 						<tr>
-							<th><input class="checks" type="checkbox"></th>
+							<th><label class="fancy-checkbox"><input type="checkbox" name="checks"><span></span></label></th>
 							<th>${searchUser.loginId}</th>
 							<th>${searchUser.userName}</th>
 							<th class="text-center"><span
 								class="${searchUser.icon} pe-3x pe-va"></span></th>
 							<th>${searchUser.profile}</th>
-							<th><input type="button" name=""value="編集"></th>
+							<th><input class="btn btn-success btn-sm" type="button" name=""value="編集"></th>
 						</tr>
 					</c:forEach>
 					<tr>
 						<th></th>
-						<th><button id="check-btn" type="button">全選択</button></th>
-						<th><button id="uncheck-btn" type="button">全解除</button></th>
-
+						<th>	<input class="btn btn-success btn-sm" type="button" onClick="checkAllBox(true)" value="全選択"></th>
+						<th>	<input class="btn btn-success btn-sm" type="button" onClick="checkAllBox(false)" value="全解除"></th>
+						<th></th>
+						<th></th>
+						<th></th>
 					<tr>
 				</table>
+					<input class="btn" type="submit" name="delete" value="削除">
+					<input class="btn" type="submit" name="return" value="戻る">
 			</div>
 		</div>
 	</form>

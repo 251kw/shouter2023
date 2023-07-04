@@ -83,9 +83,6 @@ public class LoginServlet extends HttpServlet {
 		} else if (register != null) {//登録画面ボタンが押された時の処理
 			dispatcher = request.getRequestDispatcher("UserInfoInput.jsp");
 			dispatcher.forward(request, response);
-		}else {
-			dispatcher = request.getRequestDispatcher("UserSearchInput.jsp");
-			dispatcher.forward(request, response);
 		}
 	}
 }

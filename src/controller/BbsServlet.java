@@ -23,7 +23,7 @@ public class BbsServlet extends HttpServlet {
 	// 直接アクセスがあった場合は index.jsp  に処理を転送
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("UserSearchInput.jsp");
 		dispatcher.forward(request, response);
 	}
 
