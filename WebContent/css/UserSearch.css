@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+.sample-table {
+  border-collapse: collapse;
+  border: 1px solid #000;
+}
+
+.sample-th {
+  border: 1px solid #000;
+}
+
+.sample-td {
+  border: 1px solid #000;
+}
