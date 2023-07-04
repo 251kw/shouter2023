@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.DBManager;
-import dto.ShoutDTO;
 import dto.UserDTO;
 
 /**
@@ -65,9 +64,8 @@ public class UserSearchInputSvt extends HttpServlet {
 			ArrayList<UserDTO> Serach1 = dbm1.Search(loginId, username, icon,icon1, profile);
 			//Userがnull出ない場合その値をセットする
 			if (Serach1 != null) {
-				ArrayList<ShoutDTO> Search_list = dbm1.getShoutList();
 				HttpSession session = request.getSession();
-				session.setAttribute("user", Search_list);
+				session.setAttribute("user",Serach1);
 
 				// 処理の転送先を UserInfoConfirm.jsp に指定
 				dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
