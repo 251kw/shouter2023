@@ -1,0 +1,20 @@
+@charset "UTF-8";
+.alert{
+	color:red;
+	text-align: center;
+}
+
+#parent{
+	display:flex;
+}
+
+.child{
+	display:flex;
+	padding-left:35px;
+}
+
+#search{
+
+}
+
+
