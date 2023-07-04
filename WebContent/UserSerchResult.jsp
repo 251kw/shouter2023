@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="dto.UserDTO"%>
-<!DOCTYPE html PUBLIC ><%--"-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> --%>
+<!DOCTYPE html PUBLIC >
+<%--"-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> --%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -34,7 +35,7 @@
 
 
 			<form action="./usi" method="post">
-				<table class="table table-borderd">
+				<table class="table table-striped table-borderd">
 					<thead>
 						<tr>
 							<th></th>
@@ -67,16 +68,8 @@
 
 					</tbody>
 				</table>
-				<table>
-					<tr>
-						<%--送信ボタンと戻るボタン --%>
-						<td class="text-right"><input class="btn"
-							value="削除" /></td>
-						<td class="text-right"><a
-							href="UserSerchInput.jsp" class="btn">戻る</a></td>
-					</tr>
-				</table>
-
+				<input value="削除" class="btn" />
+				<input formaction="top.jsp" class="btn" value="戻る">
 			</form>
 		</div>
 	</div>
