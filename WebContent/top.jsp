@@ -57,7 +57,7 @@ textarea {
 		<div style="width: 40%" class="container padding-y-5">
 			<%-- action 属性にサーブレットを指定 --%>
 			<form action="UserSearchInput.jsp" method="post">
-				<input class="btn btn-light" type="submit" value="検索" />
+				<input class="btn" type="submit" value="検索" />
 			</form>
 		</div>
 	</div>

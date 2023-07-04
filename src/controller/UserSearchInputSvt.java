@@ -22,6 +22,17 @@ public class UserSearchInputSvt extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * 半角英数チェック
+	 *
+	 * @return true 正常(半角英数のみ)  false エラー(半角英数以外が入ってる)
+	 */
+	public static boolean isHanStr(String s){
+		if (!s.matches("^[0-9a-zA-Z]+$")) {
+			return false;
+		}
+		return true;
+	}
+	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,7 +44,7 @@ public class UserSearchInputSvt extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	throws ServletException, IOException {
+			throws ServletException, IOException {
 		// 文字化け対策
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
@@ -45,34 +56,70 @@ public class UserSearchInputSvt extends HttpServlet {
 		String profile = request.getParameter("profile");
 
 		String message = null;
+		String message2 = null;
+		String message3 = null;
+		String message4 = null;
+
+		RequestDispatcher dispatcher = null;
 
 		HttpSession session = request.getSession();	//セッション開始
 
 		// DataManager オブジェクトを生成。
 		DBManager dbm = new DBManager();
 
-		//ifで入力していないとき全件検索のメソッド、elseで条件に応じて検索するメソッド
+		//入力していないとき全件検索のメソッド、elseで条件に応じて検索するメソッド
 		if(loginId=="" && userName=="" && icon==null && profile=="") {
 			ArrayList<UserDTO> user = dbm.searchall();
 			// セッションに保存
 			session.setAttribute("user", user);
+			dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
 		}
-		else {
-			ArrayList<UserDTO> user = dbm.search(loginId, userName, icon, profile);
-			if(user.size() == 0)	//userの長さがゼロ(検索結果がなかったら)
-			{
-				message = "検索結果に一致するユーザはいません";
+		else {	//入力はされてるけど、
+			// 半角スペースがあれば
+			if (loginId.contains(" ")|| userName.contains(" ")) {
+				message2 = "半角スペースは使えません";
 				// エラーメッセージをリクエストオブジェクトに保存
-				request.setAttribute("alert", message);
+				request.setAttribute("alert2", message2);
+				// UserInfoInput.jsp に処理を転送（もう一度入力させる）
+				dispatcher = request.getRequestDispatcher("UserSearchInput.jsp");
 			}
-			else {
-				// セッションに保存
-				session.setAttribute("user", user);
+			// ユーザ名の姓名の間以外に全角スペースがあれば
+			if (loginId.contains("　")) {
+				message3 = "ユーザ名の姓名の間以外に全角スペースは使えません";
+				// エラーメッセージをリクエストオブジェクトに保存
+				request.setAttribute("alert3", message3);
+				// UserInfoInput.jsp に処理を転送（もう一度入力させる）
+				dispatcher = request.getRequestDispatcher("UserSearchInput.jsp");
+			}
+			//入力問題なしの場合
+			if(!(loginId.contains(" ") || userName.contains(" ") || loginId.contains("　"))) {
+
+				boolean result = isHanStr(loginId);
+
+				if (result == false) {
+					message4 = "ログインIDはすべて半角で入力してください";
+					// エラーメッセージをリクエストオブジェクトに保存
+					request.setAttribute("alert4", message4);
+					// UserInfoInput.jsp に処理を転送（もう一度入力させる）
+					dispatcher = request.getRequestDispatcher("UserSearchInput.jsp");
+				}
+				else {
+					ArrayList<UserDTO> user = dbm.search(loginId, userName, icon, profile);
+					if(user.size() == 0)	//userの長さがゼロ(検索結果がなかったら)
+					{
+						message = "検索結果に一致するユーザはいません";
+						// エラーメッセージをリクエストオブジェクトに保存
+						request.setAttribute("alert", message);
+					}
+					else {
+						// セッションに保存
+						session.setAttribute("user", user);
+					}
+					// UserSearchResult.jsp に処理を転送
+					dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
+				}
 			}
 		}
-
-		// UserInfoResult.jsp に処理を転送
-		RequestDispatcher dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
 		dispatcher.forward(request, response);
 	}
 }

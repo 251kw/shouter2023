@@ -19,6 +19,18 @@
 		<p style=display:inline>ユーザーを検索します。</p>
 	</div>
 	</div>
+	<%-- リクエストスコープに alert があれば リクエストスコープの alert の値を出力--%>
+	<div class = "color-error text-center">
+		<c:if test="${requestScope.alert2 != null && requestScope.alert2 != ''}">
+			<c:out value="${requestScope.alert2}" /><br>
+		</c:if>
+		<c:if test="${requestScope.alert3 != null && requestScope.alert3 != ''}">
+			<c:out value="${requestScope.alert3}" />
+		</c:if>
+		<c:if test="${requestScope.alert4 != null && requestScope.alert4 != ''}">
+			<c:out value="${requestScope.alert4}" />
+		</c:if>
+	</div>
 	<div class="padding-y-5 text-center">
 		<div style="width: 40%" class="container padding-y-5 text-center">
 			<%-- action 属性にサーブレットを指定。押すボタンによって推移先が違うのでaction属性は「?」 --%>
