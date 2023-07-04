@@ -57,7 +57,6 @@
 						<td class="color-main text-left"><span
 							class="icon-note2 pe-2x pe-va"></span> プロフィール</td>
 
-						<%--編集--%>
 						<td class="color-main text-left"></td>
 					</tr>
 

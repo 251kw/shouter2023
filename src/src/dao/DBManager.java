@@ -165,7 +165,7 @@ public class DBManager extends SnsDAO {
 		return result;
 	}
 
-	//ログインID重複確認↓
+	//ログインID重複確認
 	public String Logincheck(String loginId) {
 		Connection conn = null; // データベース接続情報
 		PreparedStatement pstmt = null; // SQL 管理情報
