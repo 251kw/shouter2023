@@ -198,7 +198,7 @@ public class DBManager extends SnsDAO {
 		return result;
 	}
 
-	public UserDTO Search(String loginId, String username, String icon, String icon1, String profile) {
+	public  ArrayList<UserDTO> Search(String loginId, String username, String icon, String icon1, String profile) {
 		Connection conn = null; // データベース接続情報
 		PreparedStatement pstmt = null; // SQL 管理情報
 		ResultSet rset = null; // 検索結果
@@ -207,6 +207,7 @@ public class DBManager extends SnsDAO {
 		UserDTO Serach1 = null; // 登録ユーザ情報
 
 		ArrayList<String> SearchDT = new ArrayList<>();
+		ArrayList<UserDTO> Search_list = new ArrayList<UserDTO>();
 
 		//lodinIDに何か入力された場合
 		if (loginId != null) {
@@ -215,17 +216,17 @@ public class DBManager extends SnsDAO {
 
 		//usernameに何か入力された場合
 		if (username != "" ) {
-			SearchDT.add("userName like " + "'%" + username + "%'");
+			SearchDT.add(" userName like " + "'%" + username + "%'");
 		}
 		//iconに何か入力された場合
 		if ((icon != null) && (icon1 != null)) {
-			SearchDT.add(" icon=" + icon + " or icon=" + icon1);
+			SearchDT.add(" icon=" + "'icon-"+icon+"'" + " or 'icon=" + icon1+"'");
 		} else {
 			if (icon != null) {
-				SearchDT.add(" icon=" + icon);
+				SearchDT.add(" icon='icon-" + icon+"'");
 			}
 			if (icon1 != null) {
-				SearchDT.add(" icon=" + icon1);
+				SearchDT.add(" icon='icon-" + icon1+"'");
 			}
 		}
 		//profile何か入力された場合
@@ -245,9 +246,8 @@ public class DBManager extends SnsDAO {
 			// SELECT 文の登録と実行
 			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
 			rset = pstmt.executeQuery();
-
 			// 検索結果があれば
-			if (rset.next()) {
+			while(rset.next()) {
 				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
 				Serach1 = new UserDTO();
 				Serach1.setLoginId(rset.getString(2));
@@ -255,6 +255,7 @@ public class DBManager extends SnsDAO {
 				Serach1.setUserName(rset.getString(4));
 				Serach1.setIcon(rset.getString(5));
 				Serach1.setProfile(rset.getString(6));
+				Search_list.add(Serach1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -264,6 +265,7 @@ public class DBManager extends SnsDAO {
 			close(pstmt);
 			close(conn);
 		}
-		return Serach1;
+
+		return Search_list;
 	}
 }

@@ -75,8 +75,7 @@
 		</div>
 	</div>
 	<%-- セッションスコープにある ArrayList 型のオブジェクトを参照 --%>
-	<jsp:useBean id="shouts" scope="session"
-		type="java.util.ArrayList<dto.ShoutDTO>" />
+	<jsp:useBean id="shouts" scope="session" type="java.util.ArrayList<dto.ShoutDTO>" />
 	<div class="padding-y-5">
 		<div style="width: 50%" class="container padding-y-5">
 			<%-- リストにある要素の数だけ繰り返し --%>

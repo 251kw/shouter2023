@@ -34,75 +34,28 @@
 				&nbsp;&nbsp;&nbsp;&nbsp;
 				<button type="button" class="btn1"
 					onclick="location.href='./UserSearchInput.jsp'">全解除</button>
-
-
-				<table style="width: 100%" class="table">
+<%-- セッションスコープにある ArrayList 型のオブジェクトを参照 --%>
+	<jsp:useBean id="Users" scope="session" type="java.util.ArrayList<dto.UserDTO>" />
+	<div class="padding-y-5">
+		<div style="width: 50%" class="container padding-y-5">
+			<%-- リストにある要素の数だけ繰り返し --%>
+			<c:forEach var="User" items="${Users}">
+				<table class="table table-striped table-bordered">
 					<tr>
-						<th class="result"></th>
-						<%-- ログインID 入力欄の名前は loginId --%>
-						<th class="result"><span class="icon-speaker pe-2x pe-va"></span>&nbsp;&nbsp;&nbsp;&nbsp;ログインID</th>
-
-						<%-- ログインID 入力欄の名前は username --%>
-						<th class="result"><span class="icon-speaker pe-2x pe-va"></span>&nbsp;&nbsp;&nbsp;&nbsp;ユーザー名</th>
-
-						<%-- パスワード入力欄の名前は Icon --%>
-						<th class="result"><span class="icon-speaker pe-2x pe-va"></span>&nbsp;&nbsp;&nbsp;&nbsp;アイコン</th>
-
-						<%-- ログインID 入力欄の名前は loginId --%>
-						<th class="result"><span class="icon-speaker pe-2x pe-va"></span>&nbsp;&nbsp;&nbsp;&nbsp;プロフィール</th>
-						<th class="result"></th>
-					</tr>
-
-					<tr>
-						<td class="result"><input type="checkbox" name="checkbox"
-							value="choice"></td>
-						<td class="result">${Serach1.loginId}</td>
-						<td class="result">${Serach1.username}</td>
-						<%--><td class="result">${Serach1.}</td>--%>
-						<td class="result">${Serach1.profile}</td>
-						<td class="result"><button type="button" class="btn1"
-					onclick="location.href='./UserSearchInput.jsp'">編集</button></td>
-					</tr>
-
-					<tr>
-						<td class="result"><input type="checkbox" name="checkbox"
-							value="choice"></td>
-						<td class="result">ログインID1</td>
-						<td class="result">ユーザー名1</td>
-						<td class="result">アイコン1</td>
-						<td class="result">プロフィール1</td>
-						<td class="result"><button type="button" class="btn1"
-					onclick="location.href='./UserSearchInput.jsp'">編集</button></td>
+						<td rowspan="2" class="text-center">
+						<span class="${User.loginId} pe-3x pe-va"></span></td>
+						<td>${User.userName}</td>
 					</tr>
 					<tr>
-						<td><button type="button" class="btn1"
-								onclick="location.href='./UserSearchInput.jsp'">全選択</button>&nbsp;&nbsp;&nbsp;&nbsp;</td>
-						<td><button type="button" class="btn1"
-								onclick="location.href='./UserSearchInput.jsp'">全解除</button></td>
+						<td>	${User.icon}</td>
 					</tr>
-					<tr>
-						<td colspan="2" class="text-right"><input class="btn"
-							type="submit" value="消去" /></td>
-						<%-- submitデータの送信() 送信先はaction="./uis" method="post"--%>
-						<td>
-							<button type="button" class="btn"
-								onclick="location.href='./UserSearchInput.jsp'">戻る</button> <%-- クリック時にindex.jspに戻る --%>
-						</td>
+										<tr>
+						<td>	${User.profile}</td>
 					</tr>
+					</table>
+			</c:forEach>
+		</div>
 
-
-
-					<%-- リクエストスコープ(userInput.Servlet:46)に alert があれば --%>
-					<%--			<c:if
-						test="${requestScope.alert != null && requestScope.alert != ''}">
-						<tr>
-							<%-- リクエストスコープの alert の値を出力 --%>
-					<%--							<td colspan="2" class="color-error text-left"><c:out
-									value="${requestScope.alert}" /></td>
-						</tr>
-					</c:if>
-					--%>
-				</table>
 			</form>
 		</div>
 	</div>
