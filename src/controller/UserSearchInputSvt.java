@@ -56,20 +56,33 @@ public class UserSearchInputSvt extends HttpServlet {
 		String pro = request.getParameter("pro");
 
 		DBManager dbm = new DBManager();
-
-		//if(id!=null && name!=null && icon!=null && pro!=null) {
-			//UserDTO user = dbm.searchall(id,icon,name,pro);
-		//}
-
-		//ArrayList<UserDTO> user = dbm.loginid(id);
-		//ArrayList<UserDTO> user = dbm.username(name);
-		ArrayList<UserDTO> user = dbm.profile(pro);
-
 		HttpSession session = request.getSession();
-		// ログインユーザ情報、書き込み内容リストとしてセッションに保存
-		session.setAttribute("user", user);
 
-		dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
+		//全入力
+		if(id!="" && name!="" && icon!="" && pro!="") {
+			ArrayList<UserDTO> user = dbm.searchall(id,icon,name,pro);
+			session.setAttribute("user", user);
+		//ログインIDのみ
+		}else if(id!="" && name=="" && icon==null && pro=="") {
+			ArrayList<UserDTO> user = dbm.loginid(id);
+			session.setAttribute("user", user);
+		//ユーザ名のみ
+		}else if(id=="" && name!="" && icon==null && pro=="") {
+			ArrayList<UserDTO> user = dbm.username(name);
+			session.setAttribute("user", user);
+		//プロフィールのみ
+		}else if(id=="" && name=="" && icon==null && pro!="") {
+			ArrayList<UserDTO> user = dbm.profile(pro);
+			session.setAttribute("user", user);
+		//全て未入力
+		}else if(id=="" && name=="" && icon==null && pro=="") {
+			ArrayList<UserDTO> user = dbm.allnull();
+			session.setAttribute("user", user);
+		}
+		// ログインユーザ情報、書き込み内容リストとしてセッションに保存
+		//session.setAttribute("user", user);
+
+		dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 		dispatcher.forward(request, response);
 	}
 

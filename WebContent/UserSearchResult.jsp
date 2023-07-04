@@ -70,8 +70,8 @@
 					</tr>
 					<tr>
 						<td colspan="2" class="text-right"><input class="btn"
-							type="submit" value="削除" /> <a href="UserSearchInput.jsp"
-							class="btn">戻る</a></td>
+							type="submit" value="削除" /> <input class="btn"
+							type="submit" formaction="./UserSearchInput.jsp" value="戻る" /></td>
 					</tr>
 				</table>
 			</form>
