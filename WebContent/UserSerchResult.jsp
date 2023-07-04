@@ -36,40 +36,53 @@
 
 			<form action="./usi" method="post">
 				<table class="table table-striped table-borderd">
-					<thead>
-						<tr>
-							<th></th>
-							<th>ログインID</th>
-							<th>ユーザー名</th>
-							<th>アイコン</th>
-							<th>プロフィール</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${users}" var="u" varStatus="s">
-							<tr>
-								<td><input type="checkbox" name="user_check" <%=check%> /></td>
-								<td>${u.loginId}</td>
-								<td>${u.userName}</td>
-								<td><span class="${u.icon} pe-2x pe-va"></span></td>
-								<td>${u.profile}</td>
-								<td><input type="button" name="edit" value="編集"
-									class="btn btn-sm"></td>
-							</tr>
-						</c:forEach>
-						<tr>
-							<td></td>
-							<td><input id="checkAll" type="submit" name="checkall"
-								value="全選択" formaction="./usr" class="btn btn-empty" /></td>
-							<td><input id="checkLift" type="submit" name="checkall"
-								value="全解除" formaction="./usr" class="btn btn-empty" /></td>
+					<tr>
+						<td></td>
+						<td><input id="checkAll" type="submit" name="checkall"
+							value="全選択" formaction="./usr" class="btn btn-empty" /></td>
+						<td><input id="checkLift" type="submit" name="checkall"
+							value="全解除" formaction="./usr" class="btn btn-empty" /></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+
+					<tr bgcolor="#bee0c2" >
+						<th></th>
+						<th>ログインID</th>
+						<th>ユーザー名</th>
+						<th>アイコン</th>
+						<th>プロフィール</th>
+						<th></th>
 						</tr>
 
-					</tbody>
+					<c:forEach items="${users}" var="u" varStatus="s">
+						<tr>
+							<td><input type="checkbox" name="user_check"
+								value="${s.index}" <%=check%> /></td>
+							<td>${u.loginId}</td>
+							<td>${u.userName}</td>
+							<td><span class="${u.icon} pe-2x pe-va"></span></td>
+							<td>${u.profile}</td>
+							<td><input type="button" name="edit" value="編集"
+								class="btn btn-sm btn-empty"></td>
+							<td><input type="hidden" value="${s.index}" />
+						</tr>
+					</c:forEach>
+
+					<tr bgcolor="#000000">
+						<td></td>
+						<td><input id="checkAll" type="submit" name="checkall"
+							value="全選択" formaction="./usr" class="btn btn-empty" /></td>
+						<td><input id="checkLift" type="submit" name="checkall"
+							value="全解除" formaction="./usr" class="btn btn-empty" /></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
 				</table>
-				<input value="削除" class="btn" />
-				<input formaction="top.jsp" class="btn" value="戻る">
+				<input value="削除" class="btn" /> <input formaction="top.jsp"
+					class="btn" value="戻る">
 			</form>
 		</div>
 	</div>
