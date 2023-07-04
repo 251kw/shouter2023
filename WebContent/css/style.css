@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+table{
+	margin: auto;
+	width: 70%;
+}
+th{
+	width: 30%
+	font-size: 15px;
+	mrgin: auto;
+}
+tr{
+	width: 70%;
+	font-size: 15px;
+	margin: auto;
+}
+.icon{
+	display: inline-block;
+}
+.table1{
+	margin:auto;
+	width: 40%;
+}
+.tableRow{
+	margin: auto;
+}
+.tableData{
+	width: 60%;
+}
