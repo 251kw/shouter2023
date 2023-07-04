@@ -53,8 +53,18 @@ thead {
 </style>
 <script>
 	//テキストエリアの値を取得
+	const check = document.getElementsByName("check")
+
 	function sendProfile() {
 		console.log(document.form1.profile.value);
+	}
+
+	function checkAll(tof) {
+
+		for (i = 0; i < check.length; i++) {
+			check[i].checked = tof;
+		}
+
 	}
 </script>
 <%
@@ -112,11 +122,15 @@ input[name="password"]:focus {
 							<th style="width: 120px"></th>
 						</tr>
 					</thead>
+					<%
+						int count = 0;
+					%>
 					<c:forEach var="user" items="${users}">
 						<tbody>
 							<tr>
-								<td style="width: 1%"><input type="checkbox"></td>
+								<td style="width: 1%"><input name="check" type="checkbox"></td>
 								<td style="width: 120px">${user.loginId}</td>
+
 								<td style="width: 120px">${user.userName}</td>
 								<td style="width: 120px"><span
 									class="${user.icon} pe-3x pe-va"></span></td>
@@ -124,15 +138,34 @@ input[name="password"]:focus {
 								<td style="width: 120px"><input
 									class="btn btn-light btn-sm btn-empty" type="submit" value="編集"
 									onclick="sendProfile" /></td>
+								<%
+									count++;
+								%>
 							</tr>
 						</tbody>
 					</c:forEach>
+
+					<%
+						if (count == 0) {
+					%><tbody>
+						<tr>
+							<td></td>
+							<th style="width: 120px">エラー</th>
+						</tr>
+					</tbody>
+					<%
+						}
+					%>
+
 				</table>
-				<%-- 登録ボタン --%>
+				<%-- 全選択と全解除ボタン --%>
+				<input class="btn" type="button" value="全選択"
+					onClick="checkAll(true)" /> <input class="btn" type="button"
+					value="全解除" onClick="checkAll(false)" />
+				<%-- 削除と戻るボタン --%>
 				<input class="btn" type="submit" value="削除" onclick="sendProfile" />
 				<input class="btn" type="button" value="戻る"
 					onClick="window.location.href='/Chapter11/search.jsp'" />
-
 			</form>
 		</div>
 	</div>

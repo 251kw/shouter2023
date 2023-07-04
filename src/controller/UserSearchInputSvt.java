@@ -54,16 +54,48 @@ public class UserSearchInputSvt extends HttpServlet {
 		String icon2 = request.getParameter("icon2");
 		String profile = request.getParameter("profile");
 
+		RequestDispatcher dispatcher = null;
 		DBManager dbm = new DBManager();
+		String message = null;
+		if ((!dbm.isLetterDigit(loginId))&&(loginId!="")) {
 
+			message = "ログインIDを英数字8桁以下入力してください";
+
+			// エラーメッセージをリクエストオブジェクトに保存
+			request.setAttribute("alert", message);
+			// signup.jsp に処理を転送
+			dispatcher = request.getRequestDispatcher("search.jsp");
+			dispatcher.forward(request, response);
+		} else if(userName.length()>8)
+		{
+			message = "ユーザー名を8文字以下入力してください";
+
+			// エラーメッセージをリクエストオブジェクトに保存
+			request.setAttribute("alert", message);
+			// signup.jsp に処理を転送
+			dispatcher = request.getRequestDispatcher("search.jsp");
+			dispatcher.forward(request, response);
+		}
+		else if(profile.length()>200)
+		{
+			message = "プロファイルを200文字以下入力してください";
+
+			// エラーメッセージをリクエストオブジェクトに保存
+			request.setAttribute("alert", message);
+			// signup.jsp に処理を転送
+			dispatcher = request.getRequestDispatcher("search.jsp");
+			dispatcher.forward(request, response);
+		}
+		else {
 		HttpSession session = request.getSession();
 		ArrayList<UserDTO> list = dbm.getSearching(loginId,userName,icon1,icon2,profile);
 
 		session.setAttribute("users", list);
 
-		RequestDispatcher dispatcher = null;
+
 		dispatcher = request.getRequestDispatcher("serhresult.jsp");
 		dispatcher.forward(request, response);
+		}
 	}
 
 }
