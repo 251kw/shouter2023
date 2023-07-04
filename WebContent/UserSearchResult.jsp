@@ -35,6 +35,9 @@
 				<button type="button" class="btn1"
 					onclick="location.href='./UserSearchInput.jsp'">全解除</button>
 <%-- セッションスコープにある ArrayList 型のオブジェクトを参照 --%>
+
+
+
 	<jsp:useBean id="Users" scope="session" type="java.util.ArrayList<dto.UserDTO>" />
 	<div class="padding-y-5">
 		<div style="width: 50%" class="container padding-y-5">
