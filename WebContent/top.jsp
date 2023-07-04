@@ -51,10 +51,12 @@
 
 	<%--検索ボタン--%>
 	<form action="UserSearchInput.jsp" method="post">
-		<div colspan="2" class="text-right">
-			 <button class="btn" type="submit" value="検索" id ="search" >検索</button>
+		<div style="width: 40%" class="container padding-y-5 text-center">
+			<p>ユーザー検索</p>
+			<input class="btn" type="submit" value="検索" id ="search" >
 		</div>
 	</form>
+
 
 
 

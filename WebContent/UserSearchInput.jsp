@@ -78,13 +78,9 @@
 							name="profile" size="20" value="" maxlength="100" /></td>
 					</tr>
 
-					<tr>
-						<!-- 登録＆戻るボタン -->
-						<td colspan="2" class="text-right"><button class="btn"
-								type="submit" value="登録" formaction="./usi">検索</button></td>
-						<td colspan="2" class="text-right">
-							<button class="btn" type="submit" value="戻る"
-								formaction="index.jsp">戻る</button>
+					<tr>	<!-- 登録＆戻るボタン -->
+						<td colspan="2" class="text-right"><button class="btn" type="submit" value="登録" formaction="./usi">検索</button></td>
+						<td colspan="2" class="text-right"><button class="btn" type="submit" value="戻る"formaction="index.jsp">戻る</button>
 						</td>
 					</tr>
 				</table>

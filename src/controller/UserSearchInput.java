@@ -99,18 +99,20 @@ public class UserSearchInput extends HttpServlet {
 			//DB検索メソッド
 			ArrayList<UserDTO> list =dbm.getSearchList(loginId, userName, icon, profile);
 
-			//検索結果がある場合
-				request.setAttribute("searchResult", list); //属性値userで値userをrequestスコープに設定する。
-				dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
-				// リストをセッションに保存
-				session.setAttribute("user", list);
-
 			//検索結果が0件の場合
 			if(list.size() ==0) {
 				empResultMessage = "検索結果は0件です。";
 				request.setAttribute("alertEmpResult",empResultMessage );
 				dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
+
+			//検索結果がある場合
+			}else {
+				request.setAttribute("searchResult", list); //属性値userで値userをrequestスコープに設定する。
+				dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
+				// リストをセッションに保存
+				session.setAttribute("user", list);
 			}
+
 
 		//フォワードで転送
 		dispatcher.forward(request, response);
