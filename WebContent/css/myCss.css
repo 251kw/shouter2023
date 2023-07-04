@@ -1,0 +1,10 @@
+@charset "UTF-8";
+.parent {
+ display: flex;
+ }
+
+.child {
+ color: #fff;
+ border: solid 1px #fff;
+
+}
