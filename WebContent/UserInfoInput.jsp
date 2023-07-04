@@ -102,53 +102,52 @@
 
 
 	<div class="padding-y-5 text-center">
-		<div style="width:60%" class="container padding-y-5 text-center">
+		<div style="width: 60%" class="container padding-y-5 text-center">
 			<%-- action 属性にサーブレットを指定 --%>
 			<form action="./uii" method="post">
 				<table style="width: 800px" class="table">
 					<tr>
 						<%-- ログインID 入力欄の名前は loginId --%>
 						<td class="color-main text-left"><span
-							class="icon-id pe-2x pe-va"></span><nobr>ログインID</nobr></td>
+							class="icon-id pe-2x pe-va"></span> <nobr>ログインID</nobr></td>
 						<td class="text-left"><input class="form-control" type="text"
 							name="loginId" value="<%=loginId%>" size="20" autofocus /></td>
 					</tr>
 					<tr>
 						<%-- ユーザー名 入力欄の名前は userName --%>
 						<td class="color-main text-left"><span
-							class="icon-users pe-2x pe-va"></span><nobr>ユーザー名</nobr></td>
+							class="icon-users pe-2x pe-va"></span> <nobr>ユーザー名</nobr></td>
 						<td class="text-left"><input class="form-control" type="text"
 							name="userName" value="<%=userName%>" size="20" /></td>
 					</tr>
 					<tr>
 						<%-- パスワード入力欄の名前は password --%>
 						<td class="color-main text-left"><span
-							class="icon-unlock pe-2x pe-va"></span><nobr>パスワード</nobr></td>
+							class="icon-unlock pe-2x pe-va"></span> <nobr>パスワード</nobr></td>
 						<td class="text-left"><input class="form-control"
 							type="password" name="password" value="<%=password%>" size="20" /></td>
 					</tr>
 					<tr>
 						<td class="color-main text-left"><span
-							class="icon-angle-up-circle pe-2x pe-va"></span><nobr>アイコン</nobr></td>
+							class="icon-angle-up-circle pe-2x pe-va"></span> <nobr>アイコン</nobr></td>
 						<td class="text-left">
 							<%--　アイコン入力欄の名前は icon --%>
-							<div class="icon">
-								<span class="icon-smile pe-2x pe-va"></span> <input type="radio"
-									name="icon" id="icon-smile" value="icon-smile pe-2x pe-va"
-									<%=check_smile%> />
+							<div class="parent">
+								<label class="fancy-radio"> <input type="radio"
+									name="icon" id="icon-smile" value="icon-smile" <%=check_smile%> /><span></span></label>
+								<span class="icon-smile pe-2x pe-va"></span>
 							</div>
-							<div class="icon">
-								<span class="icon-users pe-2x pe-va"></span> <input type="radio"
-									name="icon" id="icon-users" value="icon-users pe-2x pe-va"
-									<%=check_users%> />
+							<div class="parent">
+								<label class="fancy-radio"> <input type="radio"
+									name="icon" id="icon-users" value="icon-users" <%=check_users%> />
+									<span></span></label><span class="icon-users pe-2x pe-va"></span>
 							</div>
-
 						</td>
 					</tr>
 					<tr>
 						<%-- プロフィールの名前は prof --%>
 						<td class="color-main text-left"><span
-							class="icon-display2 pe-2x pe-va"></span><nobr>プロフィール</nobr></td>
+							class="icon-display2 pe-2x pe-va"></span> <nobr>プロフィール</nobr></td>
 						<td class="text-left"><input type="text" class="form-control"
 							name="prof" id="prof" value="<%=prof%>" size="60" /></td>
 					</tr>

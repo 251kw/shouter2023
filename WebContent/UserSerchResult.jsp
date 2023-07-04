@@ -58,8 +58,8 @@
 
 					<c:forEach items="${users}" var="u" varStatus="s">
 						<tr>
-							<td><input type="checkbox" name="user_check"
-								value="${s.index}" <%=check%> /></td>
+							<td><label class="fancy-checkbox"><input type="checkbox" name="user_check"
+								value="${s.index}" <%=check%> /><span></span></label></td>
 							<td>${u.loginId}</td>
 							<td>${u.userName}</td>
 							<td><span class="${u.icon} pe-2x pe-va"></span></td>
@@ -73,15 +73,16 @@
 					<tr bgcolor="#000000">
 						<td></td>
 						<td><input id="checkAll" type="submit" name="checkall"
-							value="全選択" formaction="./usr" class="btn btn-empty" /></td>
+							value="全選択" formaction="./usr" class="btn btn-empty" /><span></span></td>
 						<td><input id="checkLift" type="submit" name="checkall"
-							value="全解除" formaction="./usr" class="btn btn-empty" /></td>
+							value="全解除" formaction="./usr" class="btn btn-empty" /><span></span></td>
 						<td></td>
 						<td></td>
 						<td></td>
 					</tr>
 				</table>
-				<input value="削除" class="btn" /> <input formaction="top.jsp"
+				<input type="submit" value="削除" class="btn" />
+				<input type ="submit" formaction="UserSerchInput.jsp"
 					class="btn" value="戻る">
 			</form>
 		</div>

@@ -46,19 +46,36 @@
 							name="userName" size="20" /></td>
 					</tr>
 					<tr>
+
 						<td class="color-main text-left"><span
 							class="icon-angle-up-circle pe-2x pe-va"></span> <nobr>アイコン</nobr></td>
 						<td class="text-left">
 							<%--　アイコン入力欄の名前は icon --%>
-							<div class="icon">
-								<span class="icon-smile pe-2x pe-va"></span> <input type="checkbox"
-									name="icon" id="icon-smile" value="icon-smile"
-									/>
+							<div class="parent">
+
+								<label class="fancy-checkbox"><input type="checkbox"
+									name="icon" id="icon-smile" value="icon-smile" /> <span></span></label>
+								<span class="icon-smile pe-2x pe-va "></span>
 							</div>
-							<div class="icon">
-								<span class="icon-users pe-2x pe-va"></span> <input type="checkbox"
-									name="icon" id="icon-users" value="icon-users"
-									/>
+							<div class="parent">
+								<label class="fancy-checkbox "><input type="checkbox"
+									name="icon" id="icon-users" value="icon-users" /> <span></span>
+								</label> <span class="icon-users pe-2x pe-va "></span>
+							</div>
+							<div class="parent">
+								<label class="fancy-checkbox "><input type="checkbox"
+									name="icon" id="icon-user" value="icon-user" /><span> </span>
+								</label> <span class="icon-user pe-2x pe-va "></span>
+							</div>
+							<div class="parent">
+								<label class="fancy-checkbox"> <input type="checkbox"
+									name="icon" id="icon-female" value="icon-female" /><span></span>
+								</label><span class="icon-female pe-2x pe-va"></span>
+							</div>
+							<div class="parent">
+								<label class="fancy-checkbox "> <input type="checkbox"
+									name="icon" id="icon-bell" value="icon-bell" /><span></span>
+								</label><span class="icon-bell pe-2x pe-va "></span>
 							</div>
 						</td>
 					</tr>
