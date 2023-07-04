@@ -60,7 +60,7 @@ public class UserSearchInputSvt extends HttpServlet {
 		//UserDTO user = dbm.getSearchUsername(userName);
 		//UserDTO user = dbm.getSearchUserprof(profile);
 		//UserDTO user = dbm.getSearchUsericon(icon);//できない
-		ArrayList<UserDTO> user = dbm.getUserList() ;//できない
+		ArrayList<UserDTO> user = dbm.getUserList(loginId, userName, icon, profile) ;//できない
 		HttpSession session = request.getSession();
 		// ログインユーザ情報、書き込み内容リストとしてセッションに保存
 		session.setAttribute("user", user);

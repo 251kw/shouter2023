@@ -57,27 +57,33 @@
 						<td class="color-main text-left"><span
 							class="icon-note2 pe-2x pe-va"></span> プロフィール</td>
 
+						<%--編集--%>
 						<td class="color-main text-left"></td>
 					</tr>
 
 
-					<%-- checkbox --%>
-					<tr>
-						<td><label><input type="checkbox" name="selectbox"
-								value=""> </label>
-						<td class="text-left"><label>${user.loginId}</label></td>
 
-						<td class="text-left"><label>${user.userName}</label></td>
+					<c:forEach var="user" items="${user}">
+						<table class="table table-striped table-bordered">
 
-						<td><span class="${user.icon} pe-2x pe-va"></span></td>
+							<%-- checkbox --%>
+							<tr>
+								<td><label><input type="checkbox" name="selectbox"
+										value=""> </label>
+								<td class="text-left"><label>${user.loginId}</label></td>
 
-						<td class="text-left"><label>${user.profile}</label></td>
+								<td class="text-left"><label>${user.userName}</label></td>
 
-						<%--編集--%>
-						<td class="color-main text-left">編集</td>
+								<td><span class="${user.icon} pe-2x pe-va"></span></td>
 
-					</tr>
+								<td class="text-left"><label>${user.profile}</label></td>
 
+								<%--編集--%>
+								<td class="color-main text-left">編集</td>
+
+							</tr>
+						</table>
+					</c:forEach>
 
 
 
