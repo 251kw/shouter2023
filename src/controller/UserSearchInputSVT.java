@@ -38,15 +38,22 @@ public class UserSearchInputSVT extends HttpServlet {
 		String profile = request.getParameter("profile");
 		String search = request.getParameter("search");
 		String message = null;
+		request.setAttribute("loginId", loginId);
+		request.setAttribute("userName", userName);
+		request.setAttribute("icon-user-female", icon_user_female);
+		request.setAttribute("icon-user", icon_user);
+		request.setAttribute("icon-bell", icon_bell);
+		request.setAttribute("icon-smile", icon_smile);
+		request.setAttribute("profile", profile);
 		RequestDispatcher dispatcher;
 
 		if (search != null) {
 			DBManager db = new DBManager();
 			ArrayList<UserDTO> list = db.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell, icon_smile, profile);
-			if(list.size()!=0) {
+			if(list.size()!=0) {//検索結果が見つかった場合の処理
 			request.setAttribute("searchUser", list);
 			dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
-			}else {
+			}else {//検索結果が見つからなかったとき（getUserListメソッドの戻り値のリストのサイズが0だった場合の処理)
 				message = "検索条件に一致する結果が見つかりません。";
 				request.setAttribute("alert", message);
 

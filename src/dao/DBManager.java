@@ -205,24 +205,24 @@ public class DBManager extends SnsDAO {
 			String sql = "SELECT * FROM users";
 			String sqlCondition = "";
 			if (loginId != "" || userName != "" || profile != "" || icon_user_female != null || icon_user != null
-					|| icon_bell != null || icon_smile != null) {
+					|| icon_bell != null || icon_smile != null) {//検索条件が選択されている場合
 				sqlCondition = sql + " WHERE";
-				if (loginId != "") {
+				if (loginId != "") {//ログインIDが指定されている場合
 					sqlCondition += " loginId=" +"'"+ loginId + "'";
 				}
-				if (userName != "") {
+				if (userName != "") {//ユーザー名が指定されている場合
 					if(loginId !="") {
 						sqlCondition += " AND";
 					}
 					sqlCondition += " userName LIKE('%" + userName + "%')";
 				}
-				if (profile != "") {
+				if (profile != "") {//プロフィールが指定されている場合
 					if(userName!="" || loginId!="") {
 						sqlCondition += " AND";
 					}
 					sqlCondition += " profile LIKE('%" + profile + "%')";
 				}
-				if(icon_smile!=null || icon_user!=null || icon_user_female!=null || icon_bell!=null) {
+				if(icon_smile!=null || icon_user!=null || icon_user_female!=null || icon_bell!=null) {//アイコンが指定されている場合
 					if(loginId!="" || userName!="" || profile != "") {
 						sqlCondition += " AND";
 					}
@@ -250,23 +250,23 @@ public class DBManager extends SnsDAO {
 					}
 					sqlCondition += ")";
 				}
-				pstmt = conn.prepareStatement(sqlCondition);
+				pstmt = conn.prepareStatement(sqlCondition);//検索条件が指定されている場合の検索実行
 				rset = pstmt.executeQuery();
 			} else {
-				pstmt = conn.prepareStatement(sql);
+				pstmt = conn.prepareStatement(sql);//検索条件が指定されていない場合の検索実行
 				rset = pstmt.executeQuery();
 			}
 
 			// 検索結果の数だけ繰り返す
 			while (rset.next()) {
-				// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
+				// 必要な列から値を取り出し、ユーザー情報オブジェクトを作成
 				UserDTO user = new UserDTO();
 				user.setLoginId(rset.getString(2));
 				user.setUserName(rset.getString(4));
 				user.setIcon(rset.getString(5));
 				user.setProfile(rset.getString(6));
 
-				// 書き込み内容をリストに追加
+				// 検索結果のユーザー情報をリストに追加
 				list.add(user);
 			}
 		} catch (SQLException e) {
