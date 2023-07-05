@@ -50,8 +50,21 @@ public class UserSearchInputSvt extends HttpServlet {
 
 		String loginId = request.getParameter("loginId");
 		String userName = request.getParameter("userName");
-		String icon1 = request.getParameter("icon1");
-		String icon2 = request.getParameter("icon2");
+
+		ArrayList<String> icons = new ArrayList<String>();
+
+		if(request.getParameter("icon1")!=null)
+		{
+			icons.add(request.getParameter("icon1"));
+		}
+		if(request.getParameter("icon2")!=null)
+		{
+			icons.add(request.getParameter("icon2"));
+		}
+		if(request.getParameter("icon3")!=null)
+		{
+			icons.add(request.getParameter("icon3"));
+		}
 		String profile = request.getParameter("profile");
 
 		RequestDispatcher dispatcher = null;
@@ -88,10 +101,9 @@ public class UserSearchInputSvt extends HttpServlet {
 		}
 		else {
 		HttpSession session = request.getSession();
-		ArrayList<UserDTO> list = dbm.getSearching(loginId,userName,icon1,icon2,profile);
+		ArrayList<UserDTO> list = dbm.getSearching(loginId,userName,icons,profile);
 
 		session.setAttribute("users", list);
-
 
 		dispatcher = request.getRequestDispatcher("serhresult.jsp");
 		dispatcher.forward(request, response);

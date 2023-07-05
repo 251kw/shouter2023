@@ -12,11 +12,13 @@
 </head>
 
 <style>
-
-input{
-white-space: pre;
+.wrapper {
+	display: flex;
 }
 
+input {
+	white-space: pre;
+}
 
 input:hover {
 	background: rgba(80, 200, 200, 0.2);
@@ -70,16 +72,14 @@ input[name="loginId"]:focus {
 }
 </style>
 </c:if>
-<c:if
-	test="${requestScope.alert.equals ('ユーザー名を8文字以下入力してください') }">
+<c:if test="${requestScope.alert.equals ('ユーザー名を8文字以下入力してください') }">
 	<style>
 input[name="userName"]:focus {
 	background: pink;
 }
 </style>
 </c:if>
-<c:if
-	test="${requestScope.alert.equals ('パスワードを英数字8桁以下入力してください') }">
+<c:if test="${requestScope.alert.equals ('パスワードを英数字8桁以下入力してください') }">
 	<style>
 input[name="password"]:focus {
 	background: pink;
@@ -103,12 +103,11 @@ input[name="password"]:focus {
 		<div style="width: 40%" class="container padding-y-5">
 			<%-- action 属性にサーブレットを指定 --%>
 			<form action="./uii" name="form1" method="post">
-				<table style="width: 400px" class="table">
+				<table style="width: 500px" class="table">
 					<tr>
 						<%-- ログインID入力欄の名前はloginId --%>
-						<td style="width:200px" class="color-man text-left">
-						<span class="icon-id pe-2x"></span>&nbsp;
-						<span class="required">ログインID</span></td>
+						<td style="width: 200px" class="color-man text-left"><span
+							class="icon-id pe-2x"></span>&nbsp; <span class="required">ログインID</span></td>
 						<td class="text-left"><input class="form-control" type="text"
 							name="loginId" value="${param.loginId}" size="20" required
 							placeholder="英数字8桁以下入力"
@@ -122,21 +121,19 @@ input[name="password"]:focus {
 
 					<tr>
 						<%-- ユーザー名入力欄の名前はuserName --%>
-						<td style="width:200px" class="color-man text-left">
-						<span class="icon-users pe-2x"></span>&nbsp;
-						<span class="required">ユーザー名</span></td>
+						<td style="width: 200px" class="color-man text-left"><span
+							class="icon-users pe-2x"></span>&nbsp; <span class="required">ユーザー名</span></td>
 						<td class="text-left"><input class="form-control" type="text"
 							name="userName" value="${param.userName}" size="20" required
 							placeholder="8文字以下入力"
 							<c:if test = "${requestScope.alert.equals ('ユーザー名を8文字以下入力してください') }">
 							autofocus="autofocus"
-							</c:if>/></td>
+							</c:if> /></td>
 					</tr>
 					<tr>
 						<%-- パスワード入力欄の名前はpassword --%>
-						<td style="width:200px" class="color_main text_left">
-						<span class="icon-lock	 pe-2x"></span>&nbsp;
-						<span class="required">パスワード</span></td>
+						<td style="width: 200px" class="color_main text_left"><span
+							class="icon-lock	 pe-2x"></span>&nbsp; <span class="required">パスワード</span></td>
 						<td class="text-left"><input class="form-control"
 							type="password" name="password" value="${param.password}"
 							size="20" required placeholder="英数字8桁以下入力"
@@ -145,24 +142,35 @@ input[name="password"]:focus {
 							</c:if> /></td>
 					</tr>
 					<tr>
-						<%-- 性別チェック --%>
+						<%-- アイコンチェック --%>
 
-						<td style="width:200px" class="color_main text_left">
-						<span class="icon-male pe-2x"></span><span class="icon-female pe-2x"></span>&nbsp;
-						<span class="required">性別</span></td>
-						<td><label class="fancy-radio"><input type="radio"
-								name="icon"
-								<c:if test="${param.icon=='icon-user' }">checked="checked"</c:if>
-								value="icon-user" required /><span>男</span> </label> <label
-							class="fancy-radio"> <input type="radio" name="icon"
-								<c:if test="${param.icon=='icon-user-female' }">checked="checked"</c:if>
-								value="icon-user-female" /><span>女</span>
-						</label></td>
+						<td style="width: 200px" class="color_main text_left">&nbsp;<span
+							class="icon-smile pe-2x"></span>&nbsp;&nbsp; <span
+							class="required">アイコン</span></td>
+						<td>
+							<div class="wrapper">
+								<label class="fancy-radio"> <input type="radio"
+									name="icon"
+									<c:if test="${param.icon=='icon-user' }">checked="checked"</c:if>
+									value="icon-user" required /> <span></span>
+								</label><span class="icon-user pe-2x"></span>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label class="fancy-radio"> <input type="radio"
+									name="icon"
+									<c:if test="${param.icon=='icon-user-female' }">checked="checked"</c:if>
+									value="icon-user-female" /> <span></span>
+								</label>&nbsp;<span class="icon-user-female pe-2x"></span>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <label class="fancy-radio">
+									<input type="radio" name="icon"
+									<c:if test="${param.icon=='icon-bell' }">checked="checked"</c:if>
+									value="icon-bell" /> <span></span>
+								</label><span class="icon-bell pe-2x"></span>
+
+							</div>
+						</td>
 					<tr>
 						<%--プロファイル入力 --%>
-						<td style="width:200px" class="color_main text_left">
-						<span class="icon-note	 pe-2x"></span>
-						<span>プロファイル</span></td>
+						<td style="width: 200px" class="color_main text_left"><span
+							class="icon-note	 pe-2x"></span> <span>プロファイル</span></td>
 						<td colspan="2"><textarea name="profile" rows="5"
 								class="form-control" style="resize: none;"
 								onchange="sendProfile()" placeholder="自己紹介(200文字以下)">${param.profile}</textarea></td>

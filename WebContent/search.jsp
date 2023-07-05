@@ -12,6 +12,10 @@
 </head>
 
 <style>
+.wrapper {
+	display: flex;
+}
+
 input {
 	white-space: pre;
 }
@@ -66,6 +70,7 @@ textarea:hover {
 input[name="loginId"]:focus {
 	background: pink;
 }
+div
 </style>
 </c:if>
 <c:if test="${requestScope.alert.equals ('ユーザー名を8文字以下入力してください') }">
@@ -99,13 +104,19 @@ input[name="password"]:focus {
 						<%-- ログインID入力欄の名前はloginId --%>
 						<td style="width: 200px" class="color-man text-left"><span
 							class="icon-id pe-2x"></span>&nbsp; <span>ログインID</span></td>
-						<td class="text-left"><input class="form-control" type="text"
-							name="loginId" value="${param.loginId}" size="20"
-							placeholder="英数字8桁以下入力"
-							<c:if test = "${requestScope.alert.equals ('ログインIDを英数字8桁以下入力してください')||
+						<td class="text-left">
+							<div
+								<c:if test = "${requestScope.alert.equals ('ログインIDを英数字8桁以下入力してください')||
+							requestScope.alert.equals ('ログインIDが既に存在する')}">
+							class="error"
+							</c:if>>
+								<input class="form-control" type="text" name="loginId"
+									value="${param.loginId}" size="20" placeholder="英数字8桁以下入力"
+									<c:if test = "${requestScope.alert.equals ('ログインIDを英数字8桁以下入力してください')||
 							requestScope.alert.equals ('ログインIDが既に存在する')}">
 							autofocus="autofocus"
 							</c:if> />
+							</div>
 						</td>
 
 					</tr>
@@ -114,33 +125,60 @@ input[name="password"]:focus {
 						<%-- ユーザー名入力欄の名前はuserName --%>
 						<td style="width: 200px" class="color-man text-left"><span
 							class="icon-users pe-2x"></span>&nbsp; <span>ユーザー名</span></td>
-						<td class="text-left"><input class="form-control" type="text"
-							name="userName" value="${param.userName}" size="20"
-							placeholder="8文字以下入力"
-							<c:if test = "${requestScope.alert.equals ('ユーザー名を8文字以下入力してください') }">
+						<td class="text-left">
+							<div
+								<c:if test = "${requestScope.alert.equals ('ユーザー名を8文字以下入力してください') }">
+							class = "error"
+							</c:if>>
+								<input class="form-control" type="text" name="userName"
+									value="${param.userName}" size="20" placeholder="8文字以下入力"
+									<c:if test = "${requestScope.alert.equals ('ユーザー名を8文字以下入力してください') }">
 							autofocus="autofocus"
-							</c:if> /></td>
+							</c:if> />
+							</div>
+						</td>
 					</tr>
 					<tr>
-						<%-- 性別チェック --%>
+
+
+						<%-- アイコンチェック --%>
 
 						<td style="width: 200px" class="color_main text_left"><span
-							class="icon-male pe-2x"></span><span class="icon-female pe-2x"></span>&nbsp;
-							<span>性別</span></td>
-						<td><label><input type="checkbox" name="icon1"
-								<c:if test="${param.icon=='icon-user' }">checked="checked"</c:if>
-								value="icon-user"/><span>男</span> </label> <label>
-								<input type="checkbox" name="icon2"
-								<c:if test="${param.icon=='icon-user-female' }">checked="checked"</c:if>
-								value="icon-user-female" /><span>女</span>
-						</label></td>
+							class="icon-smile pe-2x"></span>&nbsp; <span>アイコン</span></td>
+						<td>
+
+							<div class="wrapper">
+								<label class="fancy-checkbox"><input type="checkbox"
+									name="icon1"
+									<c:if test="${param.icon=='icon-user' }">checked="checked"</c:if>
+									value="icon-user" /><span></span> </label> <span
+									class="icon-user pe-2x"></span>
+&nbsp;&nbsp;&nbsp;&nbsp;
+									<label
+									class="fancy-checkbox"><input type="checkbox"
+									name="icon2"
+									<c:if test="${param.icon=='icon-user-female' }">checked="checked"</c:if>
+									value="icon-user-female" /><span></span> </label>&nbsp;
+									<span
+									class="icon-user-female pe-2x"></span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									 <label
+									class="fancy-checkbox"><input type="checkbox"
+									name="icon3"
+									<c:if test="${param.icon=='icon-bell' }">checked="checked"</c:if>
+									value="icon-bell" /><span></span> </label> <span
+									class="icon-bell pe-2x"></span>
+							</div>
+						</td>
 					<tr>
 						<%--プロファイル入力 --%>
 						<td style="width: 200px" class="color_main text_left"><span
 							class="icon-note	 pe-2x"></span> <span>プロフィール</span></td>
 						<td colspan="2"><textarea name="profile" rows="5"
 								class="form-control" style="resize: none;"
-								onchange="sendProfile()" placeholder="自己紹介(200文字以下)">${param.profile}</textarea></td>
+								onchange="sendProfile()" placeholder="自己紹介(200文字以下)">${param.profile}</textarea>
+
+						</td>
 
 					</tr>
 					<%-- リクエストスコープにalertがあれば --%>

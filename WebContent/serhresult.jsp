@@ -111,26 +111,40 @@ input[name="password"]:focus {
 		<div style="width: 60%" class="container padding-y-5">
 			<%-- action 属性にサーブレットを指定 --%>
 			<form action="./uii" name="form1" method="post">
+				<%-- 全選択と全解除ボタン --%>
+
+
+				<input class="btn" type="button" value="全選択"
+					onClick="checkAll(true)" /> <input class="btn" type="button"
+					value="全解除" onClick="checkAll(false)" />
+
 				<table style="width: 1000px" class="table table-bordered">
+
 					<thead>
 						<tr>
-							<th style="width: 1%"></th>
+							<th style="width:50px"></th>
 							<th style="width: 120px">ログインID</th>
 							<th style="width: 120px">ユーザー名</th>
-							<th style="width: 120px">性別</th>
+							<th style="width: 120px">アイコン</th>
 							<th style="width: 120px">プロフィール</th>
 							<th style="width: 120px"></th>
 						</tr>
 					</thead>
+
+
 					<%
 						int count = 0;
 					%>
 					<c:forEach var="user" items="${users}">
 						<tbody>
 							<tr>
-								<td style="width: 1%"><input name="check" type="checkbox"></td>
+								<td style="width: 50px">
+								<label class="fancy-checkbox">
+								<input name="check" type="checkbox">
+								<span></span>
+								</label>
+								</td>
 								<td style="width: 120px">${user.loginId}</td>
-
 								<td style="width: 120px">${user.userName}</td>
 								<td style="width: 120px"><span
 									class="${user.icon} pe-3x pe-va"></span></td>
@@ -144,7 +158,6 @@ input[name="password"]:focus {
 							</tr>
 						</tbody>
 					</c:forEach>
-
 					<%
 						if (count == 0) {
 					%><tbody>
@@ -165,7 +178,7 @@ input[name="password"]:focus {
 				<%-- 削除と戻るボタン --%>
 				<input class="btn" type="submit" value="削除" onclick="sendProfile" />
 				<input class="btn" type="button" value="戻る"
-					onClick="window.location.href='/Chapter11/search.jsp'" />
+					onClick="window.location.href='./search.jsp'" />
 			</form>
 		</div>
 	</div>

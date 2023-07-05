@@ -194,18 +194,18 @@ public class DBManager extends SnsDAO {
 		return isRight;
 	}
 
-	public ArrayList<UserDTO> getSearching(String loginId, String userName, String icon1,
-			String icon2, String profile) {
+	public ArrayList<UserDTO> getSearching(String loginId, String userName, ArrayList<String> icons, String profile) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		int iconcheck = 0;//iconのチェック状況を判断する
+		//int iconcheck = 0;//iconのチェック状況を判断する
 		int countId = 0;//loginIdの入れる場所探す
 		int countName = 0;//userNameの入れる場所探す
-		int countIcon1 = 0;//iconの入れる場所探す
-		int countIcon2 = 0;//iconの入れる場所探す
+		//int countIcon1 = 0;//iconの入れる場所探す
+		//int countIcon2 = 0;//iconの入れる場所探す
 		int countProfile = 0;//profileの入れる場所探す
-
+		int countIcon_first = 0;
+		int countIcon_last = 0;
 		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
 
 		String sql = "SELECT * FROM users WHERE 1=1";
@@ -224,6 +224,20 @@ public class DBManager extends SnsDAO {
 				countName = stringMatch(sql, countName);//userNameの入れる場所探す
 			}
 
+			if (!icons.isEmpty()) {
+				int i;
+				sql = sql + " and (icon = ?";
+				countIcon_first = stringMatch(sql, countIcon_first);
+				for (i = 0; i < icons.size() - 1; i++) {
+					sql = sql + " or icon = ?";
+				}
+				if (i > 0) {
+					countIcon_last = stringMatch(sql, countIcon_last);
+				}
+				sql = sql +")";
+			}
+
+			/*
 			if (iconcheck == 0) {
 				if ((icon1 != null && !icon1.trim().isEmpty()) && (icon2 != null && !icon2.trim().isEmpty())) {
 					//"男"と"女"両方チェックされた場合
@@ -254,6 +268,8 @@ public class DBManager extends SnsDAO {
 			default:
 				break;
 			}
+			*/
+
 			if (profile != null && !profile.trim().isEmpty()) {//profileが入力された場合
 				sql = sql + " and profile like ?";
 				countProfile = stringMatch(sql, countProfile);//profileの入れる場所探す
@@ -265,10 +281,22 @@ public class DBManager extends SnsDAO {
 				pstmt.setString(countId, loginId);
 			if (countName != 0)//userNameの入れる場所が分かる場合
 				pstmt.setString(countName, "%" + userName + "%");
-			if (countIcon1 != 0)//iconの入れる場所が分かる場合
-				pstmt.setString(countIcon1, icon1);
-			if (countIcon2 != 0)//iconの入れる場所が分かる場合
-				pstmt.setString(countIcon2, icon2);
+			if (countIcon_first != 0)//iconの入れる場所が分かる場合
+			{
+				if (countIcon_last != 0) {
+					int j = 0;
+					for (int i = countIcon_first; i <= countIcon_last; i++) {
+						pstmt.setString(i, icons.get(j));
+						j++;
+					}
+
+				} else {
+					pstmt.setString(countIcon_first, icons.get(0));
+				}
+			}
+
+			//if (countIcon2 != 0)//iconの入れる場所が分かる場合
+			//	pstmt.setString(countIcon2, icon2);
 			if (countProfile != 0)//profileの入れる場所が分かる場合
 				pstmt.setString(countProfile, "%" + profile + "%");
 
@@ -276,7 +304,7 @@ public class DBManager extends SnsDAO {
 
 			// 検索結果の数だけ繰り返す
 			while (rset.next()) {
-				// 必要な列から値を取り出し、書き込み内容オブジェクトを生成			}
+				// 必要な列から値を取り出し、書き込み内容オブジェクトを生成}
 				UserDTO user = new UserDTO();
 				user.setLoginId(rset.getString(2));
 				user.setPassword(rset.getString(3));
@@ -299,11 +327,17 @@ public class DBManager extends SnsDAO {
 	}
 
 	public int stringMatch(String str, int count) {//入れる場所を探すメソッド
-		String pattern = "and";//"and"でsql文の入れる場所を判断する
-		Pattern r = Pattern.compile(pattern);
+		String pattern1 = "and";//"and"でsql文の入れる場所を判断する
+		Pattern r = Pattern.compile(pattern1);
 		Matcher matcher = r.matcher(str);
-
 		while (matcher.find()) {//"and"の数をカウントする
+			count++;
+		}
+
+		String pattern2 = "or";
+		Pattern r_2 = Pattern.compile(pattern2);
+		Matcher matcher2 = r_2.matcher(str);
+		while (matcher2.find()) {
 			count++;
 		}
 		return count;

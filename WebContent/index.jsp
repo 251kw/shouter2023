@@ -50,13 +50,21 @@ input:hover {
 					<tr>
 						<%-- 登録ボタン --%>
 						<td colspan="1" class="text-left">
-						<input class="btn" type = "button" value="会員登録" onClick="window.location.href='/Chapter11/signupid.jsp'"/>
+						<input class="btn" type = "button" value="会員登録" onClick="window.location.href='./signupid.jsp'"/>
 						</td>
 
 						<%-- ログインボタン --%>
 						<td colspan="1" class="text-right"><input class="btn"
 							type="submit" value="ログイン" /></td>
 					</tr>
+					<tr>
+					<%-- 検索ボタン --%>
+						<td>
+						</td>
+						<td colspan="2" class="text-right">
+						<input class="btn" type = "button" value="検索" onClick="window.location.href='./search.jsp'"/>
+						</td>
+						</tr>
 					<%-- リクエストスコープにalertがあれば --%>
 					<c:if
 						test="${requestScope.alert !=null && requestScope.alert != '' }">

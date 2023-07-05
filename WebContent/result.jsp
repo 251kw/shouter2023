@@ -65,12 +65,10 @@
 					</tr>
 					<tr>
 						<td style="width:200px" class="color_main text_left">
-						<span class="icon-male pe-2x"></span><span class="icon-female pe-2x"></span>&nbsp;
-						<span class="required">性別</span></td>
-						<td  class="text-left"><span><c:if
-									test="${param.icon=='icon-user'}">男</c:if> <c:if
-									test="${param.icon=='icon-user-female'}">女</c:if> </span>
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+						<span class="icon-smile pe-2x"></span>&nbsp;
+						<span class="required">アイコン</span></td>
+						<td  class="text-left"><span> </span>
+						<span
 							class="${user.icon} pe-3x pe-va"></span>
 					</tr>
 

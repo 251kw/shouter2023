@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="dto.UserDTO" %>
+<%@ page import="dto.UserDTO"%>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -39,9 +39,7 @@
 <body>
 	<div class="bg-success padding-y-5">
 		<div class="container padding-y-5 text-center">
-			<h1>
-				ユーザー登録確認画面
-			</h1>
+			<h1>ユーザー登録確認画面</h1>
 		</div>
 	</div>
 	<div class="padding-y-5 text-center">
@@ -54,8 +52,8 @@
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 
-		UserDTO user = (UserDTO)request.getAttribute("signupID");
-		String loginId= user.getLoginId();
+		UserDTO user = (UserDTO) request.getAttribute("signupID");
+		String loginId = user.getLoginId();
 		String password = user.getPassword();
 		String userName = user.getUserName();
 		String icon = user.getIcon();
@@ -68,39 +66,33 @@
 				<table style="width: 400px" class="table">
 					<tr>
 						<%-- ログインID入力欄の名前はloginId --%>
-						<td style="width:200px" class="color-man text-left">
-						<span class="icon-id pe-2x"></span>&nbsp;
-						<span class="required">ログインID</span></td>
+						<td style="width: 200px" class="color-man text-left"><span
+							class="icon-id pe-2x"></span>&nbsp; <span class="required">ログインID</span></td>
 						<td class="text-left"><label> ${signupID.loginId} <input
 								type="hidden" name="loginId" value=<%=loginId%>>
 						</label></td>
 					</tr>
 					<tr>
 						<%-- ユーザー名入力欄の名前はuserName --%>
-						<td style="width:200px" class="color-man text-left">
-						<span class="icon-users pe-2x"></span>&nbsp;
-						<span class="required">ユーザー名</span></td>
+						<td style="width: 200px" class="color-man text-left"><span
+							class="icon-users pe-2x"></span>&nbsp; <span class="required">ユーザー名</span></td>
 						<td class="text-left"><label> ${signupID.userName} <input
 								type="hidden" name="userName" value="<%=userName%>">
 						</label></td>
 					</tr>
 					<tr>
 						<%-- パスワード入力欄の名前はpassword --%>
-						<td style="width:200px" class="color_main text_left">
-						<span class="icon-lock	 pe-2x"></span>&nbsp;
-						<span class="required">パスワード</span></td>
+						<td style="width: 200px" class="color_main text_left"><span
+							class="icon-lock	 pe-2x"></span>&nbsp; <span class="required">パスワード</span></td>
 						<td class="text-left"><label> <%=password%> <input
 								type="hidden" name="password" value=<%=password%>>
 						</label></td>
 					</tr>
+
 					<tr>
-						<td style="width:200px" class="color_main text_left">
-						<span class="icon-male pe-2x"></span><span class="icon-female pe-2x"></span>&nbsp;
-						<span class="required">性別</span></td>
-						<td rowspan="1" class="text-left"><span><c:if
-									test="${param.icon=='icon-user'}">男</c:if> <c:if
-									test="${param.icon=='icon-user-female'}">女</c:if> </span>
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+						<td style="width: 200px" class="color_main text_left"><span
+							class="icon-smile pe-2x"></span>&nbsp; <span class="required">アイコン</span></td>
+						<td rowspan="1" class="text-left"><span></span> <span
 							class="<%=icon%> pe-3x pe-va"></span> <input type="hidden"
 							name="icon" value=<%=icon%>></td>
 
@@ -108,9 +100,8 @@
 
 					<tr>
 						<%--プロファイル入力 --%>
-						<td style="width:200px" class="color_main text_left">
-						<span class="icon-note	 pe-2x"></span>
-						<span>プロファイル</span></td>
+						<td style="width: 200px" class="color_main text_left"><span
+							class="icon-note	 pe-2x"></span> <span>プロファイル</span></td>
 						<td colspan="2"><textarea name="profile" rows="5"
 								class="form-control" style="resize: none;" readonly
 								onchange="sendProfile()"><%=profile%></textarea></td>
