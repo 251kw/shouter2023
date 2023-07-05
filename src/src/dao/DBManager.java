@@ -359,125 +359,91 @@ public class DBManager extends SnsDAO {
 			return user;
 		}*/
 	// 複数表示
-	public ArrayList<UserDTO> getUserList(String loginId, String userName, String icon, String profile) {
+	public ArrayList<UserDTO> getUserList(String loginId, String userName, String icon, String icon2, String profile) {
 		Connection conn = null;
-		Statement pstmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
 		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
+		ArrayList<String> arraylist = new ArrayList<>();
 
 		try {
 			// SnsDAO クラスのメソッド呼び出し
 			conn = getConnection();
-			pstmt = conn.createStatement();
 
-			while (!loginId.equals("") || userName.equals("") || icon.equals("") || profile.equals("")) {
+			String sql = "SELECT * FROM users";
+
+			if ((loginId != "") || (userName != "") || (icon != null) || (icon2 != null) || (profile != "")) {//入力されているとき
+
 				//where文
 				if (!loginId.equals("")) {
-
 					// SELECT 文の実行
-					String sql = "SELECT * FROM users WHERE loginId =?";
-					rset = pstmt.executeQuery(sql);
-					((PreparedStatement) pstmt).setString(1, loginId);
-
-					// 検索結果の数だけ繰り返す
-					while (rset.next()) {
-						// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
-						UserDTO user = new UserDTO();
-						user.setLoginId(rset.getString(2));
-						user.setUserName(rset.getString(3));
-						user.setIcon(rset.getString(4));
-						user.setProfile(rset.getString(5));
-
-						// 書き込み内容をリストに追加
-						list.add(user);
-					}
+					arraylist.add("loginId =" + "'" + loginId + "'");
 				}
 				//where文
-				else if (!userName.equals("")) {
-
+				if (!userName.equals("")) {
 					// SELECT 文の実行
-					String sql = "SELECT * FROM users WHERE userName like ?";
-					((PreparedStatement) pstmt).setString(1, "%" + userName + "%");
-					rset = pstmt.executeQuery(sql);
-
-					// 検索結果の数だけ繰り返す
-					while (rset.next()) {
-						// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
-						UserDTO user = new UserDTO();
-						user.setLoginId(rset.getString(2));
-						user.setUserName(rset.getString(3));
-						user.setIcon(rset.getString(4));
-						user.setProfile(rset.getString(5));
-
-						// 書き込み内容をリストに追加
-						list.add(user);
-					}
+					arraylist.add("userName like '%" + userName + "%'");
 				}
 				//where文
-				/*else if(!icon.equals("")) {
+				if ((icon != null) && (icon2 != null)) {
+					arraylist.add("icon = " + "'" + icon + "'" + " OR " + "icon = " + "'" + icon2 + "'");
+				} else {
+					if (icon != null) {
+						arraylist.add("icon = " + "'" + icon + "'");
+					}
+					if (icon2 != null) {
+						arraylist.add("icon = " + "'" + icon2 + "'");
+					}
+				}
+				if (!profile.equals("")) {
+					arraylist.add("profile like '%" + profile + "%'");
+				}
 
-				// SELECT 文の実行
-				String sql = "SELECT * FROM users WHERE loginId WHERE icon = icon-users OR icon =icon-smile";
-				rset = pstmt.executeQuery(sql);
+				sql += " WHERE " + arraylist.get(0);
+				for (int i = 1; i < arraylist.size(); i++) {
+					sql += " AND " + arraylist.get(i);
+				}
+
+				pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+				rset = pstmt.executeQuery();//実行
 
 				// 検索結果の数だけ繰り返す
 				while (rset.next()) {
 					// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
 					UserDTO user = new UserDTO();
 					user.setLoginId(rset.getString(2));
-					user.setUserName(rset.getString(3));
-					user.setIcon(rset.getString(4));
-					user.setProfile(rset.getString(5));
-
+					user.setUserName(rset.getString(4));
+					user.setIcon(rset.getString(5));
+					user.setProfile(rset.getString(6));
 					// 書き込み内容をリストに追加
 					list.add(user);
 				}
-				}*/
-				//where文
-				else if (!profile.equals("")) {
-
-					// SELECT 文の実行
-					String sql = "SELECT * FROM users WHERE profile like ?";
-					((PreparedStatement) pstmt).setString(1, "%" + profile + "%");
-					rset = pstmt.executeQuery(sql);
-
-					// 検索結果の数だけ繰り返す
-					while (rset.next()) {
-						// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
-						UserDTO user = new UserDTO();
-						user.setLoginId(rset.getString(2));
-						user.setUserName(rset.getString(3));
-						user.setIcon(rset.getString(4));
-						user.setProfile(rset.getString(5));
-
-						// 書き込み内容をリストに追加
-						list.add(user);
-					}
-				}
-				if (loginId.equals("") && userName.equals("") && profile.equals("")) {
-					// SELECT 文の実行
-					String sql = "SELECT * FROM users";
-					rset = pstmt.executeQuery(sql);
-					((PreparedStatement) pstmt).setString(1, loginId);
-
-					// 検索結果の数だけ繰り返す
-					while (rset.next()) {
-						// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
-						UserDTO user = new UserDTO();
-						user.setLoginId(rset.getString(2));
-						user.setUserName(rset.getString(3));
-						user.setIcon(rset.getString(4));
-						user.setProfile(rset.getString(5));
-
-						// 書き込み内容をリストに追加
-						list.add(user);
-					}
-				}
-				break;
 			}
-		}
-		catch (SQLException e) {
+
+			if (loginId.equals("") && userName.equals("") && icon == (null) && icon2 == (null)&& profile.equals("")) {//未入力のとき
+				// SELECT 文の実行
+				sql += ";";
+
+				pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+				rset = pstmt.executeQuery();
+
+				// 検索結果の数だけ繰り返す
+				while (rset.next()) {
+					// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
+					UserDTO user = new UserDTO();
+					user.setLoginId(rset.getString(2));
+					user.setUserName(rset.getString(4));
+					user.setIcon(rset.getString(5));
+					user.setProfile(rset.getString(6));
+					// 書き込み内容をリストに追加
+					list.add(user);
+				}
+			}
+
+		} catch (
+
+		SQLException e) {
 			e.printStackTrace();
 		} finally {
 			// データベース切断処理

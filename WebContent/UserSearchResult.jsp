@@ -62,8 +62,9 @@
 					</tr>
 
 
-
-					<c:forEach var="user" items="${user}">
+<jsp:useBean id="users" scope="session"
+		type="java.util.ArrayList<src.controller.UserSearchInputSvt>" />
+					<c:forEach var="user" items="${users}">
 						<table class="table table-striped table-bordered">
 
 							<%-- checkbox --%>

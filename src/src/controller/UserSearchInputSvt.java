@@ -50,51 +50,59 @@ public class UserSearchInputSvt extends HttpServlet {
 		String loginId = request.getParameter("loginId");
 		String userName = request.getParameter("userName");
 		String icon = request.getParameter("icon");
+		String icon2 = request.getParameter("icon2");
 		String profile = request.getParameter("profile");
 		RequestDispatcher dispatcher = null;
 		String message = null;
-
 
 		DBManager dbm = new DBManager();
 		//UserDTO user = dbm.getSearchUserlogin(loginId);
 		//UserDTO user = dbm.getSearchUsername(userName);
 		//UserDTO user = dbm.getSearchUserprof(profile);
 		//UserDTO user = dbm.getSearchUsericon(icon);//できない
-		ArrayList<UserDTO> user = dbm.getUserList(loginId, userName, icon, profile) ;//できない
+		ArrayList<UserDTO> users = dbm.getUserList(loginId, userName, icon, icon2, profile);
 		HttpSession session = request.getSession();
 		// ログインユーザ情報、書き込み内容リストとしてセッションに保存
-		session.setAttribute("user", user);
+		session.setAttribute("users", users);
 
+		if(users.size()==0) {//リストの中に要素がない
+			message = "検索結果はありません";
+			request.setAttribute("alert", message);
+			// touroku.jsp に処理を転送
+			dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
+			dispatcher.forward(request, response);
+			}else {
 		// 処理の転送先を .jsp に指定
 		dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
 		// 処理を転送
 		dispatcher.forward(request, response);
 	}
 }
-		/*try {
-			// Beanクラスのインスタンス
-			UserSearchInputDTO input_user = new UserSearchInputDTO(loginId, username, icon, profile);
+}
+/*try {
+	// Beanクラスのインスタンス
+	UserSearchInputDTO input_user = new UserSearchInputDTO(loginId, username, icon, profile);
 
-			// Beanクラスに入力したユーザIDをセットする
-			input_user.setLoginId(loginId);
-			input_user.setUserName(username);
-			input_user.setIcon(icon);
-			input_user.setProfile(profile);
+	// Beanクラスに入力したユーザIDをセットする
+	input_user.setLoginId(loginId);
+	input_user.setUserName(username);
+	input_user.setIcon(icon);
+	input_user.setProfile(profile);
 
-			// リスト＜Beanクラス＞に検索結果を格納する
-			ArrayList<UserSearchInputDTO> user_list = UserSearchInputDTO.getInstance().SelectUserData(input_user);
+	// リスト＜Beanクラス＞に検索結果を格納する
+	ArrayList<UserSearchInputDTO> user_list = UserSearchInputDTO.getInstance().SelectUserData(input_user);
 
-			// 検索結果をJSP画面に返す
-			request.setAttribute("user_list", user_list);
-			request.getRequestDispatcher("/WEB-INF/jsp/UserSearchResult.jsp").forward(request, response);
+	// 検索結果をJSP画面に返す
+	request.setAttribute("user_list", user_list);
+	request.getRequestDispatcher("/WEB-INF/jsp/UserSearchResult.jsp").forward(request, response);
 
-			} catch (Exception e) {
-			// エラーメッセージをリクエストオブジェクトに保存
-			request.setAttribute("alert", message);
-			// UserSearchResult.jsp に処理を転送
-			dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
-			dispatcher.forward(request, response);
-		}
-	}
+	} catch (Exception e) {
+	// エラーメッセージをリクエストオブジェクトに保存
+	request.setAttribute("alert", message);
+	// UserSearchResult.jsp に処理を転送
+	dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
+	dispatcher.forward(request, response);
+}
+}
 }
 */

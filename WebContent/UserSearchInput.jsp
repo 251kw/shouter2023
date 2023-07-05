@@ -62,7 +62,7 @@
 							class="icon-joy pe-2x pe-va"></span> アイコン</td>
 						<td><label><input type="checkbox" name="icon"
 								value="icon-users"><span class="icon-users pe-2x pe-va"></span>
-						</label> <label><input type="checkbox" name="icon"
+						</label> <label><input type="checkbox" name="icon2"
 								value="icon-smile"><span
 								class="icon-smile pe-2x pe-va"></span></label></td>
 					</tr>
