@@ -26,7 +26,7 @@
 	<%-- セッションスコープにある UserDTO 型のオブジェクトを参照 --%>
 	<jsp:useBean id="user" scope="session" type="dto.UserDTO" />
 	<div class="padding-y-5">
-		<div style="width: 50%" class="container padding-y-5">
+		<div style="width: 100%" class="container padding-y-5">
 			<%-- action 属性にサーブレットを指定 --%>
 			<form action="./logout" method="post">
 				<table class="table table-bordered">
@@ -44,13 +44,13 @@
 		</div>
 	</div>
 	<div class="padding-y-5 text-center">
-		<div style="width: 50%" class="container padding-y-5 text-left">
+		<div style="width: 100%" class="container padding-y-5 text-left">
 			<strong class="color-main">今の気持ちを叫ぼう</strong>
 		</div>
 	</div>
 
-				<div class="padding-y-5 text-center">
-		<div style="width: 50%" class="container padding-y-5 text-center">
+	<div class="padding-y-5 text-center">
+		<div style="width: 100%" class="container padding-y-5 text-center">
 
 			<%-- action 属性にサーブレットを指定 --%>
 			<form action="./bbs" method="post">
@@ -62,22 +62,29 @@
 						<td><input class="btn" type="submit" value="叫ぶ" /></td>
 					</tr>
 					<tr>
+						<th><strong class="color-main">ユーザー検索</strong></th>
+
+						<td><input class="btn" type="button"
+							onclick="location.href='./UserSearchInput.jsp'" value="ユーザー検索"></td>
+					</tr>
+					<tr>
 						<td class="color-error text-senter"><c:out
-									value="${requestScope.alert}" /></td>
+								value="${requestScope.alert}" /></td>
 					</tr>
 				</table>
 			</form>
 		</div>
 	</div>
 	<div class="padding-y-5 text-center">
-		<div style="width: 50%" class="container padding-y-5 text-left">
+		<div style="width: 100%" class="container padding-y-5 text-left">
 			<strong class="color-main">みんなの叫び</strong>
 		</div>
 	</div>
 	<%-- セッションスコープにある ArrayList 型のオブジェクトを参照 --%>
-	<jsp:useBean id="shouts" scope="session" type="java.util.ArrayList<dto.ShoutDTO>" />
+	<jsp:useBean id="shouts" scope="session"
+		type="java.util.ArrayList<dto.ShoutDTO>" />
 	<div class="padding-y-5">
-		<div style="width: 50%" class="container padding-y-5">
+		<div style="width: 100%" class="container padding-y-5">
 			<%-- リストにある要素の数だけ繰り返し --%>
 			<c:forEach var="shout" items="${shouts}">
 				<table class="table table-striped table-bordered">
@@ -87,11 +94,10 @@
 						<td>${shout.userName}</td>
 					</tr>
 					<tr>
-						<td>
-						${shout.date}</td>
+						<td>${shout.date}</td>
 					</tr>
 					<tr>
-						<td colspan="2"><label  class="form-control">${shout.writing}</label>
+						<td colspan="2"><label class="form-control">${shout.writing}</label>
 						</td>
 					</tr>
 				</table>

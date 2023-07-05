@@ -51,6 +51,7 @@ public class UserSearchInputSvt extends HttpServlet {
 
 		//初期値の宣言
 		RequestDispatcher dispatcher = null;
+		String message = null;
 
 		// 送信情報の取得
 		//indexで宣言されているloginId、passwordを引っ張てくる
@@ -63,15 +64,22 @@ public class UserSearchInputSvt extends HttpServlet {
 			DBManager dbm1 = new DBManager();
 			ArrayList<UserDTO> Serach1 = dbm1.Search(loginId, username, icon,icon1, profile);
 			//Userがnull出ない場合その値をセットする
-			if (Serach1 != null) {
+			if (Serach1.size() !=0 ) {
 				HttpSession session = request.getSession();
-				session.setAttribute("user",Serach1);
+				session.setAttribute("userr",Serach1);
 
 				// 処理の転送先を UserInfoConfirm.jsp に指定
 				dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
-			}
+				// 処理を転送
+				dispatcher.forward(request, response);
+			}else {
 
-			// 処理を転送
-			dispatcher.forward(request, response);
+					message = "検索結果がありません。他の条件で検索してください。";
+					request.setAttribute("alert", message);
+					// 処理の転送先を UserInfoInput.jsp に指定
+					dispatcher = request.getRequestDispatcher("UserSearchInput.jsp");
+					dispatcher.forward(request, response);
+
+			}
 		}
 	}
