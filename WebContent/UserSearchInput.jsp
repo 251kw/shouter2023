@@ -24,40 +24,13 @@
 			<form action="./usi" method="post">
 				<table style="width: 400px" class="table">
 
-					<%-- リクエストスコープに nEnterd があれば --%>
+					<%-- リクエストスコープに sql があれば --%>
 					<c:if
-						test="${requestScope.noEnterd  != null && requestScope.noEnterd  != ''}">
+						test="${requestScope.sql  != null && requestScope.sql  != ''}">
 						<tr>
 							<%-- リクエストスコープの noEnterd の値を出力 --%>
 							<td colspan="2" class="color-error text-left"><c:out
-									value="${requestScope.noEnterd }" /></td>
-						</tr>
-					</c:if>
-					<%-- リクエストスコープに duplication があれば --%>
-					<c:if
-						test="${requestScope.duplication != null && requestScope.duplication != ''}">
-						<tr>
-							<%-- リクエストスコープの duplication の値を出力 --%>
-							<td colspan="2" class="color-error text-left"><c:out
-									value="${requestScope.duplication}" /></td>
-						</tr>
-					</c:if>
-					<%-- リクエストスコープに blank があれば --%>
-					<c:if
-						test="${requestScope.blank != null && requestScope.blank != ''}">
-						<tr>
-							<%-- リクエストスコープの blank の値を出力 --%>
-							<td colspan="2" class="color-error text-left"><c:out
-									value="${requestScope.blank}" /></td>
-						</tr>
-					</c:if>
-					<%-- リクエストスコープに halfSize があれば --%>
-					<c:if
-						test="${requestScope.halfSize != null && requestScope.halfSize != ''}">
-						<tr>
-							<%-- リクエストスコープの halfSize の値を出力 --%>
-							<td colspan="2" class="color-error text-left"><c:out
-									value="${requestScope.halfSize}" /></td>
+									value="${requestScope.sql }" /></td>
 						</tr>
 					</c:if>
 					<%
@@ -86,10 +59,10 @@
 					<tr>
 						<td class="color-main text-left"><span
 							class="icon-smile pe-2xpe-va">&nbsp;</span>アイコン</td>
-						<td><label><input type="checkbox"  name="icon"
-								id="icon"  value="icon-users" ><span
+						<td><label><input type="checkbox"  name="icon1"
+								id="icon1"  value="icon-users" ><span
 								class="icon-users pe-2x pe-va"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox"
-								name="icon" id="icon"  value="icon-piggy"> <span
+								name="icon2" id="icon2"  value="icon-piggy"> <span
 								class="icon-piggy pe-2x pe-va"></span></label></td>
 					</tr>
 					<tr>

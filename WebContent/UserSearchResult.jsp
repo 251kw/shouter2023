@@ -22,56 +22,66 @@
 	<div class="padding-y-5 text-center">
 		<div style="width: 40%" class="container padding-y-5 text-center">
 			<%-- action 属性にサーブレットを指定 --%>
-			<form action="./uii" method="post">
-			<table>
-			<tr>
-				<td class="sample-td">全選択</td>
-				<td class="sample-td">全解除</td>
+			<table style="width: 2000px">
+				<tr>
+					<td class="btn btn-empty btn-success" onClick="checkAllBox(true)">全選択</td>
+					<td class="btn btn-empty btn-success" onClick="checkAllBox(false)">全解除</td>
 				</tr>
-				</table>
-				<table class="sample-table" style="width: 400px">
+			</table>
+		</div>
+	</div>
+	<div class="padding-y-5 text-center">
+		<div style="width: 100%" class="container padding-y-5 text-center">
+			<table class="table table-striped table-bordered table-hover"
+				style="width: 2000px">
+				<tr>
+					<th></th>
+					<th>ログインID</th>
+					<th>ユーザー名</th>
+					<th>アイコン</th>
+					<th>プロフィール</th>
+					<th></th>
+				</tr>
+				<jsp:useBean id="users" scope="session"
+					type="java.util.ArrayList<dto.UserDTO>"/>
+
+				<%-- リストにある要素の数だけ繰り返し --%>
+				<c:forEach var="user" items="${users}">
 
 					<tr>
-						<th class="sample-th"></th>
-						<th class="sample-th">ログインID</th>
-						<th class="sample-th">ユーザー名</th>
-						<th class="sample-th">アイコン</th>
-						<th class="sample-th">プロフィール</th>
-						<th class="sample-th"></th>
-					</tr>
-					<tr>
-						<td class="sample-td"><input type="checkbox"
-							name="icon" id="icon" value=""></td>
-						<td class="sample-td">${User.loginId}</td>
-						<td class="sample-td">${User.userName}</td>
-						<td class="sample-td">${User.icon}</td>
-						<td class="sample-td">${User.profile}</td>
-						<td class="sample-td">編集</td>
-					</tr>
-					<tr>
-						<td class="sample-td"><input type="checkbox"
-							name="icon" id="icon" value=""></td>
-						<td class="sample-td"></td>
-						<td class="sample-td"></td>
-						<td class="sample-td"></td>
-						<td class="sample-td"></td>
-						<td class="sample-td">編集</td>
-					</tr>
-					<tr>
-						<td class="sample-td"></td>
-						<td class="sample-td"></td>
-						<td class="sample-td"></td>
-						<td class="sample-td"></td>
-						<td class="sample-td"></td>
-						<td class="sample-td">編集</td>
+						<td><label class="fancy-checkbox"><input
+								type="checkbox" name="icon" id="icon" value=""><span></span></label></td>
+						<td>${user.loginId}</td>
+						<td>${user.userName}</td>
+						<td><span class="${user.icon} pe-2x pe-va"></span></td>
+						<td>${user.profile}</td>
+						<td><a class="btn btn-empty btn-light">編集</a></td>
 					</tr>
 
-				</table>
-				<table>
+				</c:forEach>
+			</table>
+		</div>
+	</div>
+	<script>
+		const checkbox3 = document.getElementsByName("icon")
+
+		function checkAllBox(trueOrFalse) {
+			for (i = 0; i < checkbox3.length; i++) {
+				checkbox3[i].checked = trueOrFalse
+			}
+		}
+	</script>
+	<div class="padding-y-5 text-center">
+		<div style="width: 40%" class="container padding-y-5 text-center">
+			<form action="./uii" method="post">
+				<table style="width: 2000px">
 					<tr>
-						<td colspan="2" class="text-right"><input class="btn"
-							type="submit" value="削除" /><a class="btn"
-							href="./UserSearchInput.jsp">戻る</a></td>
+						<td class="btn btn-empty btn-success" onClick="checkAllBox(true)">全選択</td>
+						<td class="btn btn-empty btn-success" onClick="checkAllBox(false)">全解除</td>
+					</tr>
+					<tr>
+						<td colspan="2"><input class="btn" type="submit" value="削除" /><a
+							class="btn" href="./UserSearchInput.jsp">戻る</a></td>
 					</tr>
 				</table>
 			</form>

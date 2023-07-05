@@ -59,6 +59,12 @@
 							value="" size="60" /></td>
 						<td><input class="btn" type="submit" value="叫ぶ" /></td>
 					</tr>
+					<tr>
+					<td>
+					<a class="btn"
+							href="./UserSearchInput.jsp">検索</a>
+					</td>
+					</tr>
 				</table>
 			</form>
 		</div>

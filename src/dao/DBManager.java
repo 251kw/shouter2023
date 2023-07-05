@@ -196,28 +196,60 @@ public class DBManager extends SnsDAO {
 		return result;
 	}
 
-	public UserDTO userSearch(String loginId) {
-
+	public ArrayList<UserDTO> getUserList(String loginId, String userName, String icon1, String icon2, String profile) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = "select * from users where loginId=?";
-		UserDTO user = null;
+
+		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
+		ArrayList<String> union = new ArrayList<>();
+
+		String sql = "select * from users";
+
+		if (loginId == "" && userName == "" && icon1 == null && icon2 == null && profile == "") {
+			sql += ";";
+		} else {
+			if (loginId != "") {
+				union.add("loginId='" + loginId + "'");
+			}
+			if (userName != "") {
+				union.add("userName like '%" + userName + "%'");
+			}
+			if (icon1 != null && icon2 != null) {
+				union.add("icon ='" + icon1 + "' or icon ='" + icon2 + "'");
+			} else {
+				if (icon1 != null) {
+					union.add("icon ='" + icon1 + "'");
+				}
+				if (icon2 != null) {
+					union.add("icon ='" + icon2 + "'");
+				}
+			}
+			if (profile != "") {
+				union.add("profile like '%" + profile + "%'");
+			}
+			sql += " where " + union.get(0);
+			for (int i = 1; i < union.size(); i++) {
+				sql += "and" + union.get(i);
+			}
+		}
 
 		try {
 			conn = getConnection();
-
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, loginId);
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				user = new UserDTO();
+				UserDTO user = new UserDTO();
 				user.setLoginId(rset.getString(2));
+				user.setPassword(rset.getString(3));
 				user.setUserName(rset.getString(4));
 				user.setIcon(rset.getString(5));
-				user.setLoginId(rset.getString(6));
+				user.setProfile(rset.getString(6));
+
+				list.add(user);
 			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -226,9 +258,8 @@ public class DBManager extends SnsDAO {
 			close(pstmt);
 			close(conn);
 		}
-		return user;
+		return list;
+
 	}
-
-
 
 }

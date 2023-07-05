@@ -1,6 +1,7 @@
 package practiceG;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -9,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.DBManager;
 import dto.UserDTO;
@@ -21,18 +23,19 @@ public class UserSearchInputSvt extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DBManager dbm;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UserSearchInputSvt() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public UserSearchInputSvt() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
@@ -40,28 +43,43 @@ public class UserSearchInputSvt extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		//文字化け対策
-				request.setCharacterEncoding("UTF-8");
-				response.setContentType("text/html;charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
 
-				String loginId = request.getParameter("loginId");
-				//String userName = request.getParameter("userName");
-				//String icon = request.getParameter("icon");
-				//String profile = request.getParameter("profile");
+		String sql = null;
 
-				//if (dbm == null) {
-					//dbm = new DBManager();
-		//		}
-				DBManager dbm = new DBManager();
-				UserDTO user = dbm.userSearch(loginId);
+		String loginId = request.getParameter("loginId");
+		String userName = request.getParameter("userName");
+		String icon1 = request.getParameter("icon1");
+		String icon2 = request.getParameter("icon2");
+		String profile = request.getParameter("profile");
 
-				// リストをセッションに保存
-				request.setAttribute("User", user);
+		if (dbm == null) {
+			dbm = new DBManager();
+		}
 
-				ServletContext sc = getServletContext();
-				RequestDispatcher rd = sc.getRequestDispatcher("/UserSearchResult.jsp");
-				rd.forward(request, response);
+		ArrayList<UserDTO> list = dbm.getUserList(loginId, userName, icon1, icon2, profile);
+
+		HttpSession session = request.getSession();
+
+		// リストをセッションに保存
+		session.setAttribute("users", list);
+
+		ServletContext sc = getServletContext();
+
+		if(list.size() == 0) {
+			sql = "検索結果がありません";
+
+			request.setAttribute("sql", sql);
+			RequestDispatcher rd = sc.getRequestDispatcher("/UserSearchInput.jsp");
+			rd.forward(request, response);
+		}
+
+		RequestDispatcher rd = sc.getRequestDispatcher("/UserSearchResult.jsp");
+		rd.forward(request, response);
 	}
 
 }
