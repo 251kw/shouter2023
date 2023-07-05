@@ -71,17 +71,19 @@ public class UserSearchInputSvt extends HttpServlet {
 		if(loginId=="" && userName=="" && icon==null && profile=="") {
 			ArrayList<UserDTO> user = dbm.searchall();
 			// セッションに保存
-			session.setAttribute("user", user);
+			session.setAttribute("user2", user);
 			dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
+			dispatcher.forward(request, response);
 		}
-		else {	//入力はされてるけど、
+		else if(loginId!="") {	//入力はされてるけど、
 			// 半角スペースがあれば
 			if (loginId.contains(" ")|| userName.contains(" ")) {
-				message2 = "半角スペースは使えません";
+				message2 = "プロフィール以外に半角スペースは使えません";
 				// エラーメッセージをリクエストオブジェクトに保存
 				request.setAttribute("alert2", message2);
 				// UserInfoInput.jsp に処理を転送（もう一度入力させる）
 				dispatcher = request.getRequestDispatcher("UserSearchInput.jsp");
+				dispatcher.forward(request, response);
 			}
 			// ユーザ名の姓名の間以外に全角スペースがあれば
 			if (loginId.contains("　")) {
@@ -90,36 +92,32 @@ public class UserSearchInputSvt extends HttpServlet {
 				request.setAttribute("alert3", message3);
 				// UserInfoInput.jsp に処理を転送（もう一度入力させる）
 				dispatcher = request.getRequestDispatcher("UserSearchInput.jsp");
+				dispatcher.forward(request, response);
 			}
-			//入力問題なしの場合
-			if(!(loginId.contains(" ") || userName.contains(" ") || loginId.contains("　"))) {
-
-				boolean result = isHanStr(loginId);
-
-				if (result == false) {
-					message4 = "ログインIDはすべて半角で入力してください";
-					// エラーメッセージをリクエストオブジェクトに保存
-					request.setAttribute("alert4", message4);
-					// UserInfoInput.jsp に処理を転送（もう一度入力させる）
-					dispatcher = request.getRequestDispatcher("UserSearchInput.jsp");
-				}
-				else {
-					ArrayList<UserDTO> user = dbm.search(loginId, userName, icon, profile);
-					if(user.size() == 0)	//userの長さがゼロ(検索結果がなかったら)
-					{
-						message = "検索結果に一致するユーザはいません";
-						// エラーメッセージをリクエストオブジェクトに保存
-						request.setAttribute("alert", message);
-					}
-					else {
-						// セッションに保存
-						session.setAttribute("user", user);
-					}
-					// UserSearchResult.jsp に処理を転送
-					dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
-				}
+			boolean result = isHanStr(loginId);
+			if (result == false) {
+				message4 = "ログインIDはすべて半角英字で入力してください";
+				// エラーメッセージをリクエストオブジェクトに保存
+				request.setAttribute("alert4", message4);
+				// UserInfoInput.jsp に処理を転送（もう一度入力させる）
+				dispatcher = request.getRequestDispatcher("UserSearchInput.jsp");
+				dispatcher.forward(request, response);
 			}
 		}
-		dispatcher.forward(request, response);
+		if(!(loginId=="" && userName=="" && icon==null && profile=="")) {
+			ArrayList<UserDTO> user = dbm.search(loginId, userName, icon, profile);
+			if(user.size() == 0) {	//userの長さがゼロ(検索結果がなかったら)
+				message = "検索結果に一致するユーザはいません";
+				// エラーメッセージをリクエストオブジェクトに保存
+				request.setAttribute("alert", message);
+				dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
+			}
+			else {
+				// セッションに保存
+				session.setAttribute("user2", user);
+				dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
+			}
+			dispatcher.forward(request, response);
+		}
 	}
 }

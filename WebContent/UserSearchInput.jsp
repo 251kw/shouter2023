@@ -56,13 +56,17 @@
 								<label for="icon">
 								<span class = "icon-star  pe-2x pe-va"></span>
 								</label>
-								<input type="checkbox" name="icon" id="icon" value="icon-star">
+								<label class="fancy-checkbox">
+								<input type="checkbox" name="icon" id="icon" value="icon-star"><span></span>
+								</label>
 							</div>
 							<div class = "child">
 								<label for="icon">
 								<span class = "icon-smile pe-2x pe-va"></span>
 								</label>
-								<input type="checkbox" name="icon" id="icon" value="icon-smile">
+								<label class="fancy-checkbox">
+								<input type="checkbox" name="icon" id="icon" value="icon-smile"><span></span>
+								</label>
 							</div>
 						</td>
 					</tr>
@@ -75,8 +79,9 @@
 					<tr>
 					<%-- 登録ボタンでUserInfoInputsvt.javaにとぶ --%>
 						<td colspan="2" class="text-right">
-						<input class="btn" type="submit" value="検索" formaction="./usi"/>
-						<input class="btn" type="submit" value="戻る" formaction="top.jsp" />
+						<input class="btn" type="submit" value="検索" name="param" formaction="./usi"/>
+						<%-- 戻る時は送る値がないのでハイパーリンクでOK --%>
+						<a href="top.jsp" class="btn">戻る</a>
 						</td>
 					</tr>
 				</table>

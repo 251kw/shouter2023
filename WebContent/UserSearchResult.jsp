@@ -36,12 +36,12 @@
 
 					<%-- 検索結果があれば 表を出す--%>
 					<c:otherwise>
-					<jsp:useBean id="user" scope="session" type="java.util.ArrayList<dto.UserDTO>" />
-						<table border="1" style="width: 400px"  class="table" >
-							<tr>
-								<td nowrap><input type="button" onClick="checkAll()" value="全選択">
-								<td nowrap><input type="button" onClick="uncheckAll()" value="全解除">
-							</tr>
+					<jsp:useBean id="user2" scope="session" type="java.util.ArrayList<dto.UserDTO>" />
+						<div class = "padding-y-5 text-left">
+						<input type="button" onClick="checkAll()" value="全選択">
+						<input type="button" onClick="uncheckAll()" value="全解除">
+						</div>
+						<table border="1" style="width: 400px"  class="table table-striped table-bordered table-hover" >
 							<tr bgcolor="#1BBC9B">
 								<th></th>
 								<th nowrap>ログインID</th>
@@ -50,32 +50,32 @@
 								<th nowrap>プロフィール</th>
 								<th></th>
 							</tr>
-							<c:forEach var="result" items="${user}">
-								<%-- int i = 1; %>
-								<%-- dto.UserDTO u = (dto.UserDTO)request.getAttribute("user"); --%>
+							<c:forEach var="result" items="${user2}">
+								<%--  int i = 1; --%>
+								<%-- java.util.ArrayList<dto.UserDTO> u = (java.util.ArrayList<dto.UserDTO>)request.getAttribute("user2"); --%>
 								<tr>
-									<td><input type="checkbox" name="check" value="user"></td>
-									<td nowrap>${result.loginId}<%-- <input type="hidden" name="user<%=i%>" value="<%=u.getLoginId()%>">--%></td>
+									<td><label class="fancy-checkbox"><input type="checkbox" name="check" value="user"><span></span></label></td>
+									<td nowrap>${result.loginId}</td>
 									<td nowrap>${result.userName}</td>
 									<td nowrap><span class = "${result.icon}"></span></td>
 									<td nowrap>${result.profile}</td>
+									<%-- <input type ="hidden" name="user<%=i%>" value=<%=u%>>--%>
+									<%-- i++; --%>
 									<td><input class="btn" type="submit" value="編集" formaction="" /></td>
 								</tr>
-								<%-- i++; --%>
 							</c:forEach>
-							<tr>
-								<td nowrap><input type="button" onClick="checkAll()" value="全選択">
-								<td nowrap><input type="button" onClick="uncheckAll()" value="全解除">
-							</tr>
 						</table>
-					</c:otherwise>
 
+						<div class = "text-left">
+						<input type="button" onClick="checkAll()" value="全選択">
+						<input type="button" onClick="uncheckAll()" value="全解除">
+						</div>
+					</c:otherwise>
 				</c:choose>
 
-				<%-- 削除ボタンで?にとぶ --%>
 				<br>
-				<input class="btn" type="submit" value="削除" formaction="" />
-				<input class="btn" type="submit" value="戻る" formaction="UserSearchInput.jsp" />
+				<input class="btn" type="submit" value="削除" formaction="" />	<%-- 削除ボタンで?にとぶ --%>
+				<a href="UserSearchInput.jsp" class="btn">戻る</a>				<%-- 戻る時は送る値がないのでハイパーリンクでOK --%>
 
 			</form>
 
