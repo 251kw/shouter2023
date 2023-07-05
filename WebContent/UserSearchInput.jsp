@@ -29,7 +29,7 @@
 	<div class="padding-y-5 text-center">
 		<div style="width: 40%" class="container padding-y-5 text-center">
 			<form action=? method="post">
-				<table style="width: 400px" class="table">
+				<table  class="table">
 					<tr>
 						<!-- ログインID  -->
 						<th nowrap class="color-main text-left"><label for="loginId">
@@ -52,27 +52,27 @@
 
 					<tr>
 						<!-- アイコン選択 -->
-						<th nowrap class="color-main text-left"><span
-							class="icon-joy pe-2x pe-va"></span>&nbsp;アイコン</th>
+						<th nowrap class="color-main text-left"><span class="icon-joy pe-2x pe-va"></span>&nbsp;アイコン</th>
 						<td class="text-left" id=parent>
 							<div class="child">
-								<label for="icon"><span class="icon-smile pe-2x pe-va">
-								</span></label> <input type="checkbox" name="icon" id="icon"
-									value="icon-smile" >
+								<span class="icon-smile pe-2x pe-va"></span>
+								<label class="fancy-checkbox">
+									<input type="checkbox" name="icon" id="icon" value="icon-smile" ><span></span>
+								</label>
 							</div>
 
 							<div class="child">
-								<label for="icon"><span class="icon-joy pe-2x pe-va">
-								</span></label> <input type="checkbox" name="icon" id="icon"
-									value="icon-joy" >
+								<span class="icon-joy pe-2x pe-va"></span>
+								<label class="fancy-checkbox" >
+									<input type="checkbox" name="icon" id="icon" value="icon-joy" ><span></span>
+								</label>
 							</div>
 						</td>
 					</tr>
 
 					<tr>
 						<!-- プロフィール -->
-						<th nowrap class="color-main text-left"><label for="profile">
-								<span class="icon-note pe-2x pe-va"></span>&nbsp;プロフィール
+						<th nowrap class="color-main text-left"><label for="profile"><span class="icon-note pe-2x pe-va"></span>&nbsp;プロフィール
 						</label></th>
 						<td class="text-left"><input class="form-control" type="text"
 							name="profile" size="20" value="" maxlength="100" /></td>
@@ -80,8 +80,7 @@
 
 					<tr>	<!-- 登録＆戻るボタン -->
 						<td colspan="2" class="text-right"><button class="btn" type="submit" value="登録" formaction="./usi">検索</button></td>
-						<td colspan="2" class="text-right"><button class="btn" type="submit" value="戻る"formaction="index.jsp">戻る</button>
-						</td>
+						<td colspan="2" class="text-right"><button class="btn" type="submit" value="戻る"formaction="top.jsp">戻る</button></td>
 					</tr>
 				</table>
 			</form>

@@ -28,7 +28,7 @@
 		<div style="width: 40%" class="container padding-y-5 text-center">
 			<%-- LoginServlet.javaに移動 --%>
 			<form action=?  method="post">
-				<table style="width: 400px" class="table">
+				<table class="table">
 					<tr>
 						<%-- ログインID 入力欄の名前は loginId --%>
 						<th nowrap class="color-main text-left" >&nbsp;ログインID </th>
@@ -45,17 +45,14 @@
 						<td colspan="2" class="text-right"><button class="btn" type="submit" value="ログイン" formaction="./login">ログイン</button></td>
 						<td colspan="2" class="text-right"> <button class="btn" type="submit" value="新規登録" formaction="UserInfoInput.jsp">新規登録</button></td>
 					</tr>
-
-					<%-- リクエストスコープに alert があれば --%>
-					<c:if
-						test="${requestScope.alert != null && requestScope.alert != ''}">
-						<tr>
-							<%-- リクエストスコープの alert の値を出力 --%>
-							<td colspan="2" class="color-error text-left">
-							<c:out value="${requestScope.alert}" /></td>
-						</tr>
-					</c:if>
 				</table>
+
+				<div class="color-error text-center">
+					<c:if test="${requestScope.alert != null && requestScope.alert != ''}">
+						<%-- リクエストスコープの alert の値を出力 --%>
+						<c:out value="${requestScope.alert}" />
+					</c:if>
+				</div>
 			</form>
 		</div>
 	</div>

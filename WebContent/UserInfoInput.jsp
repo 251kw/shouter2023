@@ -94,11 +94,7 @@
 		<c:if test="${requestScope.alertPassword != null && requestScope.alertPassword != ''}"><!-- 半角英数字ではない場合 -->
 					<c:out value="${requestScope.alertPassword}" /><br>
 		</c:if>
-
-
 	</div>
-
-
 
 	<div class="padding-y-5 text-center">
 		<div style="width: 40%" class="container padding-y-5 text-center">
