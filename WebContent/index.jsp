@@ -44,7 +44,6 @@
 						<td colspan="2" class="text-center">
 						<input class="btn" type="submit" value="ログイン" />
 						<a href="UserInfoInput.jsp" class="btn">ユーザ登録</a>
-						<a href="UserSearchInput.jsp" class="btn">ユーザ検索</a>
 						</td>
 					</tr>
 					<%-- リクエストスコープに alert があれば --%>

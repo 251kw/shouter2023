@@ -51,7 +51,8 @@
 					<%-- リストにある要素の数だけ繰り返し --%>
 					<c:forEach var="user" items="${user}">
 						<tr>
-							<td><input name="test1" type="checkbox"></td>
+							<td><label class="fancy-checkbox"><input type="checkbox" name="test1" value="" />
+						<span></span></label></td>
 							<td><input class="form-control" type="text" name="name"
 								value="${user.loginId}" size="20" disabled="disabled" /></td>
 							<td><input class="form-control" type="text" name="name"
@@ -59,6 +60,8 @@
 							<td><span class="${user.icon} pe-3x pe-va" /></span></td>
 							<td><input class="form-control" type="text" name="name"
 								value="${user.profile}" size="20" disabled="disabled" /></td>
+							<td><input class="btn" type="submit" name="btn"
+							value="編集" size="20" /></td>
 						</tr>
 					</c:forEach>
 					<tr>

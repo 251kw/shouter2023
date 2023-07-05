@@ -64,6 +64,7 @@ public class UserSearchInputSvt extends HttpServlet {
 		if ((id.equals("")) && (name.equals("")) && icon==null && icon2==null && pro.equals("")) {
 			ArrayList<UserDTO> user = dbm.allnull();
 			session.setAttribute("user", user);
+			dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			//ログインIDのみ
 		} else if (!(id.equals("")) && name.equals("") && icon==null && icon2==null && pro.equals("")) {
 			ArrayList<UserDTO> user = dbm.loginid(id);
@@ -327,7 +328,6 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 		}
-
 
 		dispatcher.forward(request, response);
 	}
