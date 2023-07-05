@@ -49,48 +49,51 @@ public class UserSearchInput extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 
-		//getPatameterで受け取った変数宣言
-		String loginId = request.getParameter("loginId");
-		String userName = request.getParameter("userName");
-		String[] icon = request.getParameterValues("icon");
-		String profile = request.getParameter("profile");
-		boolean loginIdResult = true;
-
 		//フォワードの準備
 		RequestDispatcher dispatcher = null;
 
-		//alertメッセージ変数
-		String loginIdMessage = null;
-		String empResultMessage = null;
+			//getPatameterで受け取った変数宣言
+			String loginId = request.getParameter("loginId");
+			String userName = request.getParameter("userName");
+			String[] icon = request.getParameterValues("icon");
+			String profile = request.getParameter("profile");
+			boolean loginIdResult = true;
 
-		//loginId
-		if(!loginId.equals("")) {
-			loginId = request.getParameter("loginId");
-			loginIdResult = isHalfNumeric(loginId);
-			//loginId入力チェック
-				if(loginIdResult == false) {
-					loginIdMessage = "ログインIDは半角英数字を入力してください";
 
-					// エラーメッセージをリクエストオブジェクトに保存
-					request.setAttribute("alertNumLoginId", loginIdMessage);
-					dispatcher = request.getRequestDispatcher("UserSearchInput.jsp");
-				}
-		}
+			//alertメッセージ変数
+			String loginIdMessage = null;
+			String empResultMessage = null;
 
-		//userName
-		if(!userName.equals("")) {
-			userName = request.getParameter("userName");
-		}
+			//loginId
+			if(!loginId.equals("")) {
+				loginId = request.getParameter("loginId");
+				loginIdResult = isHalfNumeric(loginId);
+				//loginId入力チェック
+					if(loginIdResult == false) {
+						loginIdMessage = "ログインIDは半角英数字を入力してください";
 
-		//icon
-		if(icon != null) {
-			icon = request.getParameterValues("icon");
-		}
+						// エラーメッセージをリクエストオブジェクトに保存
+						request.setAttribute("alertNumLoginId", loginIdMessage);
+						dispatcher = request.getRequestDispatcher("UserSearchInput.jsp");
+						//フォワードで転送
+						dispatcher.forward(request, response);
+					}
+			}
 
-		//profile
-		if(!profile.equals("")) {
-			profile = request.getParameter("profile");
-		}
+			//userName
+			if(!userName.equals("")) {
+				userName = request.getParameter("userName");
+			}
+
+			//icon
+			if(icon != null) {
+				icon = request.getParameterValues("icon");
+			}
+
+			//profile
+			if(!profile.equals("")) {
+				profile = request.getParameter("profile");
+			}
 
 		//入力値にエラーがない場合
 			HttpSession session = request.getSession();
@@ -110,26 +113,11 @@ public class UserSearchInput extends HttpServlet {
 				request.setAttribute("searchResult", list); //属性値userで値userをrequestスコープに設定する。
 				dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
 				// リストをセッションに保存
-				session.setAttribute("user", list);
+				session.setAttribute("user2", list);
 			}
 
-
-		//フォワードで転送
-		dispatcher.forward(request, response);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			//フォワードで転送
+			dispatcher.forward(request, response);
 	}
 
 }

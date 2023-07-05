@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="./css/skyblue.css">
 <link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 <link rel="stylesheet" href="./css/helper.css">
+<link rel="stylesheet" href="./css/stylesheet.css">
 </head>
 <body>
 	<div class="bg-success padding-y-5">
@@ -42,8 +43,10 @@
 					</tr>
 
 					<tr>
-						<td colspan="2" class="text-right"><button class="btn" type="submit" value="ログイン" formaction="./login">ログイン</button></td>
-						<td colspan="2" class="text-right"> <button class="btn" type="submit" value="新規登録" formaction="UserInfoInput.jsp">新規登録</button></td>
+						<td  colspan="2" class="text-center">
+							<button class="btn" type="submit" value="ログイン" formaction="./login">ログイン</button>
+						 	<button class="btn" type="submit" value="新規登録" formaction="UserInfoInput.jsp">新規登録</button>
+						 </td>
 					</tr>
 				</table>
 

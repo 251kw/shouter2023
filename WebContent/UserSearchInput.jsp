@@ -12,18 +12,18 @@
 <link rel="stylesheet" href="./css/stylesheet.css">
 </head>
 <body>
-	 <div class="alert">
-		<c:if test="${requestScope.alertNumLoginId != null && requestScope.alertNumLoginId != ''}"><!-- 未入力の場合 -->
-				<c:out value="${requestScope.alertNumLoginId}" /><br>
-		</c:if>
-	</div>
-
 	<div class="bg-success padding-y-5">
 		<div class="container padding-y-5 text-center">
 			<h1>
 				ユーザー検索入力画面&nbsp;<span class="icon-speaker"></span>
 			</h1>
 		</div>
+	</div>
+
+	 <div class="alert">
+		<c:if test="${requestScope.alertNumLoginId != null && requestScope.alertNumLoginId != ''}"><!-- 未入力の場合 -->
+				<c:out value="${requestScope.alertNumLoginId}" /><br>
+		</c:if>
 	</div>
 
 	<div class="padding-y-5 text-center">
@@ -35,8 +35,7 @@
 						<th nowrap class="color-main text-left"><label for="loginId">
 								<span class="icon-smile pe-2x pe-va"> </span>&nbsp;ログインID
 						</label></th>
-						<td class="text-left"><input class="form-control" type="text"
-							name="loginId" size="20" autofocus value=""
+						<td class="text-left"><input class="form-control" type="text" name="loginId" size="20" autofocus value=""
 							maxlength="10" /></td>
 					</tr>
 
@@ -79,15 +78,14 @@
 					</tr>
 
 					<tr>	<!-- 登録＆戻るボタン -->
-						<td colspan="2" class="text-right"><button class="btn" type="submit" value="登録" formaction="./usi">検索</button></td>
-						<td colspan="2" class="text-right"><button class="btn" type="submit" value="戻る"formaction="top.jsp">戻る</button></td>
+						<td colspan="2" class="text-center">
+							<button class="btn" type="submit" value="検索" formaction="./usi" name="searchParam">検索</button>
+							<button class="btn" type="submit" value="戻る" formaction="top.jsp" name="searchParam">戻る</button>
+						</td>
 					</tr>
 				</table>
 			</form>
 		</div>
 	</div>
-
-
-
 </body>
 </html>

@@ -28,7 +28,7 @@
 						</div>
 					</c:when>
 					<c:otherwise>
-						<jsp:useBean id="user" scope="session" type="java.util.ArrayList<dto.UserDTO>" />
+						<jsp:useBean id="user2" scope="session" type="java.util.ArrayList<dto.UserDTO>" />
 						<tr>
 							<th nowrap>
 								<label for="whiteSpace"></label>
@@ -39,7 +39,7 @@
 							</th>
 
 							<th nowrap>
-								<button class="uncheckBtn" type="button"  id="uncheck-btn" onclick="unChecked()" >解除</button>
+								<button class="uncheckBtn" type="button"  id="uncheck-btn" onclick="unChecked()" >全解除</button>
 							</th>
 						</tr>
 						<div class="padding-y-5 text-center">
@@ -65,7 +65,7 @@
 							</thead>
 
 							<tbody>
-								<c:forEach var="user" items="${user}">
+								<c:forEach var="user" items="${user2}">
 									<tr>
 										<td><!-- チェックボックス -->
 											<label class="fancy-checkbox" >
@@ -102,7 +102,7 @@
 							</th>
 
 							<th nowrap>
-								<button class="uncheckBtn" type="button"  id="uncheck-btn" onclick="unChecked()" >解除</button>
+								<button class="uncheckBtn" type="button"  id="uncheck-btn" onclick="unChecked()" >全解除</button>
 							</th>
 							<th nowrap><label for="whiteSpace"></label></th>
 							<th nowrap><label for="whiteSpace"></label></th>
@@ -113,7 +113,7 @@
 				<div class="padding-y-5 text-center">
 				<div style="width: 40%" class="container padding-y-5 text-center">
 					<input class="btn" type="submit" value="削除" formaction="">
-					<input class="btn" type="submit" value="戻る" formaction="UserSearchInput.jsp">
+					<a href="UserSearchInput.jsp" class ="btn">戻る</a>
 				</div>
 				</div>
 			</form>
