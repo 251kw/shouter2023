@@ -58,8 +58,15 @@ public class UserSearchInputSvt extends HttpServlet {
 		DBManager dbm = new DBManager();
 		HttpSession session = request.getSession();
 
+		int count=0;
+		if(icon.length>=0) {
+			for(int i=0;i<icon.length;i++) {
+				count++;
+			}
+		}
+
 		//未入力
-		if(id=="" && name=="" && icon==null && pro=="") {
+		if(id=="" && name=="" && icon==null && pro==""){
 			ArrayList<UserDTO> user = dbm.allnull();
 			session.setAttribute("user", user);
 		//ログインIDのみ
@@ -76,22 +83,74 @@ public class UserSearchInputSvt extends HttpServlet {
 			session.setAttribute("user", user);
 		//アイコンのみ
 		}else if(id=="" && name=="" && icon!=null && pro=="") {
-			}if(icon[1]!=null) {//アイコンが２つ選択
+			if(count==2) {//アイコンが２つ選択
 				ArrayList<UserDTO> user = dbm.icon2();
 				session.setAttribute("user", user);
-			}else if(icon[1]==null){//アイコン１つだけ選択
+			}else if(count==1){//アイコン１つだけ選択*/
 				ArrayList<UserDTO> user = dbm.icon(icon[0]);
 				session.setAttribute("user", user);
-		//全入力else
-		//}else if(id!="" && name!="" && icon!=null && pro!="") {
-			//ArrayList<UserDTO> user = dbm.searchall(id,icon,name,pro);
-			//session.setAttribute("user", user);
+			}
+		//ユーザ名とアイコン
+		}else if(id=="" && name!="" && icon!=null && pro=="") {
+			if(count==1){//アイコン１つだけ選択*/
+				ArrayList<UserDTO> user = dbm.nameicon1(name,icon[0]);
+				session.setAttribute("user", user);
+			}else if(count==2) {//アイコンが２つ選択
+				ArrayList<UserDTO> user = dbm.nameicon2(name);
+				session.setAttribute("user", user);
+			}
+		//ユーザ名とプロフィール
+		}else if(id=="" && name!="" && icon==null && pro!="") {
+			ArrayList<UserDTO> user = dbm.namepro(name,pro);
+			session.setAttribute("user", user);
+		//ユーザ名とアイコンとプロフィール
+		}else if(id=="" && name!="" && icon!=null && pro!="") {
+			if(count==1) {//アイコン１つ
+				ArrayList<UserDTO> user = dbm.nameicon1pro(name,icon[0],pro);
+				session.setAttribute("user", user);
+			}else if(count==2) {
+				ArrayList<UserDTO> user = dbm.nameicon2pro(name,pro);
+				session.setAttribute("user", user);
+			}
+		//アイコンとプロフィール
+		}else if(id=="" && name=="" && icon!=null && pro!="") {
+			if(count==1) {//アイコン１つ
+				ArrayList<UserDTO> user = dbm.icon1pro(icon[0],pro);
+				session.setAttribute("user", user);
+			}else if(count==2) {//アイコン２つ
+				ArrayList<UserDTO> user = dbm.icon2pro(pro);
+				session.setAttribute("user", user);
+			}
+		//全入力
+		}else if(id!="" && name!="" && icon!=null && pro!="") {
+			if(count==1) {//全入力アイコン１
+				ArrayList<UserDTO> user = dbm.searchall(id,icon[0],name,pro);
+				session.setAttribute("user", user);
+			}else if(count==2) {//全入力アイコン２
+				ArrayList<UserDTO> user = dbm.searchall2(id,name,pro);
+				session.setAttribute("user", user);
+			}
+		}else {
+			ArrayList<UserDTO> user = dbm.loginid(id);
+			session.setAttribute("user", user);
 		}
-		// ログインユーザ情報、書き込み内容リストとしてセッションに保存
-		//session.setAttribute("user", user);
 
-		dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
-		dispatcher.forward(request, response);
-	}
+	// ログインユーザ情報、書き込み内容リストとしてセッションに保存
+	//session.setAttribute("user", user);
+
+	dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
+	dispatcher.forward(request, response);
+}
 
 }
+
+
+		//IDとユーザ名
+		//}else if(id!="" && name!="" && icon==null && pro=="") {
+			//ArrayList<UserDTO> user = dbm.idname(id,name);//loginIdでいいかも
+			//session.setAttribute("user", user);
+		//IDとアイコン
+		//}else if(id!="" && name=="" && icon!=null && pro=="") {
+			//ArrayList<UserDTO> user = dbm.loginid(id);
+			//session.setAttribute("user", user);
+		//}
