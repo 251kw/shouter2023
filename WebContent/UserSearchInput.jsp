@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -44,9 +45,9 @@
 					<tr>
 						<%--アイコン 入力欄の名前は icon --%>
 						<td class="color-main text-left">アイコン</td>
-						<td class="text-left"><input type="checkbox" name="icon"
+						<td class="text-left"><input type="checkbox" name="icon1"
 							value="icon-rocket" /> <span class="icon-rocket pe-3x pe-va"></span>
-							<input type="checkbox" name="icon" value="icon-tools" /> <span
+							<input type="checkbox" name="icon2" value="icon-tools" /> <span
 							class="icon-tools pe-3x pe-va"></span>
 						</td>
 					</tr>
@@ -61,6 +62,15 @@
 							type="submit" value="検索" /> <a href="index.jsp" class="btn">戻る</a>
 						</td>
 					</tr>
+					<%-- リクエストスコープに alert があれば --%>
+					<c:if
+						test="${requestScope.alert != null && requestScope.alert != ''}">
+						<tr>
+							<%-- リクエストスコープの alert の値を出力 --%>
+							<td colspan="2" class="color-error text-left"><center><h3><c:out
+									value="${requestScope.alert}" /></h3></center></td>
+						</tr>
+					</c:if>
 				</table>
 			</form>
 		</div>

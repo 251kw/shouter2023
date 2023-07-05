@@ -317,6 +317,7 @@ public class DBManager extends SnsDAO {
 
 				// 書き込み内容をリストに追加
 				list.add(user);
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

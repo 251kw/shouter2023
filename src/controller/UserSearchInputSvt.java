@@ -50,104 +50,285 @@ public class UserSearchInputSvt extends HttpServlet {
 		RequestDispatcher dispatcher = null;
 
 		// 送信情報の取得
-
-		String id = "";
-		String name = "";
-		String pro = "";
-		id = request.getParameter("id");
-		name = request.getParameter("name");
-		String[] icon = request.getParameterValues("icon");
-		pro = request.getParameter("pro");
+		String id = request.getParameter("id");
+		String name = request.getParameter("name");
+		String icon = request.getParameter("icon");
+		String icon2 = request.getParameter("icon2");
+		String pro = request.getParameter("pro");
 
 		DBManager dbm = new DBManager();
 		HttpSession session = request.getSession();
-
-		int count = 0;
-		if (icon.length >= 1) {
-			for (int i = 0; i < icon.length; i++) {
-				count++;
-			}
-		}
+		String message=null;
 
 		//未入力
-		if ((id.equals("")) && (name.equals("")) && icon == null && (pro.equals(""))) {
+		if ((id.equals("")) && (name.equals("")) && icon==null && icon2==null && pro.equals("")) {
 			ArrayList<UserDTO> user = dbm.allnull();
 			session.setAttribute("user", user);
 			//ログインIDのみ
-		} else if (!(id.equals("")) && id.equals("") && icon == null && pro == "") {
+		} else if (!(id.equals("")) && name.equals("") && icon==null && icon2==null && pro.equals("")) {
 			ArrayList<UserDTO> user = dbm.loginid(id);
 			session.setAttribute("user", user);
+			if(user.size()==0) {
+				message = "データがありません";
+				request.setAttribute("alert", message);
+
+				// 処理の転送先を index.jsp に指定
+				dispatcher = request.getRequestDispatcher("./UserSearchInput.jsp");
+			}else {
+				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
+			}
 			//ユーザ名のみ
-		} else if (id.equals("") && !(name.equals("")) && icon == null && pro.equals("")) {
+		} else if (id.equals("") && !(name.equals("")) && icon == null  && icon2==null && pro.equals("")) {
 			ArrayList<UserDTO> user = dbm.username(name);
 			session.setAttribute("user", user);
+			if(user.size()==0) {
+				message = "データがありません";
+				request.setAttribute("alert", message);
+
+				// 処理の転送先を index.jsp に指定
+				dispatcher = request.getRequestDispatcher("./UserSearchInput.jsp");
+			}else {
+				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
+			}
 			//プロフィールのみ
-		} else if (id.equals("") && name.equals("") && icon == null && !(pro.equals(""))) {
+		} else if (id.equals("") && name.equals("") && icon == null  && icon2==null && !(pro.equals(""))) {
 			ArrayList<UserDTO> user = dbm.profile(pro);
 			session.setAttribute("user", user);
-			//アイコンのみ
-		} else if (id.equals("") && name.equals("") && icon != null && pro.equals("")) {
-			if (count == 2) {//アイコンが２つ選択
-				ArrayList<UserDTO> user = dbm.icon2();
-				session.setAttribute("user", user);
-			} else if (count == 1) {//アイコン１つだけ選択*/
-				ArrayList<UserDTO> user = dbm.icon(icon[0]);
-				session.setAttribute("user", user);
+			if(user.size()==0) {
+				message = "データがありません";
+				request.setAttribute("alert", message);
+
+				// 処理の転送先を index.jsp に指定
+				dispatcher = request.getRequestDispatcher("./UserSearchInput.jsp");
+			}else {
+				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
-			//ユーザ名とアイコン
-		} else if (id.equals("") && !(name.equals("")) && icon != null && pro.equals("")) {
-			if (count == 1) {//アイコン１つだけ選択
-				ArrayList<UserDTO> user = dbm.nameicon1(name, icon[0]);
-				session.setAttribute("user", user);
-			} else if (count == 2) {//アイコンが２つ選択
-				ArrayList<UserDTO> user = dbm.nameicon2(name);
-				session.setAttribute("user", user);
+			//アイコンのみ２つ
+		} else if (id.equals("") && name.equals("") && icon!=null && icon2!=null && pro.equals("")) {
+			ArrayList<UserDTO> user = dbm.icon2();
+			session.setAttribute("user", user);
+			if(user.size()==0) {
+				message = "データがありません";
+				request.setAttribute("alert", message);
+
+				// 処理の転送先を index.jsp に指定
+				dispatcher = request.getRequestDispatcher("./UserSearchInput.jsp");
+			}else {
+				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
+			}
+			//アイコンのみ１つ
+		} else if (id.equals("") && name.equals("") && icon!=null && icon2==null && pro.equals("")) {
+			ArrayList<UserDTO> user = dbm.icon(icon);
+			session.setAttribute("user", user);
+			if(user.size()==0) {
+				message = "データがありません";
+				request.setAttribute("alert", message);
+
+				// 処理の転送先を index.jsp に指定
+				dispatcher = request.getRequestDispatcher("./UserSearchInput.jsp");
+			}else {
+				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
+			}
+			//アイコンのみ１つ
+		} else if (id.equals("") && name.equals("") && icon==null && icon2!=null && pro.equals("")) {
+			ArrayList<UserDTO> user = dbm.icon(icon2);
+			session.setAttribute("user", user);
+			if(user.size()==0) {
+				message = "データがありません";
+				request.setAttribute("alert", message);
+
+				// 処理の転送先を index.jsp に指定
+				dispatcher = request.getRequestDispatcher("./UserSearchInput.jsp");
+			}else {
+				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
+			}
+			//ユーザ名とアイコン１つ
+		} else if (id.equals("") && !(name.equals("")) && icon!=null && icon2==null && pro.equals("")) {
+			ArrayList<UserDTO> user = dbm.nameicon1(name, icon);
+			session.setAttribute("user", user);
+			if(user.size()==0) {
+				message = "データがありません";
+				request.setAttribute("alert", message);
+
+				// 処理の転送先を index.jsp に指定
+				dispatcher = request.getRequestDispatcher("./UserSearchInput.jsp");
+			}else {
+				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
+			}
+			//ユーザ名とアイコン１つ
+		} else if (id.equals("") && !(name.equals("")) && icon==null && icon2!=null && pro.equals("")) {
+			ArrayList<UserDTO> user = dbm.nameicon1(name, icon2);
+			session.setAttribute("user", user);
+			if(user.size()==0) {
+				message = "データがありません";
+				request.setAttribute("alert", message);
+
+				// 処理の転送先を index.jsp に指定
+				dispatcher = request.getRequestDispatcher("./UserSearchInput.jsp");
+			}else {
+				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
+			}
+			//ユーザ名とアイコン２つ
+		} else if (id.equals("") && name.equals("") && icon!=null && icon2!=null && pro.equals("")) {
+			ArrayList<UserDTO> user = dbm.nameicon2(name);
+			session.setAttribute("user", user);
+			if(user.size()==0) {
+				message = "データがありません";
+				request.setAttribute("alert", message);
+
+				// 処理の転送先を index.jsp に指定
+				dispatcher = request.getRequestDispatcher("./UserSearchInput.jsp");
+			}else {
+				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//ユーザ名とプロフィール
-		} else if (id == "" && name != "" && icon == null && pro != "") {
+		} else if (id == "" && name != "" && icon == null && icon2 == null && pro != "") {
 			ArrayList<UserDTO> user = dbm.namepro(name, pro);
 			session.setAttribute("user", user);
-			//ユーザ名とアイコンとプロフィールここからエラー
-		} else if (id.equals("") && !(name.equals("")) && icon != null && !(pro.equals(""))) {
-			if (count == 1) {//アイコン１つ
-				ArrayList<UserDTO> user = dbm.nameicon1pro(name, icon[0], pro);
-				session.setAttribute("user", user);
-			} else if (count == 2) {
-				ArrayList<UserDTO> user = dbm.nameicon2pro(name, pro);
-				session.setAttribute("user", user);
+			if(user.size()==0) {
+				message = "データがありません";
+				request.setAttribute("alert", message);
+
+				// 処理の転送先を index.jsp に指定
+				dispatcher = request.getRequestDispatcher("./UserSearchInput.jsp");
+			}else {
+				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
-			//アイコンとプロフィール
-		} else if (id.equals("") && name.equals("") && icon != null && !(pro.equals(""))) {
-			if (count == 1) {//アイコン１つ
-				ArrayList<UserDTO> user = dbm.icon1pro(icon[0], pro);
-				session.setAttribute("user", user);
-			} else if (count == 2) {//アイコン２つ
-				ArrayList<UserDTO> user = dbm.icon2pro(pro);
-				session.setAttribute("user", user);
-			}
-			//全入力
-		} else if (!(id.equals("")) && !(name.equals("")) && icon != null && !(pro.equals(""))) {
-			if (count == 1) {//全入力アイコン１
-				ArrayList<UserDTO> user = dbm.searchall(id, icon[0], name, pro);
-				session.setAttribute("user", user);
-			} else if (count == 2) {//全入力アイコン２
-				ArrayList<UserDTO> user = dbm.searchall2(id, name, pro);
-				session.setAttribute("user", user);
-			}
-			//未入力
-		} else if ((id.equals("")) && (name.equals("")) && count == 0 && (pro.equals(""))) {
-			ArrayList<UserDTO> user = dbm.allnull();
+			//ユーザ名とアイコン1とプロフィール
+		} else if (id.equals("") && !(name.equals("")) && icon!=null && icon2==null && !(pro.equals(""))) {
+			ArrayList<UserDTO> user = dbm.nameicon1pro(name, icon, pro);
 			session.setAttribute("user", user);
+			if(user.size()==0) {
+				message = "データがありません";
+				request.setAttribute("alert", message);
+
+				// 処理の転送先を index.jsp に指定
+				dispatcher = request.getRequestDispatcher("./UserSearchInput.jsp");
+			}else {
+				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
+			}
+			//ユーザ名とアイコン1とプロフィール
+		} else if (id.equals("") && !(name.equals("")) && icon==null && icon2!=null && !(pro.equals(""))) {
+			ArrayList<UserDTO> user = dbm.nameicon1pro(name, icon2, pro);
+			session.setAttribute("user", user);
+			if(user.size()==0) {
+				message = "データがありません";
+				request.setAttribute("alert", message);
+
+				// 処理の転送先を index.jsp に指定
+				dispatcher = request.getRequestDispatcher("./UserSearchInput.jsp");
+			}else {
+				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
+			}
+			//ユーザ名とアイコン2とプロフィール
+		} else if (id.equals("") && !(name.equals("")) && icon!=null && icon2!=null && !(pro.equals(""))) {
+			ArrayList<UserDTO> user = dbm.nameicon2pro(name, pro);
+			session.setAttribute("user", user);
+			if(user.size()==0) {
+				message = "データがありません";
+				request.setAttribute("alert", message);
+
+				// 処理の転送先を index.jsp に指定
+				dispatcher = request.getRequestDispatcher("./UserSearchInput.jsp");
+			}else {
+				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
+			}
+			//アイコン1とプロフィール
+		} else if (id.equals("") && name.equals("") && icon!=null && icon2==null && !(pro.equals(""))) {
+			ArrayList<UserDTO> user = dbm.icon1pro(icon, pro);
+			session.setAttribute("user", user);
+			if(user.size()==0) {
+				message = "データがありません";
+				request.setAttribute("alert", message);
+
+				// 処理の転送先を index.jsp に指定
+				dispatcher = request.getRequestDispatcher("./UserSearchInput.jsp");
+			}else {
+				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
+			}
+			//アイコン1とプロフィール
+		} else if (id.equals("") && name.equals("") && icon==null && icon2!=null && !(pro.equals(""))) {
+			ArrayList<UserDTO> user = dbm.icon1pro(icon2, pro);
+			session.setAttribute("user", user);
+			if(user.size()==0) {
+				message = "データがありません";
+				request.setAttribute("alert", message);
+
+				// 処理の転送先を index.jsp に指定
+				dispatcher = request.getRequestDispatcher("./UserSearchInput.jsp");
+			}else {
+				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
+			}
+			//アイコン2とプロフィール
+		} else if (id.equals("") && name.equals("") && icon!=null && icon2!=null && !(pro.equals(""))) {//アイコン２つ
+			ArrayList<UserDTO> user = dbm.icon2pro(pro);
+			session.setAttribute("user", user);
+			if(user.size()==0) {
+				message = "データがありません";
+				request.setAttribute("alert", message);
+
+				// 処理の転送先を index.jsp に指定
+				dispatcher = request.getRequestDispatcher("./UserSearchInput.jsp");
+			}else {
+				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
+			}
+			//全入力icon1
+		} else if (!(id.equals("")) && !(name.equals("")) && icon!=null && icon2==null
+				&& !(pro.equals(""))) {
+			ArrayList<UserDTO> user = dbm.searchall(id, icon, name, pro);
+			session.setAttribute("user", user);
+			if(user.size()==0) {
+				message = "データがありません";
+				request.setAttribute("alert", message);
+
+				// 処理の転送先を index.jsp に指定
+				dispatcher = request.getRequestDispatcher("./UserSearchInput.jsp");
+			}else {
+				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
+			}
+			//全入力アイコン１
+		} else if (!(id.equals("")) && !(name.equals("")) && icon==null && icon2!=null
+				&& !(pro.equals(""))) {
+			ArrayList<UserDTO> user = dbm.searchall(id, icon2, name, pro);
+			session.setAttribute("user", user);
+			if(user.size()==0) {
+				message = "データがありません";
+				request.setAttribute("alert", message);
+
+				// 処理の転送先を index.jsp に指定
+				dispatcher = request.getRequestDispatcher("./UserSearchInput.jsp");
+			}else {
+				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
+			}
+			//全入力アイコン２
+		} else if (!(id.equals("")) && !(name.equals("")) &&  icon!=null && icon2!=null
+				&& !(pro.equals(""))) {//全入力アイコン２
+			ArrayList<UserDTO> user = dbm.searchall2(id, name, pro);
+			session.setAttribute("user", user);
+			if(user.size()==0) {
+				message = "データがありません";
+				request.setAttribute("alert", message);
+
+				// 処理の転送先を index.jsp に指定
+				dispatcher = request.getRequestDispatcher("./UserSearchInput.jsp");
+			}else {
+				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
+			}
+		}else {
+			ArrayList<UserDTO> user = dbm.loginid(id);
+			session.setAttribute("user", user);
+			if(user.size()==0) {
+				message = "データがありません";
+				request.setAttribute("alert", message);
+
+				// 処理の転送先を index.jsp に指定
+				dispatcher = request.getRequestDispatcher("./UserSearchInput.jsp");
+			}else {
+				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
+			}
 		}
-		//else {
-		//ArrayList<UserDTO> user = dbm.loginid(id);
-		//session.setAttribute("user", user);
-		//}
 
-		// ログインユーザ情報、書き込み内容リストとしてセッションに保存
-		//session.setAttribute("user", user);
 
-		dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 		dispatcher.forward(request, response);
 	}
 
