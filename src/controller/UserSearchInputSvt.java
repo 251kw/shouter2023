@@ -50,107 +50,105 @@ public class UserSearchInputSvt extends HttpServlet {
 		RequestDispatcher dispatcher = null;
 
 		// 送信情報の取得
-		String id = request.getParameter("id");
-		String name = request.getParameter("name");
+
+		String id = "";
+		String name = "";
+		String pro = "";
+		id = request.getParameter("id");
+		name = request.getParameter("name");
 		String[] icon = request.getParameterValues("icon");
-		String pro = request.getParameter("pro");
+		pro = request.getParameter("pro");
 
 		DBManager dbm = new DBManager();
 		HttpSession session = request.getSession();
 
-		int count=0;
-		if(icon.length>=0) {
-			for(int i=0;i<icon.length;i++) {
+		int count = 0;
+		if (icon.length >= 1) {
+			for (int i = 0; i < icon.length; i++) {
 				count++;
 			}
 		}
 
 		//未入力
-		if(id=="" && name=="" && icon==null && pro==""){
+		if ((id.equals("")) && (name.equals("")) && icon == null && (pro.equals(""))) {
 			ArrayList<UserDTO> user = dbm.allnull();
 			session.setAttribute("user", user);
-		//ログインIDのみ
-		}else if(id!="" && name=="" && icon==null && pro=="") {
+			//ログインIDのみ
+		} else if (!(id.equals("")) && id.equals("") && icon == null && pro == "") {
 			ArrayList<UserDTO> user = dbm.loginid(id);
 			session.setAttribute("user", user);
-		//ユーザ名のみ
-		}else if(id=="" && name!="" && icon==null && pro=="") {
+			//ユーザ名のみ
+		} else if (id.equals("") && !(name.equals("")) && icon == null && pro.equals("")) {
 			ArrayList<UserDTO> user = dbm.username(name);
 			session.setAttribute("user", user);
-		//プロフィールのみ
-		}else if(id=="" && name=="" && icon==null && pro!="") {
+			//プロフィールのみ
+		} else if (id.equals("") && name.equals("") && icon == null && !(pro.equals(""))) {
 			ArrayList<UserDTO> user = dbm.profile(pro);
 			session.setAttribute("user", user);
-		//アイコンのみ
-		}else if(id=="" && name=="" && icon!=null && pro=="") {
-			if(count==2) {//アイコンが２つ選択
+			//アイコンのみ
+		} else if (id.equals("") && name.equals("") && icon != null && pro.equals("")) {
+			if (count == 2) {//アイコンが２つ選択
 				ArrayList<UserDTO> user = dbm.icon2();
 				session.setAttribute("user", user);
-			}else if(count==1){//アイコン１つだけ選択*/
+			} else if (count == 1) {//アイコン１つだけ選択*/
 				ArrayList<UserDTO> user = dbm.icon(icon[0]);
 				session.setAttribute("user", user);
 			}
-		//ユーザ名とアイコン
-		}else if(id=="" && name!="" && icon!=null && pro=="") {
-			if(count==1){//アイコン１つだけ選択*/
-				ArrayList<UserDTO> user = dbm.nameicon1(name,icon[0]);
+			//ユーザ名とアイコン
+		} else if (id.equals("") && !(name.equals("")) && icon != null && pro.equals("")) {
+			if (count == 1) {//アイコン１つだけ選択
+				ArrayList<UserDTO> user = dbm.nameicon1(name, icon[0]);
 				session.setAttribute("user", user);
-			}else if(count==2) {//アイコンが２つ選択
+			} else if (count == 2) {//アイコンが２つ選択
 				ArrayList<UserDTO> user = dbm.nameicon2(name);
 				session.setAttribute("user", user);
 			}
-		//ユーザ名とプロフィール
-		}else if(id=="" && name!="" && icon==null && pro!="") {
-			ArrayList<UserDTO> user = dbm.namepro(name,pro);
+			//ユーザ名とプロフィール
+		} else if (id == "" && name != "" && icon == null && pro != "") {
+			ArrayList<UserDTO> user = dbm.namepro(name, pro);
 			session.setAttribute("user", user);
-		//ユーザ名とアイコンとプロフィール
-		}else if(id=="" && name!="" && icon!=null && pro!="") {
-			if(count==1) {//アイコン１つ
-				ArrayList<UserDTO> user = dbm.nameicon1pro(name,icon[0],pro);
+			//ユーザ名とアイコンとプロフィールここからエラー
+		} else if (id.equals("") && !(name.equals("")) && icon != null && !(pro.equals(""))) {
+			if (count == 1) {//アイコン１つ
+				ArrayList<UserDTO> user = dbm.nameicon1pro(name, icon[0], pro);
 				session.setAttribute("user", user);
-			}else if(count==2) {
-				ArrayList<UserDTO> user = dbm.nameicon2pro(name,pro);
+			} else if (count == 2) {
+				ArrayList<UserDTO> user = dbm.nameicon2pro(name, pro);
 				session.setAttribute("user", user);
 			}
-		//アイコンとプロフィール
-		}else if(id=="" && name=="" && icon!=null && pro!="") {
-			if(count==1) {//アイコン１つ
-				ArrayList<UserDTO> user = dbm.icon1pro(icon[0],pro);
+			//アイコンとプロフィール
+		} else if (id.equals("") && name.equals("") && icon != null && !(pro.equals(""))) {
+			if (count == 1) {//アイコン１つ
+				ArrayList<UserDTO> user = dbm.icon1pro(icon[0], pro);
 				session.setAttribute("user", user);
-			}else if(count==2) {//アイコン２つ
+			} else if (count == 2) {//アイコン２つ
 				ArrayList<UserDTO> user = dbm.icon2pro(pro);
 				session.setAttribute("user", user);
 			}
-		//全入力
-		}else if(id!="" && name!="" && icon!=null && pro!="") {
-			if(count==1) {//全入力アイコン１
-				ArrayList<UserDTO> user = dbm.searchall(id,icon[0],name,pro);
+			//全入力
+		} else if (!(id.equals("")) && !(name.equals("")) && icon != null && !(pro.equals(""))) {
+			if (count == 1) {//全入力アイコン１
+				ArrayList<UserDTO> user = dbm.searchall(id, icon[0], name, pro);
 				session.setAttribute("user", user);
-			}else if(count==2) {//全入力アイコン２
-				ArrayList<UserDTO> user = dbm.searchall2(id,name,pro);
+			} else if (count == 2) {//全入力アイコン２
+				ArrayList<UserDTO> user = dbm.searchall2(id, name, pro);
 				session.setAttribute("user", user);
 			}
-		}else {
-			ArrayList<UserDTO> user = dbm.loginid(id);
+			//未入力
+		} else if ((id.equals("")) && (name.equals("")) && count == 0 && (pro.equals(""))) {
+			ArrayList<UserDTO> user = dbm.allnull();
 			session.setAttribute("user", user);
 		}
-
-	// ログインユーザ情報、書き込み内容リストとしてセッションに保存
-	//session.setAttribute("user", user);
-
-	dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
-	dispatcher.forward(request, response);
-}
-
-}
-
-
-		//IDとユーザ名
-		//}else if(id!="" && name!="" && icon==null && pro=="") {
-			//ArrayList<UserDTO> user = dbm.idname(id,name);//loginIdでいいかも
-			//session.setAttribute("user", user);
-		//IDとアイコン
-		//}else if(id!="" && name=="" && icon!=null && pro=="") {
-			//ArrayList<UserDTO> user = dbm.loginid(id);
-			//session.setAttribute("user", user);
+		//else {
+		//ArrayList<UserDTO> user = dbm.loginid(id);
+		//session.setAttribute("user", user);
 		//}
+
+		// ログインユーザ情報、書き込み内容リストとしてセッションに保存
+		//session.setAttribute("user", user);
+
+		dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
+		dispatcher.forward(request, response);
+	}
+
+}
