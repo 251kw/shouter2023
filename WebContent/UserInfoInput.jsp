@@ -78,7 +78,7 @@
 	</div>
 			<%-- action 属性にサーブレットを指定 --%>
 			<form action="./uii" method="post">
-				<table style="width: 500px" class="table">
+				<table style="width: 60%" class="table">
 					<c:if
 						test="${requestScope.alertSpace != null && requestScope.alertSpace != ''}">
 						<tr>
@@ -164,23 +164,35 @@
 					<tr>
 						<%-- ログインID 入力欄の名前は loginId --%>
 						<td class="color-main text-left"><span class="icon-smile pe-2x pe-va"></span>アイコン</td>
-						<td class="text-left">
-							<div class="icon">
-								<span class="icon-user-female pe-2x pe-va"></span> <input type="radio"
-									name="icon" value="icon-user-female" <%=smileIcon%>>
+						<td class="text-left" style="display: flex;">
+							<div style="margin-left: 1em;">
+								<span class="icon-user-female pe-2x pe-va"></span>
 							</div>
-							<div class="icon">
-								<span class="icon-bell pe-2x pe-va"></span> <input type="radio"
-									name="icon" value="icon-bell" <%=noteIcon%>>
+							<div style="margin-left: 1em;">
+								<label class="fancy-radio"><input type="radio"
+									name="icon" value="icon-user-female" <%=smileIcon%>><span></span></label>
 							</div>
-							<br>
-							<div class="icon">
-								<span class="icon-user pe-2x pe-va"></span> <input type="radio"
-									name="icon" value="icon-user" <%=usersIcon%>>
+							<div style="margin-left: 1em">
+								<span class="icon-bell pe-2x pe-va"></span>
 							</div>
-							<div class="icon">
-								<span class="icon-smile pe-2x pe-va"></span> <input type="radio"
-									name="icon" value="icon-smile" <%=joyIcon%>>
+							<div style="margin-left: 1em;">
+							<label class="fancy-radio"><input type="radio"
+									name="icon" value="icon-bell" <%=noteIcon%>><span></span></label>
+							</div>
+							<div style="margin-left: 1em;">
+								<span class="icon-user pe-2x pe-va">
+								</span>
+							</div>
+							<div style="margin-left: 1em;">
+							<label class="fancy-radio"><input type="radio"
+									name="icon" value="icon-user" <%=usersIcon%>><span></span></label>
+							</div>
+							<div style="margin-left: 1em;">
+								<span class="icon-smile pe-2x pe-va"></span>
+							</div>
+							<div style="margin-left: 1em;">
+							<label class="fancy-radio"><input type="radio"
+									name="icon" value="icon-smile" <%=joyIcon%>><span></span></label>
 							</div>
 						</td>
 					</tr>

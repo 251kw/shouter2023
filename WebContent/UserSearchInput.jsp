@@ -40,16 +40,16 @@
 					class="icon-smile pe-2x pe-va"></span>アイコン</td>
 				<td class="text-left">
 					<div style="display: flex;">
-						<span class="icon-user-female pe-2x pe-va"></span>            <label class="fancy-checkbox">
+						<span class="icon-user-female pe-2x pe-va"></span><label class="fancy-checkbox">
 						<input type="checkbox" name="icon-user-female" value="icon-user_female">
 						<span></span></label>
-						<span class="icon-bell pe-2x pe-va"></span>           <label class="fancy-checkbox">
+						<span class="icon-bell pe-2x pe-va"></span><label class="fancy-checkbox">
 						<input type="checkbox" name="icon-bell" value="icon-bell">
 						<span></span></label>
-						<span class="icon-user pe-2x pe-va"></span>           <label class="fancy-checkbox">
+						<span class="icon-user pe-2x pe-va"></span><label class="fancy-checkbox">
 						<input type="checkbox" name="icon-user" value="icon-user">
 						<span></span></label>
-						<span class="icon-smile pe-2x pe-va"></span>            <label class="fancy-checkbox">
+						<span class="icon-smile pe-2x pe-va"></span><label class="fancy-checkbox">
 						<input type="checkbox" name="icon-smile" value="icon-smile">
 						<span></span></label>
 					</div>

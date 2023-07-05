@@ -35,15 +35,22 @@ function checkAllBox(trueOrFalse) {
 		</div>
 	</div>
 	<%-- action 属性にサーブレットを指定 --%>
-	<form action="./usr" method="get">
+	<form action="./usr" method="get" id="form-check">
 		<!-- 全選択ボタンまたは全解除ボタンが押された場合の値の受け渡しのためにhiddenを使用 -->
-		<input type="hidden" name="loginId" value="<%=request.getAttribute("loginId")%>">
-		<input type="hidden" name="userName" value="<%=request.getAttribute("userName")%>">
-		<input type="hidden" name="icon-user-female" value="<%=request.getAttribute("icon-user-female")%>">
-		<input type="hidden" name="icon-user" value="<%=request.getAttribute("icon-user")%>">
-		<input type="hidden" name="icon-bell" value="<%=request.getAttribute("icon-bell")%>">
-		<input type="hidden" name="icon-smile" value="<%=request.getAttribute("icon-smile")%>">
-		<input type="hidden" name="profile" value="<%=request.getAttribute("profile")%>">
+		<input type="hidden" name="loginId"
+			value="<%=request.getAttribute("loginId")%>" form="form-check">
+		<input type="hidden" name="userName"
+			value="<%=request.getAttribute("userName")%>" form="form-check">
+		<input type="hidden" name="icon-user-female"
+			value="<%=request.getAttribute("icon-user-female")%>"
+			form="form-check"> <input type="hidden" name="icon-user"
+			value="<%=request.getAttribute("icon-user")%>" form="form-check">
+		<input type="hidden" name="icon-bell"
+			value="<%=request.getAttribute("icon-bell")%>" form="form-check">
+		<input type="hidden" name="icon-smile"
+			value="<%=request.getAttribute("icon-smile")%>" form="form-check">
+		<input type="hidden" name="profile"
+			value="<%=request.getAttribute("profile")%>" form="form-check">
 		<div class="padding-y-5">
 			<div style="width: 60%" class="container padding-y-5">
 				<table class="table table-striped table-bordered">
@@ -63,7 +70,7 @@ function checkAllBox(trueOrFalse) {
 						<th class="color-main text-left"></th>
 					</tr>
 					<%-- リストにある要素の数だけ繰り返し --%>
-					<c:forEach var="searchUser" items="${searchUser}">
+					<c:forEach var="searchUser" items="${searchUser}" >
 						<tr>
 							<th><label class="fancy-checkbox"><input
 									type="checkbox" name="checks" <%=check%>><span></span></label></th>

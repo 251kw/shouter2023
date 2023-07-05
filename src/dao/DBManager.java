@@ -266,7 +266,7 @@ public class DBManager extends SnsDAO {
 				user.setIcon(rset.getString(5));
 				user.setProfile(rset.getString(6));
 
-				// 検索結果のユーザー情報をリストに追加
+				// 検索結果のUerDTOオブジェクトをリストに追加
 				list.add(user);
 			}
 		} catch (SQLException e) {
