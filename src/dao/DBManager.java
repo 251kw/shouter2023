@@ -215,7 +215,7 @@ public class DBManager extends SnsDAO {
 			sqls.add("where ");
 		}
 		if(loginId!=null && loginId!="") {
-			sqls.add("loginId like '%" + loginId + "%' ");
+			sqls.add("loginId = '" + loginId + "' ");
 		}
 		if(userName!=null && userName!="") {
 			sqls.add("userName like '%" + userName + "%' ");

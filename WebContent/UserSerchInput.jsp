@@ -26,6 +26,12 @@
 		<div style="width: 40%" class="container color-error text-left">
 			${requestScope.noresult_error}</div>
 	</c:if>
+	<c:if
+		test="${requestScope.alert_id != null && requestScope.alert_id != ''}">
+		<%-- リクエストスコープの alert の値を出力 --%>
+		<div style="width: 40%" class="container color-error text-left">
+			${requestScope.alert_id}</div>
+	</c:if>
 	<div class="padding-y-5 text-center">
 		<div style="width: 60%" class="container padding-y-5 text-center">
 			<%-- action 属性にサーブレットを指定 --%>
@@ -69,8 +75,8 @@
 							</div>
 							<div class="parent">
 								<label class="fancy-checkbox"> <input type="checkbox"
-									name="icon" id="icon-female" value="icon-user-female" /><span></span>
-								</label><span class="icon-female pe-2x pe-va"></span>
+									name="icon" id="icon-user-female" value="icon-user-female" /><span></span>
+								</label><span class="icon-user-female pe-2x pe-va"></span>
 							</div>
 							<div class="parent">
 								<label class="fancy-checkbox "> <input type="checkbox"
@@ -93,7 +99,7 @@
 							type="submit" value="検索" /></td>
 						<td colspan="2" class="text-right"><a href="top.jsp"
 							class="btn">戻る</a></td>
-					</tr>:
+					</tr>
 				</table>
 			</form>
 		</div>

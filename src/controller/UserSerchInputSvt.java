@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import check.Check_func;
 import dao.DBManager;
 import dto.UserDTO;
 
@@ -54,7 +55,17 @@ public class UserSerchInputSvt extends HttpServlet {
 		session.setAttribute("userName", userName);
 		session.setAttribute("icon", icon);
 		session.setAttribute("lprof", prof);
+
 		RequestDispatcher dispatcher = null;
+		String regex_AlphaNum = "^[A-Za-z0-9 ]+$";
+		String message_id=null;
+
+
+		if(!Check_func.checkLogic(regex_AlphaNum, loginId)){
+			//ログインIDに半角英数字以外が含まれる場合
+			message_id="ログインIDは半角英数字でご記入ください。";
+			request.setAttribute("alert_id", message_id);
+		}
 
 		DBManager dbm = new DBManager();
 		ArrayList<UserDTO> users  = dbm.SerchUser(loginId, userName, icon, prof);
