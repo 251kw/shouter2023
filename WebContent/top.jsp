@@ -29,7 +29,7 @@ textarea {
 		</div>
 	</div>
 	<%-- セッションスコープにある UserDTO 型のオブジェクトを参照 --%>
-	<jsp:useBean id="user" scope="session" type="dto.UserDTO" />
+	<jsp:useBean id="user" scope="session" type="dto.UserDTO" />-
 	<div class="padding-y-5">
 		<div style="width: 40%" class="container padding-y-5">
 			<%-- action 属性にサーブレットを指定 --%>

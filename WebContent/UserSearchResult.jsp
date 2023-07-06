@@ -44,20 +44,20 @@
 						<table border="1" style="width: 400px"  class="table table-striped table-bordered table-hover" >
 							<tr bgcolor="#1BBC9B">
 								<th></th>
-								<th nowrap>ログインID</th>
-								<th nowrap>ユーザー名</th>
-								<th nowrap>アイコン</th>
-								<th nowrap>プロフィール</th>
+								<th style="text-align:center" nowrap>ログインID</th>
+								<th style="text-align:center" nowrap>ユーザー名</th>
+								<th style="text-align:center" nowrap>アイコン</th>
+								<th style="text-align:center" nowrap>プロフィール</th>
 								<th></th>
 							</tr>
 							<c:forEach var="result" items="${user2}">
 								<%--  int i = 1; --%>
 								<%-- java.util.ArrayList<dto.UserDTO> u = (java.util.ArrayList<dto.UserDTO>)request.getAttribute("user2"); --%>
 								<tr>
-									<td><label class="fancy-checkbox"><input type="checkbox" name="check" value="user"><span></span></label></td>
+									<td><label class="fancy-checkbox"><input type="checkbox" name="check" value="user2"><span></span></label></td>
 									<td nowrap>${result.loginId}</td>
 									<td nowrap>${result.userName}</td>
-									<td nowrap><span class = "${result.icon}  pe-3x pe-va"></span></td>
+									<td nowrap><span class = "${result.icon}  pe-2x pe-va"></span></td>
 									<td nowrap>${result.profile}</td>
 									<%-- <input type ="hidden" name="user<%=i%>" value=<%=u%>>--%>
 									<%-- i++; --%>

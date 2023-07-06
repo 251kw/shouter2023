@@ -284,15 +284,66 @@ public class DBManager extends SnsDAO {
 				//配列の長さが2のとき（両方選択してるとき）
 				else if(icon.length == 2) {
 					if(result != true) {
-						sql += " WHERE icon=? OR icon=?";
+						sql += " WHERE (icon=? OR icon=?)";
 						param.add("icon[0]");
 						param.add("icon[1]");
 						result = true;
 					}
 					else {
-						sql += " AND icon=? OR icon=?";
+						sql += " AND (icon=? OR icon=?)";
 						param.add("icon[0]");
 						param.add("icon[1]");
+					}
+				}
+				else if(icon.length == 3) {
+					if(result != true) {
+						sql += " WHERE (icon=? OR icon=? OR icon=?)";
+						param.add("icon[0]");
+						param.add("icon[1]");
+						param.add("icon[2]");
+						result = true;
+					}
+					else {
+						sql += " AND (icon=? OR icon=? OR icon=?)";
+						param.add("icon[0]");
+						param.add("icon[1]");
+						param.add("icon[2]");
+					}
+				}
+				else if(icon.length == 4) {
+					if(result != true) {
+						sql += " WHERE (icon=? OR icon=? OR icon=? OR icon=?)";
+						param.add("icon[0]");
+						param.add("icon[1]");
+						param.add("icon[2]");
+						param.add("icon[3]");
+						result = true;
+					}
+					else {
+						sql += " AND (icon=? OR icon=? OR icon=? OR icon=?)";
+						param.add("icon[0]");
+						param.add("icon[1]");
+						param.add("icon[2]");
+						param.add("icon[3]");
+					}
+				}
+				else if(icon.length == 5) {
+					if(result != true) {
+						sql += " WHERE (icon=? OR icon=? OR icon=? OR icon=? OR icon=?)";
+						param.add("icon[0]");
+						param.add("icon[1]");
+						param.add("icon[2]");
+						param.add("icon[3]");
+						param.add("icon[4]");
+						result = true;
+					}
+					else {
+						sql += " AND (icon=? OR icon=? OR icon=? OR icon=? OR icon=?)";
+						param.add("icon[0]");
+						param.add("icon[1]");
+						param.add("icon[2]");
+						param.add("icon[3]");
+						param.add("icon[4]");
 					}
 				}
 			}
@@ -327,6 +378,15 @@ public class DBManager extends SnsDAO {
 			}
 			if (param.contains("icon[1]")) {
 				pstmt.setString(++index, icon[1]);
+			}
+			if (param.contains("icon[2]")) {
+				pstmt.setString(++index, icon[2]);
+			}
+			if (param.contains("icon[3]")) {
+				pstmt.setString(++index, icon[3]);
+			}
+			if (param.contains("icon[4]")) {
+				pstmt.setString(++index, icon[4]);
 			}
 			if (param.contains("profile")) {
 				pstmt.setString(++index, "%"+profile+"%");
