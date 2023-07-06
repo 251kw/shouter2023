@@ -24,10 +24,10 @@
 			<%-- action 属性にサーブレットを指定 --%>
 			<%-- action 属性は送信データの送信先の設定 --%>
 	<jsp:useBean id="userr" scope="session" type="java.util.ArrayList<dto.UserDTO>" />
-<p>
+
   <a id="btn1" onclick="checked()" class="btn btn-empty">全選択</a>
-  <a id="btn2" onclick="unchecked()" class="btn btn-empty">全解除</a>
-</p>
+<a id="btn２" onclick="unChecked()" class="btn btn-empty">全解除</a>
+
 			<%-- fromの先を変更する必要あり --%>
 			<form action="?" method="post">
 				<%-- セッションスコープにある ArrayList 型のオブジェクトを参照 --%>
@@ -66,7 +66,7 @@
 			</form>
 								<p>
   <a id="btn1" onclick="checked()" class="btn btn-empty">全選択</a>
-  <a id="btn2" onclick="unchecked()" class="btn btn-empty">全解除</a>
+<a id="btn２" onclick="unChecked()" class="btn btn-empty">全解除</a>
 </p>
 <script >
 	function unChecked() {
