@@ -70,7 +70,7 @@ function checkAllBox(trueOrFalse) {
 						<th class="color-main text-left"></th>
 					</tr>
 					<%-- リストにある要素の数だけ繰り返し --%>
-					<c:forEach var="searchUser" items="${searchUser}" >
+					<c:forEach var="searchUser" items="${searchUser}" varStatus="loop">
 						<tr>
 							<th><label class="fancy-checkbox"><input
 									type="checkbox" name="checks" <%=check%>><span></span></label></th>
@@ -79,8 +79,8 @@ function checkAllBox(trueOrFalse) {
 							<th class="text-center"><span
 								class="${searchUser.icon} pe-3x pe-va"></span></th>
 							<th>${searchUser.profile}</th>
-							<th><input class="btn btn-success btn-sm" type="button"
-								name="" value="編集"></th>
+							<th><button class="btn btn-success btn-sm" type="submit"
+									name="edit" value="${loop.current}">編集</button></th>
 						</tr>
 					</c:forEach>
 					<tr>
@@ -94,8 +94,10 @@ function checkAllBox(trueOrFalse) {
 						<th></th>
 					<tr>
 				</table>
-				<input class="btn" type="submit" name="delete" value="削除"> <input
-					class="btn" type="submit" name="return" value="戻る">
+				<div class="text-center">
+					<input class="btn" type="submit" name="delete" value="削除">
+					<input class="btn" type="submit" name="return" value="戻る">
+				</div>
 			</div>
 		</div>
 	</form>

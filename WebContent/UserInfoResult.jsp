@@ -26,7 +26,7 @@
 	<div class="padding-y-5 text-center">
 		<div style="width: 40%" class="container padding-y-5 text-center">
 			<%-- action 属性にサーブレットを指定 --%>
-			<form action="UserInfoResult" method="get">
+			<form action="uir" method="get">
 				<table style="width: 350px" class="table">
 					<tr>
 						<%-- ログインID 入力欄の名前は loginId --%>

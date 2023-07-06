@@ -40,18 +40,18 @@
 					class="icon-smile pe-2x pe-va"></span>アイコン</td>
 				<td class="text-left">
 					<div style="display: flex;">
-						<span class="icon-user-female pe-2x pe-va"></span><label class="fancy-checkbox">
-						<input type="checkbox" name="icon-user-female" value="icon-user_female">
-						<span></span></label>
-						<span class="icon-bell pe-2x pe-va"></span><label class="fancy-checkbox">
-						<input type="checkbox" name="icon-bell" value="icon-bell">
-						<span></span></label>
-						<span class="icon-user pe-2x pe-va"></span><label class="fancy-checkbox">
-						<input type="checkbox" name="icon-user" value="icon-user">
-						<span></span></label>
-						<span class="icon-smile pe-2x pe-va"></span><label class="fancy-checkbox">
-						<input type="checkbox" name="icon-smile" value="icon-smile">
-						<span></span></label>
+						<span class="icon-user-female pe-2x pe-va"></span><label
+							class="fancy-checkbox"> <input type="checkbox"
+							name="icon-user-female" value="icon-user_female"> <span></span></label>
+						<span class="icon-bell pe-2x pe-va"></span><label
+							class="fancy-checkbox"> <input type="checkbox"
+							name="icon-bell" value="icon-bell"> <span></span></label> <span
+							class="icon-user pe-2x pe-va"></span><label
+							class="fancy-checkbox"> <input type="checkbox"
+							name="icon-user" value="icon-user"> <span></span></label> <span
+							class="icon-smile pe-2x pe-va"></span><label
+							class="fancy-checkbox"> <input type="checkbox"
+							name="icon-smile" value="icon-smile"> <span></span></label>
 					</div>
 				</td>
 			</tr>
@@ -71,13 +71,11 @@
 					</tr>
 				</c:if>
 			</tr>
-			<tr>
-				<td colspan="2" class="text-right"><input class="btn"
-					type="submit" name="search" value="検索" /></td>
-				<td colspan="2" class="text-right"><input class="btn"
-					type="submit" name="return" value="戻る" /></td>
-			</tr>
 		</table>
+		<div class="text-center">
+			<input class="btn" type="submit" name="search" value="検索" /> <input
+				class="btn" type="submit" name="return" value="戻る" />
+		</div>
 	</form>
 </body>
 </html>
