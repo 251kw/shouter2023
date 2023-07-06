@@ -57,7 +57,7 @@
 									<td><label class="fancy-checkbox"><input type="checkbox" name="check" value="user"><span></span></label></td>
 									<td nowrap>${result.loginId}</td>
 									<td nowrap>${result.userName}</td>
-									<td nowrap><span class = "${result.icon}"></span></td>
+									<td nowrap><span class = "${result.icon}  pe-3x pe-va"></span></td>
 									<td nowrap>${result.profile}</td>
 									<%-- <input type ="hidden" name="user<%=i%>" value=<%=u%>>--%>
 									<%-- i++; --%>
