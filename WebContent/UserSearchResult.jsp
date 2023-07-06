@@ -35,10 +35,16 @@
 		</div>
 	</div>
 	<div class="padding-y-5 text-center">
-		<div style="width: 50%" class="container padding-y-5 text-center">
+		<div style="width: 60%" class="container padding-y-5 text-center">
 			<%-- action 属性にサーブレットを指定 --%>
 			<form action="UserSearchInput.jsp" method="post">
 				<table style="width: 700px" class="table">
+					<tr>
+						<td colspan="2" class="text-right"><input class="btn"
+							onclick="checkall(true)" type="button" value="全選択" /></td>
+						<td class="text-right"><input class="btn"
+							onclick="checkall(false)" type="button" value="全解除" /></td>
+					</tr>
 					<%-- checkbox --%>
 					<tr>
 						<td class="color-main text-left"></td>
@@ -60,36 +66,47 @@
 						<%--編集--%>
 						<td class="color-main text-left"></td>
 					</tr>
-
-
-<jsp:useBean id="users" scope="session"
-		type="java.util.ArrayList<src.controller.UserSearchInputSvt>" />
+					<jsp:useBean id="users" scope="session"
+						type="java.util.ArrayList<src.controller.UserSearchInputSvt>" />
 					<c:forEach var="user" items="${users}">
-						<table class="table table-striped table-bordered">
 
-							<%-- checkbox --%>
-							<tr>
-								<td><label><input type="checkbox" name="selectbox"
-										value=""> </label>
-								<td class="text-left"><label>${user.loginId}</label></td>
 
-								<td class="text-left"><label>${user.userName}</label></td>
+						<%-- checkbox --%>
+						<tr>
+							<td><label class="fancy-checkbox"><input type="checkbox" name="box"><span></span>
+							</label></td>
+							<td class="text-left"><label>${user.loginId}</label></td>
 
-								<td><span class="${user.icon} pe-2x pe-va"></span></td>
+							<td class="text-left"><label>${user.userName}</label></td>
 
-								<td class="text-left"><label>${user.profile}</label></td>
+							<td><span class="${user.icon} pe-2x pe-va"></span></td>
 
-								<%--編集--%>
-								<td class="color-main text-left">編集</td>
+							<td class="text-left"><label>${user.profile}</label></td>
 
-							</tr>
-						</table>
+							<%--編集--%>
+							<td class="color-main text-left">編集</td>
+						</tr>
+
 					</c:forEach>
-
-
-
 					<tr>
 						<td colspan="2" class="text-right"><input class="btn"
+							onclick="checkall(true)" type="button" value="全選択" /></td>
+						<td class="text-right"><input class="btn"
+							onclick="checkall(false)" type="button" value="全解除" /></td>
+						<script>
+							const checkbox = document.getElementsByName("box")
+
+							function checkall(trueOrfalse) {
+								for (i = 0; i < checkbox.length; i++) {
+									checkbox[i].checked = trueOrfalse
+								}
+							}
+						</script>
+					</tr>
+					<tr>
+					<td colspan="2" class="text-right"><input class="btn"
+							type="submit" value="削除" /></td>
+						<td class="text-right"><input class="btn"
 							type="submit" value="戻る" /></td>
 					</tr>
 
