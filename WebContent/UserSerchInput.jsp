@@ -69,7 +69,7 @@
 							</div>
 							<div class="parent">
 								<label class="fancy-checkbox"> <input type="checkbox"
-									name="icon" id="icon-female" value="icon-female" /><span></span>
+									name="icon" id="icon-female" value="icon-user-female" /><span></span>
 								</label><span class="icon-female pe-2x pe-va"></span>
 							</div>
 							<div class="parent">
@@ -91,9 +91,9 @@
 						<%--送信ボタンと戻るボタン --%>
 						<td colspan="2" class="text-right"><input class="btn"
 							type="submit" value="検索" /></td>
-						<td colspan="2" class="text-right"><a href="index.jsp"
+						<td colspan="2" class="text-right"><a href="top.jsp"
 							class="btn">戻る</a></td>
-					</tr>
+					</tr>:
 				</table>
 			</form>
 		</div>

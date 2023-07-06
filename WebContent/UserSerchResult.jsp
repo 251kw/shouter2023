@@ -49,10 +49,10 @@
 
 					<tr bgcolor="#bee0c2" >
 						<th></th>
-						<th>ログインID</th>
-						<th>ユーザー名</th>
-						<th>アイコン</th>
-						<th>プロフィール</th>
+						<th><strong>ログインID</strong></th>
+						<th><strong>ユーザー名</strong></th>
+						<th><strong>アイコン</strong></th>
+						<th><strong>プロフィール</strong></th>
 						<th></th>
 						</tr>
 
@@ -70,7 +70,7 @@
 						</tr>
 					</c:forEach>
 
-					<tr bgcolor="#000000">
+					<tr>
 						<td></td>
 						<td><input id="checkAll" type="submit" name="checkall"
 							value="全選択" formaction="./usr" class="btn btn-empty" /><span></span></td>
