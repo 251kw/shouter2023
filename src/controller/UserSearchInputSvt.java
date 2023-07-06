@@ -170,7 +170,7 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//ユーザ名とアイコン２つ
-		} else if (id.equals("") && name.equals("") && icon != null && icon2 != null && pro.equals("")) {
+		} else if (id.equals("") && !(name.equals("")) && icon != null && icon2 != null && pro.equals("")) {
 			ArrayList<UserDTO> user = dbm.nameicon2(name);
 			session.setAttribute("userlist", user);
 			if (user.size() == 0) {

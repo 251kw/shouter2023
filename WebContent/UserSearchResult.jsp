@@ -28,15 +28,15 @@
 	<div class="padding-y-5 text-center">
 		<div class="container padding-y-5 text-center">
 			<%-- action 属性にサーブレットを指定 --%>
-			<form action="./uii" method="post" id="checkForm">
+			<form action="/uii" method="post" id="checkForm">
 
 				<table class="table" border="1">
 					<tr>
 						<th class="color-main text-left"></th>
-						<th class="color-main text-left"><input type="button"
-							onClick="checkAll()" value="全選択"></th>
-						<th class="color-main text-left"><input type="button"
-							onClick="checkReset()" value="全解除"></th>
+						<th class="color-main text-left"><input class="btn"
+							type="button" onClick="checkAll()" value="全選択"></th>
+						<th class="color-main text-left"><input class="btn"
+							type="button" onClick="checkReset()" value="全解除"></th>
 					</tr>
 					<tr>
 						<th class="color-main text-center"></th>
@@ -46,32 +46,40 @@
 						<th class="color-main text-center">プロフィール</th>
 						<th class="color-main text-center"></th>
 					</tr>
+					<%
+						int count=1;
+					%>
 					<jsp:useBean id="userlist" scope="session"
 						type="java.util.ArrayList<dto.UserDTO>" />
 					<%-- リストにある要素の数だけ繰り返し --%>
 					<c:forEach var="users" items="${userlist}">
+
 						<tr>
-							<td><label class="fancy-checkbox"><input type="checkbox" name="test1" value="" />
-						<span></span></label></td>
-							<td><label class="form-control text-center">${users.loginId}</label></td>
+							<td><label class="fancy-checkbox"><input
+									type="checkbox" name="test1" value="" /> <span></span></label></td>
+							<td><label class="form-control text-center">${users.loginId}</label>
+							<input type="hidden" name="id" value="${users.loginId}"></td>
 							<td><label class="form-control text-center">${users.userName}</label></td>
 							<td><span class="${users.icon} pe-3x pe-va" /></span></td>
 							<td><label class="form-control text-center">${users.profile}</label></td>
-							<td><input class="btn" type="submit" name="btn"
-							value="編集" size="20" /></td>
+							<td><button class="btn" type="submit" name="edit"
+								value="<%= count%>" size="20" formaction="./UserEditinput.jsp">編集</button></td>
 						</tr>
+						<%
+							count++;
+						%>
 					</c:forEach>
 					<tr>
 						<th class="color-main text-left"></th>
-						<th class="color-main text-left"><input type="button"
-							onClick="checkAll()" value="全選択"></th>
-						<th class="color-main text-left"><input type="button"
-							onClick="checkReset()" value="全解除"></th>
+						<th class="color-main text-left"><input class="btn"
+							type="button" onClick="checkAll()" value="全選択"></th>
+						<th class="color-main text-left"><input class="btn"
+							type="button" onClick="checkReset()" value="全解除"></th>
 					</tr>
 					<tr>
 						<td colspan="2" class="text-right"><input class="btn"
-							type="submit" value="削除" /> <input class="btn"
-							type="submit" formaction="./UserSearchInput.jsp" value="戻る" /></td>
+							type="submit" value="削除" /> <input class="btn" type="submit"
+							formaction="./UserSearchInput.jsp" value="戻る" /></td>
 					</tr>
 				</table>
 			</form>
