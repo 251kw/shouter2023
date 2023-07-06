@@ -22,7 +22,7 @@
 
 	 <div class="alert">
 		<c:if test="${requestScope.alertNumLoginId != null && requestScope.alertNumLoginId != ''}"><!-- 未入力の場合 -->
-				<c:out value="${requestScope.alertNumLoginId}" /><br>
+			<c:out value="${requestScope.alertNumLoginId}" /><br>
 		</c:if>
 	</div>
 
@@ -30,27 +30,25 @@
 		<div style="width: 40%" class="container padding-y-5 text-center">
 			<form action=? method="post">
 				<table  class="table">
-					<tr>
-						<!-- ログインID  -->
-						<th nowrap class="color-main text-left"><label for="loginId">
-								<span class="icon-smile pe-2x pe-va"> </span>&nbsp;ログインID
-						</label></th>
-						<td class="text-left"><input class="form-control" type="text" name="loginId" size="20" autofocus value=""
-							maxlength="10" /></td>
+					<tr><!-- ログインID  -->
+						<th nowrap class="color-main text-left">
+							<label for="loginId"><span class="icon-smile pe-2x pe-va"> </span>&nbsp;ログインID</label>
+						</th>
+						<td class="text-left">
+							<input class="form-control" type="text" name="loginId" size="20" autofocus value="" maxlength="10" />
+						</td>
 					</tr>
 
-					<tr>
-						<!-- ユーザー名-->
-						<th nowrap class="color-main text-left"><label
-							for="userName"> <span class="icon-note pe-2x pe-va"></span>&nbsp;ユーザー名
-						</label></th>
-						<td class="text-left"><input class="form-control" type="text"
-							name="userName" size="20" value="" maxlength="30"
-							pattern="\S|\S.*?\S" /></td>
+					<tr><!-- ユーザー名-->
+						<th nowrap class="color-main text-left">
+							<label for="userName"><span class="icon-note pe-2x pe-va"></span>&nbsp;ユーザー名</label>
+						</th>
+						<td class="text-left">
+							<input class="form-control" type="text" name="userName" size="20" value="" maxlength="30" pattern="\S|\S.*?\S" />
+						</td>
 					</tr>
 
-					<tr>
-						<!-- アイコン選択 -->
+					<tr><!-- アイコン選択 -->
 						<th nowrap class="color-main text-left"><span class="icon-joy pe-2x pe-va"></span>&nbsp;アイコン</th>
 						<td class="text-left" id=parent>
 							<div class="child">
@@ -69,15 +67,16 @@
 						</td>
 					</tr>
 
-					<tr>
-						<!-- プロフィール -->
-						<th nowrap class="color-main text-left"><label for="profile"><span class="icon-note pe-2x pe-va"></span>&nbsp;プロフィール
-						</label></th>
-						<td class="text-left"><input class="form-control" type="text"
-							name="profile" size="20" value="" maxlength="100" /></td>
+					<tr><!-- プロフィール -->
+						<th nowrap class="color-main text-left">
+							<label for="profile"><span class="icon-note pe-2x pe-va"></span>&nbsp;プロフィール</label>
+						</th>
+						<td class="text-left">
+							<input class="form-control" type="text" name="profile" size="20" value="" maxlength="100"  />
+						</td>
 					</tr>
 
-					<tr>	<!-- 登録＆戻るボタン -->
+					<tr><!-- 登録＆戻るボタン -->
 						<td colspan="2" class="text-center">
 							<button class="btn" type="submit" value="検索" formaction="./usi" name="searchParam">検索</button>
 							<button class="btn" type="submit" value="戻る" formaction="top.jsp" name="searchParam">戻る</button>

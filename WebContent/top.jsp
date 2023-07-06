@@ -21,6 +21,7 @@
 			</h1>
 		</div>
 	</div>
+
 	<%--タイトル --%>
 	<div class="padding-y-5 text-center">
 		<div style="width: 40%" class="container padding-y-5 text-left">
@@ -34,10 +35,10 @@
 		<div style="width: 40%" class="container padding-y-5">
 
 			<%--ログインユーザー情報のテーブル--%>
-			<form action="./logout" method="post">  <%--LogoutServlet.javaに転送 --%>
+			<form action="./logout" method="post">
 				<table class="table table-bordered">
 					<tr>
-						<td rowspan="2" class="text-center"><span class="${user.icon} pe-3x pe-va"></span></td><%--アイコン --%>
+						<td rowspan="2" class="text-center"><span class="${user.icon} pe-3x pe-va"></span></td>
 						<td width="256">${user.userName}</td>
 						<td><input class="btn btn-light" type="submit" value="ログアウト" /></td>
 					</tr>
@@ -57,9 +58,6 @@
 		</div>
 	</form>
 
-
-
-
 	<%--タイトル--%>
 	<div class="padding-y-5 text-center">
 		<div style="width: 40%" class="container padding-y-5 text-left">
@@ -75,37 +73,33 @@
 			<form action="./bbs" method="post"> <%--BbsServlet.javaに転送--%>
 				<table class="table">
 					<tr>
-						<%-- 今の気持ち入力欄 shout --%>
 						<td><input class="form-control" type="text" name="shout" value="" size="60" required  /></td>
 						<td><input class="btn" type="submit" value="叫ぶ" /></td>
 					</tr>
 
-					<c:if
-						test="${requestScope.alertshout != null && requestScope.alertshout != ''}">
+					<c:if test="${requestScope.alertshout != null && requestScope.alertshout != ''}">
 						<tr>
 							<%-- リクエストスコープの alert の値を出力 --%>
 							<td colspan="2" class="color-error text-left">
 							<c:out value="${requestScope.alertShout}" /></td>
 						</tr>
 					</c:if>
-
 				</table>
-
 			</form>
 		</div>
 	</div>
+
 	<div class="padding-y-5 text-center">
 		<div style="width: 40%" class="container padding-y-5 text-left">
 			<strong class="color-main">みんなの叫び</strong>
 		</div>
 	</div>
-	<%-- セッションスコープにある ArrayList 型のオブジェクトを参照--%>
+
+
 	<%--LoginServlet.javaでセットした書き込み内容が出力される --%>
-	<%--JaveBeansをインスタンス化するJSPアクションタグ --%>
-	<jsp:useBean id="shouts" scope="session" type="java.util.ArrayList<dto.ShoutDTO>" /> /<%--型指定にはパッケージ名も記述する--%>
+	<jsp:useBean id="shouts" scope="session" type="java.util.ArrayList<dto.ShoutDTO>" /> <%--型指定にはパッケージ名も記述--%>
 	<div class="padding-y-5">
 		<div style="width: 40%" class="container padding-y-5">
-
 			<%-- リストにある要素の数だけ繰り返し表示するためにforEachタグを使う --%>
 			<c:forEach var="shout" items="${shouts}">  <%--EL式の記述で値を表示することができる --%>
 				<table class="table table-striped table-bordered">
@@ -113,7 +107,6 @@
 						<td rowspan="2" class="text-center"><span class="${shout.icon} pe-3x pe-va"></span></td>
 						<td>${shout.userName}</td>
 					</tr>
-
 					<tr>
 						<td>${shout.date}</td>
 					</tr>
@@ -123,13 +116,13 @@
 						</td>
 					</tr>
 				</table>
-				<%--cssで投稿欄の大きさを変更できないようする --%>
+
+				<%--cssで投稿欄の大きさを変更できないよう指定 --%>
 				<style>
 					.form-control{
 						resize: none;;
 					}
 				</style>
-
 			</c:forEach>
 		</div>
 	</div>

@@ -16,7 +16,7 @@ import dto.UserDTO;
 //dBとの接続を行うクラス
 public class DBManager extends SnsDAO {
 
-	// ログインID とパスワードを受け取り、登録ユーザ一覧に一致したものがあるか検索
+	//ログインメソッド
 	public UserDTO getLoginUser(String loginId, String password) {
 		Connection conn = null; // データベース接続情報
 		PreparedStatement pstmt = null; // SQL 管理情報
@@ -45,8 +45,10 @@ public class DBManager extends SnsDAO {
 				user.setIcon(rset.getString(5));
 				user.setProfile(rset.getString(6));
 			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
+
 		} finally {
 			// データベース切断処理
 			close(rset);
@@ -57,7 +59,7 @@ public class DBManager extends SnsDAO {
 		return user;
 	}
 
-	// 書き込み内容リストの getter
+	// 書き込み内容リストの取得メソッド
 	public ArrayList<ShoutDTO> getShoutList() {
 		Connection conn = null;
 		Statement pstmt = null;
@@ -101,7 +103,7 @@ public class DBManager extends SnsDAO {
 		return list;
 	}
 
-	// ログインユーザ情報と書き込み内容を受け取り、リストに追加する
+	// 書き込み内容登録メソッド
 	public boolean setWriting(UserDTO user, String writing) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -137,14 +139,14 @@ public class DBManager extends SnsDAO {
 		return result;
 	}
 
-	//新規ユーザー登録処理
+	//新規ユーザー登録メソッド
 	public int setRegisterInfo(String loginId, String userName, String password, String icon, String profile) {
 		Connection conn = null; // データベース接続
 		PreparedStatement pstmt = null; // SQL 管理
 
-		//クエリ
 		String sql = "INSERT INTO users(loginId, userName, password, icon, profile) VALUES(?, ?, ?, ?, ?)";
 
+		//挿入結果件数
 		int result = 0;
 
 		try {
@@ -169,10 +171,11 @@ public class DBManager extends SnsDAO {
 			close(pstmt);
 			close(conn);
 		}
+
 		return result;
 	}
 
-	//ユーザー登録結果画面に表示するための処理
+	//ユーザー登録結果画面に表示するためのメソッド
 	public UserDTO getShowResult(String loginId) {
 		Connection conn = null; // データベース接続
 		PreparedStatement pstmt = null; // SQL 管理情報
@@ -184,7 +187,6 @@ public class DBManager extends SnsDAO {
 
 		try {
 			conn = getConnection();
-			//preparedStatement
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, loginId);
 
@@ -201,8 +203,10 @@ public class DBManager extends SnsDAO {
 				user.setIcon(rset.getString(5));
 				user.setProfile(rset.getString(6));
 			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
+
 		} finally {
 			// データベース切断処理
 			close(rset);
@@ -213,7 +217,7 @@ public class DBManager extends SnsDAO {
 		return user;
 	}
 
-	//loginIdの重複チェック処理
+	//ログインIDの重複チェックメソッド
 	public boolean checkLoginId(String loginId) {
 		Connection conn = null; // データベース接続
 		PreparedStatement pstmt = null; // SQL 管理情報
@@ -247,7 +251,7 @@ public class DBManager extends SnsDAO {
 		return result;
 	}
 
-	//検索メソッド
+	//ユーザー情報検索メソッド
 	public ArrayList<UserDTO> getSearchList(String loginId, String userName, String icon[],String profile) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -255,14 +259,15 @@ public class DBManager extends SnsDAO {
 		String icon1 = null;
 		String icon2 = null;
 
-		//ArrayListの作成　型はShoutDTO型
+		//ArrayListの作成　型はUserDTO型
 		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
 
 		try {
-			String sql = "SELECT * FROM users WHERE 1 =1 ";
+			String sql = "SELECT loginId, userName, icon, profile  FROM users WHERE 1 =1 ";
+			//入力された値の名前をリストで格納していく
 			List<String> parameters = new ArrayList<>();
 
-		//値が入力されているかチェックし、入力されている場合はsql文に追加していく
+		//値が入力されているかチェックし、入力されている場合は条件をANDで繋げていく
 			//loginId条件追加
 			if (!loginId.equals("")) {
 				  sql += "AND loginId = ? ";
@@ -276,21 +281,21 @@ public class DBManager extends SnsDAO {
 			}
 
 			//icon条件追加
-			if(!(icon ==null)) { //nullじゃないとき
-				if(icon.length ==1) { //配列の長さが1の時
+			if(!(icon ==null)) { //少なくとも１つアイコンが選択されたとき
+				if(icon.length ==1) { //選択されたアイコンが1つの時
 					icon1 = icon[0];
 					sql += "AND icon = ?";
 					parameters.add("icon[0]");
 
-				}else if(icon.length ==2) {
+				}else if(icon.length ==2) { //選択されたアイコンが2つの時
 					icon1 = icon[0];
 					icon2 = icon[1];
-					sql += "AND icon =? OR icon = ?";
+					sql += "AND (icon =? OR icon = ?)";
 					parameters.add("icon[0][1]");
 				}
 			}
 
-			//icon条件追加
+			//profile条件追加
 			if (!profile.equals("")) {
 				sql += "AND profile LIKE  ?"; //部分一致
 				parameters.add("profile");
@@ -304,7 +309,7 @@ public class DBManager extends SnsDAO {
 			int columnIndex = 0;
 			//loginId
 			if (parameters.contains("loginId")) {
-			  pstmt.setString(++columnIndex, loginId);
+			  pstmt.setString(++columnIndex, loginId); //setString(1, loginId)と同じ意味
 			}
 
 			//userName
@@ -331,16 +336,17 @@ public class DBManager extends SnsDAO {
 			// 検索結果の数だけ繰り返す
 			while (rset.next()) {
 				UserDTO user = new UserDTO();
-				user.setLoginId(rset.getString(2)); //1からgetString()は始まる
-				user.setUserName(rset.getString(4));
-				user.setIcon(rset.getString(5));
-				user.setProfile(rset.getString(6));
+				user.setLoginId(rset.getString(1)); //getString()の第一引数は1から始まる
+				user.setUserName(rset.getString(2));
+				user.setIcon(rset.getString(3));
+				user.setProfile(rset.getString(4));
 
 				list.add(user);
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+
 		} finally {
 			// データベース切断処理
 			close(rset);

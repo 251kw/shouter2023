@@ -27,10 +27,7 @@
 		String checkSmile="";
 	 	String checkJoy="";
 
-	%>
-
-	<%
-		//戻るボタンを押した際、nullではない場合は値を空文字から更新する
+		//戻るボタンを押下時、nullではない場合は値を空文字から更新する
 		if (request.getParameter("loginId") != null) {
 			 loginId1 = request.getParameter("loginId");
 		}
@@ -42,6 +39,7 @@
 		if (request.getParameter("password") != null) {
 			 password1 = request.getParameter("password");
 		}
+
 		if (request.getParameter("icon") != null) {
 			 icon1 = request.getParameter("icon");
 			 if(icon1.equals("icon-smile")){
@@ -50,9 +48,9 @@
 				 checkJoy = "checked";
 			 }
 		}
+
 		if (request.getParameter("profile") != null) {
 			 profile1 = request.getParameter("profile");
-
 		}
 	%>
 
@@ -63,36 +61,36 @@
 			</h1>
 		</div>
 	</div>
+
 	<div class="padding-y-5 text-center">
 		<div style="width: 40%" class="container padding-y-5 text-left">
 			<strong class="color-main">ユーザー登録します。内容を入力してください。</strong>
 		</div>
-
 	</div>
 
 	<!-- アラートメッセージ -->
 	 <div class="alert">
 		<c:if test="${requestScope.alertEmpty != null && requestScope.alertEmpty != ''}"><!-- 未入力の場合 -->
-				<c:out value="${requestScope.alertEmpty}" /><br>
+			<c:out value="${requestScope.alertEmpty}" /><br>
 		</c:if>
 		<c:if test="${requestScope.alertHalf != null && requestScope.alertHalf != ''}"><!-- 半角の場合 -->
-				<c:out value="${requestScope.alertHalf}" /><br>
+			<c:out value="${requestScope.alertHalf}" /><br>
 		</c:if>
 
 		<c:if test="${requestScope.alertFull != null && requestScope.alertFull != ''}"><!-- 全角の場合 -->>
-				<c:out value="${requestScope.alertFull}" /><br>
+			<c:out value="${requestScope.alertFull}" /><br>
 		</c:if>
 
 		<c:if test="${requestScope.alertLoginId != null && requestScope.alertLoginId != ''}"><!-- 全角の場合 -->
-					<c:out value="${requestScope.alertLoginId}" /><br>
+			<c:out value="${requestScope.alertLoginId}" /><br>
 		</c:if>
 
 		<c:if test="${requestScope.alertNumLoginId != null && requestScope.alertNumLoginId != ''}"><!-- 半角英数字ではない場合 -->
-					<c:out value="${requestScope.alertNumLoginId}" /><br>
+			<c:out value="${requestScope.alertNumLoginId}" /><br>
 		</c:if>
 
 		<c:if test="${requestScope.alertPassword != null && requestScope.alertPassword != ''}"><!-- 半角英数字ではない場合 -->
-					<c:out value="${requestScope.alertPassword}" /><br>
+			<c:out value="${requestScope.alertPassword}" /><br>
 		</c:if>
 	</div>
 
@@ -104,14 +102,18 @@
 						<th nowrap class="color-main text-left" >
 							<label for="loginId"> <span class="icon-smile pe-2x pe-va"> </span>&nbsp;ログインID</label>
 						</th>
-						<td class="text-left"><input class="form-control" type="text" name="loginId"  size="20" autofocus value="<%=loginId1%>" maxlength="10" /></td>
+						<td class="text-left">
+							<input class="form-control" type="text" name="loginId"  size="20" autofocus value="<%=loginId1%>" maxlength="10" />
+						</td>
 					</tr>
 
 					<tr><!-- ユーザー名-->
 						<th nowrap class="color-main text-left" >
 							<label for="userName"> <span class="icon-note pe-2x pe-va"></span>&nbsp;ユーザー名</label>
 						</th>
-						<td class="text-left"><input class="form-control" type="text" name="userName"  size="20"  value="<%=userName1%>" maxlength="30" pattern="\S|\S.*?\S"/></td>
+						<td class="text-left">
+							<input class="form-control" type="text" name="userName"  size="20"  value="<%=userName1%>" maxlength="30" pattern="\S|\S.*?\S"/>
+						</td>
 					</tr>
 
 					<tr><!-- パスワード -->
@@ -144,7 +146,9 @@
 						<th nowrap class="color-main text-left" >
 							<label for="profile"> <span class="icon-note pe-2x pe-va"></span>&nbsp;プロフィール</label>
 						</th>
-						<td class="text-left"><input class="form-control" type="text" name="profile"  size="20"  value="<%=profile1%>" maxlength="100"/></td>
+						<td class="text-left">
+							<input class="form-control" type="text" name="profile"  size="20"  value="<%=profile1%>" maxlength="100" style="height:100px;"/>
+						</td>
 					</tr>
 
 					<tr><!-- 登録＆戻るボタン -->
