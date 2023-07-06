@@ -39,27 +39,24 @@
 							onClick="checkReset()" value="全解除"></th>
 					</tr>
 					<tr>
-						<th class="color-main text-left"></th>
-						<th class="color-main text-left">ログインID</th>
-						<th class="color-main text-left">ユーザー名</th>
-						<th class="color-main text-left">アイコン</th>
-						<th class="color-main text-left">プロフィール</th>
-						<th class="color-main text-left"></th>
+						<th class="color-main text-center"></th>
+						<th class="color-main text-center">ログインID</th>
+						<th class="color-main text-center">ユーザー名</th>
+						<th class="color-main text-center">アイコン</th>
+						<th class="color-main text-center">プロフィール</th>
+						<th class="color-main text-center"></th>
 					</tr>
-					<jsp:useBean id="user" scope="session"
+					<jsp:useBean id="userlist" scope="session"
 						type="java.util.ArrayList<dto.UserDTO>" />
 					<%-- リストにある要素の数だけ繰り返し --%>
-					<c:forEach var="user" items="${user}">
+					<c:forEach var="users" items="${userlist}">
 						<tr>
 							<td><label class="fancy-checkbox"><input type="checkbox" name="test1" value="" />
 						<span></span></label></td>
-							<td><input class="form-control" type="text" name="name"
-								value="${user.loginId}" size="20" disabled="disabled" /></td>
-							<td><input class="form-control" type="text" name="name"
-								value="${user.userName}" size="20" disabled="disabled" /></td>
-							<td><span class="${user.icon} pe-3x pe-va" /></span></td>
-							<td><input class="form-control" type="text" name="name"
-								value="${user.profile}" size="20" disabled="disabled" /></td>
+							<td><label class="form-control text-center">${users.loginId}</label></td>
+							<td><label class="form-control text-center">${users.userName}</label></td>
+							<td><span class="${users.icon} pe-3x pe-va" /></span></td>
+							<td><label class="form-control text-center">${users.profile}</label></td>
 							<td><input class="btn" type="submit" name="btn"
 							value="編集" size="20" /></td>
 						</tr>
@@ -100,27 +97,6 @@
 			}
 		}
 	</script>
-	<!--
-	<div class="padding-y-5">
-		<div style="width: 40%" class="container padding-y-5">
-			<%-- リストにある要素の数だけ繰り返し --%>
-			<c:forEach var="user" items="${user}">
-				<table>
-					<tr>
-						<td rowspan="2" class="text-center"><span
-							class="${user.icon} pe-3x pe-va"></span></td>
-						<td>${user.userName}</td>
-					</tr>
-					<tr>
-						<td>${user.loginId}</td>
-					</tr>
-					<tr>
-						<td colspan="2"><label class="form-control">${user.profile}</label>
-						</td>
-					</tr>
-				</table>
-			</c:forEach>
-		</div>
-	</div>-->
+
 </body>
 </html>

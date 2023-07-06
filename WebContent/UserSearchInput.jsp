@@ -15,7 +15,6 @@
 		<div class="container padding-y-5 text-center">
 			<h1>
 				ユーザ検索入力画面&nbsp;<span class="icon-speaker"></span>
-				<p>ユーザを検索します。内容を入力してください。</p>
 			</h1>
 		</div>
 	</div>
@@ -59,7 +58,7 @@
 							name="pro" value="" size="20" /></td>
 					</tr>
 					<tr>
-						<td colspan="2" class="text-right"><input class="btn"
+						<td colspan="2" class="text-center"><input class="btn"
 							type="submit" value="検索" /> <a href="./top.jsp" class="btn">戻る</a>
 						</td>
 					</tr>
@@ -69,9 +68,9 @@
 						<tr>
 							<%-- リクエストスコープの alert の値を出力 --%>
 							<td colspan="2" class="color-error text-left"><center>
-									<h3>
+									<h4>
 										<c:out value="${requestScope.alert}" />
-									</h3>
+									</h4>
 								</center></td>
 						</tr>
 					</c:if>

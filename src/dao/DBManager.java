@@ -246,48 +246,48 @@ public class DBManager extends SnsDAO {
 	}
 
 	// ID、アイコン2、ユーザ名、プロフィール記入(全部記述)
-		public ArrayList<UserDTO> searchall2(String id, String name, String pro) {
-			Connection conn = null; // データベース接続情報
-			PreparedStatement pstmt = null; // SQL 管理情報
-			ResultSet rset = null; // 検索結果
+	public ArrayList<UserDTO> searchall2(String id, String name, String pro) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
 
-			ArrayList<UserDTO> list = new ArrayList<UserDTO>();
-			String sql = "SELECT * FROM users WHERE loginId=? and userName like ? and profile like ? and (icon = 'icon-tools' or icon = 'icon-rocket')";
+		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
+		String sql = "SELECT * FROM users WHERE loginId=? and userName like ? and profile like ? and (icon = 'icon-tools' or icon = 'icon-rocket')";
 
-			try {
-				// データベース接続情報取得
-				conn = getConnection();
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
 
-				// SELECT 文の登録と実行
-				pstmt = conn.prepareStatement(sql); // SELECT 構文登録
-				pstmt.setString(1, id);
-				pstmt.setString(2, "%" + name + "%");
-				pstmt.setString(3, "%" + pro + "%");
-				rset = pstmt.executeQuery();
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+			pstmt.setString(1, id);
+			pstmt.setString(2, "%" + name + "%");
+			pstmt.setString(3, "%" + pro + "%");
+			rset = pstmt.executeQuery();
 
-				// 検索結果の数だけ繰り返す
-				while (rset.next()) {
-					// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
-					UserDTO user = new UserDTO();
-					user.setLoginId(rset.getString(2));
-					user.setUserName(rset.getString(4));
-					user.setIcon(rset.getString(5));
-					user.setProfile(rset.getString(6));
+			// 検索結果の数だけ繰り返す
+			while (rset.next()) {
+				// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
+				UserDTO user = new UserDTO();
+				user.setLoginId(rset.getString(2));
+				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
 
-					// 書き込み内容をリストに追加
-					list.add(user);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				// データベース切断処理
-				close(rset);
-				close(pstmt);
-				close(conn);
+				// 書き込み内容をリストに追加
+				list.add(user);
 			}
-
-			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
 		}
+
+		return list;
+	}
 
 	// ログインID
 	public ArrayList<UserDTO> loginid(String id) {
@@ -531,7 +531,7 @@ public class DBManager extends SnsDAO {
 		return list;
 	}
 
-	//IDとユーザ名いらない
+	//IDとユーザ名
 	public ArrayList<UserDTO> idname(String id, String name) {
 		Connection conn = null; // データベース接続情報
 		PreparedStatement pstmt = null; // SQL 管理情報
@@ -699,21 +699,396 @@ public class DBManager extends SnsDAO {
 	}
 
 	//nameとicon1とpro
-		public ArrayList<UserDTO> nameicon1pro(String name, String icon,String pro) {
+	public ArrayList<UserDTO> nameicon1pro(String name, String icon, String pro) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+
+		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
+		String sql = "SELECT * FROM users where userName like ? and icon = ? and profile like ?";
+
+		try {
+			// SnsDAO クラスのメソッド呼び出し
+			conn = getConnection();
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + name + "%");
+			pstmt.setString(2, icon);
+			pstmt.setString(3, "%" + pro + "%");
+			rset = pstmt.executeQuery();
+
+			// 検索結果の数だけ繰り返す
+			while (rset.next()) {
+				// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
+				UserDTO user = new UserDTO();
+				user.setLoginId(rset.getString(2));
+				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
+
+				// 書き込み内容をリストに追加
+				list.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return list;
+	}
+
+	//nameとicon2とpro
+	public ArrayList<UserDTO> nameicon2pro(String name, String pro) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+
+		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
+		String sql = "SELECT * FROM users where userName like ? and profile like ? and (icon = 'icon-tools' or icon = 'icon-rocket')";
+
+		try {
+			// SnsDAO クラスのメソッド呼び出し
+			conn = getConnection();
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + name + "%");
+			pstmt.setString(2, "%" + pro + "%");
+			rset = pstmt.executeQuery();
+
+			// 検索結果の数だけ繰り返す
+			while (rset.next()) {
+				// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
+				UserDTO user = new UserDTO();
+				user.setLoginId(rset.getString(2));
+				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
+
+				// 書き込み内容をリストに追加
+				list.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return list;
+	}
+
+	//icon1とpro
+	public ArrayList<UserDTO> icon1pro(String icon, String pro) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+
+		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
+		String sql = "SELECT * FROM users where icon = ? and profile like ?";
+
+		try {
+			// SnsDAO クラスのメソッド呼び出し
+			conn = getConnection();
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, icon);
+			pstmt.setString(2, "%" + pro + "%");
+			rset = pstmt.executeQuery();
+
+			// 検索結果の数だけ繰り返す
+			while (rset.next()) {
+				// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
+				UserDTO user = new UserDTO();
+				user.setLoginId(rset.getString(2));
+				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
+
+				// 書き込み内容をリストに追加
+				list.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return list;
+	}
+
+	//icon2とpro
+	public ArrayList<UserDTO> icon2pro(String pro) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+
+		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
+		String sql = "SELECT * FROM users where profile like ? and (icon = 'icon-tools' or icon = 'icon-rocket')";
+
+		try {
+			// SnsDAO クラスのメソッド呼び出し
+			conn = getConnection();
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + pro + "%");
+			rset = pstmt.executeQuery();
+
+			// 検索結果の数だけ繰り返す
+			while (rset.next()) {
+				// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
+				UserDTO user = new UserDTO();
+				user.setLoginId(rset.getString(2));
+				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
+
+				// 書き込み内容をリストに追加
+				list.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return list;
+	}
+
+	//IDとicon1
+	public ArrayList<UserDTO> idicon1(String id, String icon) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+
+		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
+		String sql = "SELECT * FROM users where loginId=? and icon = ?";
+
+		try {
+			// SnsDAO クラスのメソッド呼び出し
+			conn = getConnection();
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, icon);
+			rset = pstmt.executeQuery();
+
+			// 検索結果の数だけ繰り返す
+			while (rset.next()) {
+				// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
+				UserDTO user = new UserDTO();
+				user.setLoginId(rset.getString(2));
+				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
+
+				// 書き込み内容をリストに追加
+				list.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return list;
+	}
+
+	//idとicon2
+	public ArrayList<UserDTO> idicon2(String id) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+
+		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
+		String sql = "SELECT * FROM users where loginId=? and (icon = 'icon-tools' or icon = 'icon-rocket')";
+
+		try {
+			// SnsDAO クラスのメソッド呼び出し
+			conn = getConnection();
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rset = pstmt.executeQuery();
+
+			// 検索結果の数だけ繰り返す
+			while (rset.next()) {
+				// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
+				UserDTO user = new UserDTO();
+				user.setLoginId(rset.getString(2));
+				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
+
+				// 書き込み内容をリストに追加
+				list.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return list;
+	}
+
+	//IDとプロフィール
+	public ArrayList<UserDTO> idpro(String id, String pro) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+
+		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
+		String sql = "SELECT * FROM users where loginId=? and profile like ?";
+
+		try {
+			// SnsDAO クラスのメソッド呼び出し
+			conn = getConnection();
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, "%" + pro + "%");
+			rset = pstmt.executeQuery();
+
+			// 検索結果の数だけ繰り返す
+			while (rset.next()) {
+				// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
+				UserDTO user = new UserDTO();
+				user.setLoginId(rset.getString(2));
+				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
+
+				// 書き込み内容をリストに追加
+				list.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return list;
+	}
+
+	public ArrayList<UserDTO> idnameicon1(String id, String name, String icon) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+
+		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
+		String sql = "SELECT * FROM users where loginId=? and userName=? and icon = ?";
+
+		try {
+			// SnsDAO クラスのメソッド呼び出し
+			conn = getConnection();
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, "%" + name + "%");
+			pstmt.setString(3, icon);
+			rset = pstmt.executeQuery();
+
+			// 検索結果の数だけ繰り返す
+			while (rset.next()) {
+				// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
+				UserDTO user = new UserDTO();
+				user.setLoginId(rset.getString(2));
+				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
+
+				// 書き込み内容をリストに追加
+				list.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+		return list;
+	}
+
+	public ArrayList<UserDTO> idnameicon2(String id,String name) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+
+		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
+		String sql = "SELECT * FROM users where loginId=? and userName=? and (icon = 'icon-tools' or icon = 'icon-rocket')";
+
+		try {
+			// SnsDAO クラスのメソッド呼び出し
+			conn = getConnection();
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, "%"+name+"%");
+			rset = pstmt.executeQuery();
+
+			// 検索結果の数だけ繰り返す
+			while (rset.next()) {
+				// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
+				UserDTO user = new UserDTO();
+				user.setLoginId(rset.getString(2));
+				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
+
+				// 書き込み内容をリストに追加
+				list.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return list;
+	}
+
+	//IDとnameとプロフィール
+		public ArrayList<UserDTO> idnamepro(String id,String name, String pro) {
 			Connection conn = null; // データベース接続情報
 			PreparedStatement pstmt = null; // SQL 管理情報
 			ResultSet rset = null; // 検索結果
 
 			ArrayList<UserDTO> list = new ArrayList<UserDTO>();
-			String sql = "SELECT * FROM users where userName like ? and icon = ? and profile like ?";
+			String sql = "SELECT * FROM users where loginId=? and userName=? and profile like ?";
 
 			try {
 				// SnsDAO クラスのメソッド呼び出し
 				conn = getConnection();
 
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, "%" + name + "%");
-				pstmt.setString(2, icon);
+				pstmt.setString(1, id);
+				pstmt.setString(2, "%" + name + "%");
 				pstmt.setString(3, "%" + pro + "%");
 				rset = pstmt.executeQuery();
 
@@ -741,22 +1116,23 @@ public class DBManager extends SnsDAO {
 			return list;
 		}
 
-		//nameとicon2とpro
-		public ArrayList<UserDTO> nameicon2pro(String name,String pro) {
+		//id,icon1,pro
+		public ArrayList<UserDTO> idicon1pro(String id,String icon,String pro) {
 			Connection conn = null; // データベース接続情報
 			PreparedStatement pstmt = null; // SQL 管理情報
 			ResultSet rset = null; // 検索結果
 
 			ArrayList<UserDTO> list = new ArrayList<UserDTO>();
-			String sql = "SELECT * FROM users where userName like ? and profile like ? and (icon = 'icon-tools' or icon = 'icon-rocket')";
+			String sql = "SELECT * FROM users where loginId=?  and icon = ? and profile like ?";
 
 			try {
 				// SnsDAO クラスのメソッド呼び出し
 				conn = getConnection();
 
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, "%" + name + "%");
-				pstmt.setString(2, "%" + pro + "%");
+				pstmt.setString(1, id);
+				pstmt.setString(2, icon);
+				pstmt.setString(3, "%"+pro+"%");
 				rset = pstmt.executeQuery();
 
 				// 検索結果の数だけ繰り返す
@@ -783,22 +1159,22 @@ public class DBManager extends SnsDAO {
 			return list;
 		}
 
-		//icon1とpro
-				public ArrayList<UserDTO> icon1pro( String icon,String pro) {
+		//id,icon1,pro
+				public ArrayList<UserDTO> idicon2pro(String id,String pro) {
 					Connection conn = null; // データベース接続情報
 					PreparedStatement pstmt = null; // SQL 管理情報
 					ResultSet rset = null; // 検索結果
 
 					ArrayList<UserDTO> list = new ArrayList<UserDTO>();
-					String sql = "SELECT * FROM users where icon = ? and profile like ?";
+					String sql = "SELECT * FROM users where loginId=?  and  (icon = 'icon-tools' or icon = 'icon-rocket') and profile like ?";
 
 					try {
 						// SnsDAO クラスのメソッド呼び出し
 						conn = getConnection();
 
 						pstmt = conn.prepareStatement(sql);
-						pstmt.setString(1, icon);
-						pstmt.setString(2, "%" + pro + "%");
+						pstmt.setString(1, id);
+						pstmt.setString(2, "%"+pro+"%");
 						rset = pstmt.executeQuery();
 
 						// 検索結果の数だけ繰り返す
@@ -824,45 +1200,4 @@ public class DBManager extends SnsDAO {
 
 					return list;
 				}
-
-		//icon2とpro
-		public ArrayList<UserDTO> icon2pro(String pro) {
-			Connection conn = null; // データベース接続情報
-			PreparedStatement pstmt = null; // SQL 管理情報
-			ResultSet rset = null; // 検索結果
-
-			ArrayList<UserDTO> list = new ArrayList<UserDTO>();
-			String sql = "SELECT * FROM users where profile like ? and (icon = 'icon-tools' or icon = 'icon-rocket')";
-
-			try {
-				// SnsDAO クラスのメソッド呼び出し
-				conn = getConnection();
-
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, "%" + pro + "%");
-				rset = pstmt.executeQuery();
-
-				// 検索結果の数だけ繰り返す
-				while (rset.next()) {
-					// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
-					UserDTO user = new UserDTO();
-					user.setLoginId(rset.getString(2));
-					user.setUserName(rset.getString(4));
-					user.setIcon(rset.getString(5));
-					user.setProfile(rset.getString(6));
-
-					// 書き込み内容をリストに追加
-					list.add(user);
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				// データベース切断処理
-				close(rset);
-				close(pstmt);
-				close(conn);
-			}
-
-			return list;
-		}
 }
