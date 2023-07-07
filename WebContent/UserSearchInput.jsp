@@ -42,7 +42,7 @@
 					<div style="display: flex;">
 						<span class="icon-user-female pe-2x pe-va"></span><label
 							class="fancy-checkbox"> <input type="checkbox"
-							name="icon-user-female" value="icon-user_female"> <span></span></label>
+							name="icon-user-female" value="icon-user-female"> <span></span></label>
 						<span class="icon-bell pe-2x pe-va"></span><label
 							class="fancy-checkbox"> <input type="checkbox"
 							name="icon-bell" value="icon-bell"> <span></span></label> <span

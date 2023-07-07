@@ -36,7 +36,6 @@ public class UserSearchResultSVT extends HttpServlet {
 		String icon_bell = request.getParameter("icon-bell");
 		String icon_smile = request.getParameter("icon-smile");
 		String profile = request.getParameter("profile");
-		String search = request.getParameter("search");
 		request.setAttribute("loginId", loginId);
 		request.setAttribute("userName", userName);
 		request.setAttribute("icon-user-female", icon_user_female);
@@ -46,7 +45,7 @@ public class UserSearchResultSVT extends HttpServlet {
 		request.setAttribute("profile", profile);
 		String allCheck = request.getParameter("allCheck");
 		String allClear = request.getParameter("allClear");
-		String turnBack = request.getParameter("return");
+		String ed = request.getParameter("edit");
 		RequestDispatcher dispatcher;
 
 		if (allCheck!=null || allClear!=null) {
@@ -57,6 +56,13 @@ public class UserSearchResultSVT extends HttpServlet {
 			ArrayList<UserDTO> list = db.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell, icon_smile, profile);
 			request.setAttribute("searchUser", list);
 			dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
+		}else if(ed!=null) {
+			int edit = Integer.parseInt(ed);
+			DBManager db = new DBManager();
+			ArrayList<UserDTO> list = db.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell, icon_smile, profile);
+			UserDTO editUser = list.get(edit);
+			request.setAttribute("editUser", editUser);
+			dispatcher = request.getRequestDispatcher("userEditInput.jsp");
 		}else {
 			dispatcher = request.getRequestDispatcher("UserSearchInput.jsp");
 		}

@@ -51,15 +51,15 @@
 	%>
 	<%
 		String smileIcon = "";
-		String noteIcon = "";
-		String joyIcon = "";
-		String usersIcon = "";
-		if (icon.equals("icon-users")) {
-			usersIcon = "checked";
-		} else if (icon.equals("icon-note")) {
-			noteIcon = "checked";
-		} else if (icon.equals("icon-joy")) {
-			joyIcon = "checked";
+		String bellIcon = "";
+		String userIcon = "";
+		String userFemaleIcon = "";
+		if (icon.equals("icon-user")) {
+			userIcon = "checked";
+		} else if (icon.equals("icon-bell")) {
+			bellIcon = "checked";
+		} else if (icon.equals("icon-user-female")) {
+			userFemaleIcon = "checked";
 		} else {
 			smileIcon = "checked";
 		}
@@ -177,7 +177,7 @@
 							</div>
 							<div style="margin-left: 1em;">
 							<label class="fancy-radio"><input type="radio"
-									name="icon" value="icon-bell" <%=noteIcon%>><span></span></label>
+									name="icon" value="icon-bell" <%=bellIcon%>><span></span></label>
 							</div>
 							<div style="margin-left: 1em;">
 								<span class="icon-user pe-2x pe-va">
@@ -185,14 +185,14 @@
 							</div>
 							<div style="margin-left: 1em;">
 							<label class="fancy-radio"><input type="radio"
-									name="icon" value="icon-user" <%=usersIcon%>><span></span></label>
+									name="icon" value="icon-user" <%=userIcon%>><span></span></label>
 							</div>
 							<div style="margin-left: 1em;">
 								<span class="icon-smile pe-2x pe-va"></span>
 							</div>
 							<div style="margin-left: 1em;">
 							<label class="fancy-radio"><input type="radio"
-									name="icon" value="icon-smile" <%=joyIcon%>><span></span></label>
+									name="icon" value="icon-smile" <%=userFemaleIcon%>><span></span></label>
 							</div>
 						</td>
 					</tr>
@@ -201,13 +201,13 @@
 						<td class="text-left"><input class="form-control" type="text"
 							name="profile" value="<%=profile%>" size="20" placeholder="50文字以内で入力してください。"/>
 					</tr>
-					<tr>
-						<td colspan="2" class="text-right"><input class="btn"
-							type="submit" name="register" value="登録" /></td>
-						<td colspan="2" class="text-right"><input class="btn"
-							type="submit" name="return" value="戻る" /></td>
-					</tr>
 				</table>
+				<div class="text-center">
+				<input class="btn"
+							type="submit" name="register" value="登録" />
+			   	<input class="btn"
+							type="submit" name="return" value="戻る" />
+				</div>
 			</form>
 </body>
 </html>

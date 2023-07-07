@@ -208,42 +208,42 @@ public class DBManager extends SnsDAO {
 					|| icon_bell != null || icon_smile != null) {//検索条件が選択されている場合
 				sqlCondition = sql + " WHERE";
 				if (loginId != "") {//ログインIDが指定されている場合
-					sqlCondition += " loginId=" +"'"+ loginId + "'";
+					sqlCondition += " loginId=" + "'" + loginId + "'";
 				}
 				if (userName != "") {//ユーザー名が指定されている場合
-					if(loginId !="") {
+					if (loginId != "") {
 						sqlCondition += " AND";
 					}
 					sqlCondition += " userName LIKE('%" + userName + "%')";
 				}
 				if (profile != "") {//プロフィールが指定されている場合
-					if(userName!="" || loginId!="") {
+					if (userName != "" || loginId != "") {
 						sqlCondition += " AND";
 					}
 					sqlCondition += " profile LIKE('%" + profile + "%')";
 				}
-				if(icon_smile!=null || icon_user!=null || icon_user_female!=null || icon_bell!=null) {//アイコンが指定されている場合
-					if(loginId!="" || userName!="" || profile != "") {
+				if (icon_smile != null || icon_user != null || icon_user_female != null || icon_bell != null) {//アイコンが指定されている場合
+					if (loginId != "" || userName != "" || profile != "") {
 						sqlCondition += " AND";
 					}
 					sqlCondition += " icon IN(";
-					if(!(icon_smile==null)) {
+					if (!(icon_smile == null)) {
 						sqlCondition += "'icon-smile'";
 					}
-					if(icon_user!=null) {
-						if(icon_smile!=null) {
+					if (icon_user != null) {
+						if (icon_smile != null) {
 							sqlCondition += ",";
 						}
 						sqlCondition += "'icon-user'";
 					}
-					if(icon_user_female!=null) {
-						if(icon_user!=null || icon_smile!=null) {
+					if (icon_user_female != null) {
+						if (icon_user != null || icon_smile != null) {
 							sqlCondition += ",";
 						}
 						sqlCondition += "'icon-user-female'";
 					}
-					if(icon_bell!=null) {
-						if(icon_user_female!=null || icon_user!=null || icon_smile!=null) {
+					if (icon_bell != null) {
+						if (icon_user_female != null || icon_user != null || icon_smile != null) {
 							sqlCondition += ",";
 						}
 						sqlCondition += "'icon-bell'";
@@ -262,6 +262,7 @@ public class DBManager extends SnsDAO {
 				// 必要な列から値を取り出し、ユーザー情報オブジェクトを作成
 				UserDTO user = new UserDTO();
 				user.setLoginId(rset.getString(2));
+				user.setPassword(rset.getString(3));
 				user.setUserName(rset.getString(4));
 				user.setIcon(rset.getString(5));
 				user.setProfile(rset.getString(6));
@@ -279,6 +280,57 @@ public class DBManager extends SnsDAO {
 		}
 
 		return list;
+	}
+
+	public void editUser(UserDTO editUser, String e_LoginId, String e_UserName, String e_Password, String e_Icon,
+			String e_Profile) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+
+		String sql = "UPDATE users";
+		ArrayList<String> sqlConditions = new ArrayList<String>();
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+			if (!(editUser.getLoginId().equals(e_LoginId)) && e_LoginId.equals("")) {
+				sqlConditions.add("'loginId'=" + e_LoginId);
+			}
+			if (!(e_UserName.equals(editUser.getUserName())) && e_UserName.equals("")) {
+				sqlConditions.add("'userName'=" + e_UserName);
+			}
+			if (!(e_Password.equals(editUser.getPassword())) && e_Password.equals("")) {
+				sqlConditions.add("'password'=" + e_Password);
+			}
+			if (!e_Icon.equals(editUser.getIcon())) {
+				sqlConditions.add("'icon'=" + e_Icon);
+			}
+			if (!(e_Profile.equals(editUser.getProfile()))) {
+				sqlConditions.add("'profile'=" + e_Profile);
+			}
+			for (int i = 0; i < sqlConditions.size(); i++) {
+				if (i == 0) {
+					sql += " SET";
+				} else {
+					sql += ",";
+				}
+				sql += " " + sqlConditions.get(i);
+				if (i == (sqlConditions.size() - 1)) {
+					sql += " WHERE loginId=" + editUser.getLoginId();
+				}
+			}
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+			rset = pstmt.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
 	}
 
 }

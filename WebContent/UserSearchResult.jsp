@@ -21,9 +21,6 @@ function checkAllBox(trueOrFalse) {
 </head>
 <body>
 	<%
-		ArrayList<UserDTO> searchUser = (ArrayList<UserDTO>) request.getAttribute("searchUser");
-	%>
-	<%
 		String check = "";
 		if (request.getParameter("allCheck") != null) {
 			check = "checked";
@@ -35,22 +32,22 @@ function checkAllBox(trueOrFalse) {
 		</div>
 	</div>
 	<%-- action 属性にサーブレットを指定 --%>
-	<form action="./usr" method="get" id="form-check">
+	<form action="./usr" method="get">
 		<!-- 全選択ボタンまたは全解除ボタンが押された場合の値の受け渡しのためにhiddenを使用 -->
 		<input type="hidden" name="loginId"
-			value="<%=request.getAttribute("loginId")%>" form="form-check">
+			value="<%=request.getAttribute("loginId")%>" >
 		<input type="hidden" name="userName"
-			value="<%=request.getAttribute("userName")%>" form="form-check">
+			value="<%=request.getAttribute("userName")%>" >
 		<input type="hidden" name="icon-user-female"
 			value="<%=request.getAttribute("icon-user-female")%>"
 			form="form-check"> <input type="hidden" name="icon-user"
-			value="<%=request.getAttribute("icon-user")%>" form="form-check">
+			value="<%=request.getAttribute("icon-user")%>" >
 		<input type="hidden" name="icon-bell"
-			value="<%=request.getAttribute("icon-bell")%>" form="form-check">
+			value="<%=request.getAttribute("icon-bell")%>" >
 		<input type="hidden" name="icon-smile"
-			value="<%=request.getAttribute("icon-smile")%>" form="form-check">
+			value="<%=request.getAttribute("icon-smile")%>" >
 		<input type="hidden" name="profile"
-			value="<%=request.getAttribute("profile")%>" form="form-check">
+			value="<%=request.getAttribute("profile")%>" >
 		<div class="padding-y-5">
 			<div style="width: 60%" class="container padding-y-5">
 				<table class="table table-striped table-bordered">
@@ -80,7 +77,7 @@ function checkAllBox(trueOrFalse) {
 								class="${searchUser.icon} pe-3x pe-va"></span></th>
 							<th>${searchUser.profile}</th>
 							<th><button class="btn btn-success btn-sm" type="submit"
-									name="edit" value="${loop.current}">編集</button></th>
+									name="edit" value="${loop.index}">編集</button></th>
 						</tr>
 					</c:forEach>
 					<tr>
