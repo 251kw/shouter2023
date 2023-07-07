@@ -31,35 +31,39 @@
 		</div>
 	</div>
 	<div class="padding-y-5 text-center">
-		<div style="width: 100%" class="container padding-y-5 text-center">
-			<table class="table table-striped table-bordered table-hover"
-				style="width: 2000px">
-				<tr>
-					<th></th>
-					<th>ログインID</th>
-					<th>ユーザー名</th>
-					<th>アイコン</th>
-					<th>プロフィール</th>
-					<th></th>
-				</tr>
-				<jsp:useBean id="users" scope="session"
-					type="java.util.ArrayList<dto.UserDTO>"/>
-
-				<%-- リストにある要素の数だけ繰り返し --%>
-				<c:forEach var="user" items="${users}">
-
+		<div style="width: 70%" class="container padding-y-5 text-center">
+			<form action="./usr" method="post">
+				<table class="table table-striped table-bordered table-hover"
+					style="width: 2000px">
 					<tr>
-						<td><label class="fancy-checkbox"><input
-								type="checkbox" name="icon" id="icon" value=""><span></span></label></td>
-						<td>${user.loginId}</td>
-						<td>${user.userName}</td>
-						<td><span class="${user.icon} pe-2x pe-va"></span></td>
-						<td>${user.profile}</td>
-						<td><a class="btn btn-empty btn-light">編集</a></td>
+						<th></th>
+						<th>ログインID</th>
+						<th>ユーザー名</th>
+						<th>アイコン</th>
+						<th>プロフィール</th>
+						<th></th>
 					</tr>
+					<jsp:useBean id="users" scope="session"
+						type="java.util.ArrayList<dto.UserDTO>" />
 
-				</c:forEach>
-			</table>
+					<%-- リストにある要素の数だけ繰り返し --%>
+					<c:forEach var="user" items="${users}">
+
+						<tr>
+
+							<td><label class="fancy-checkbox"><input
+									type="checkbox" name="icon" id="icon" value=""><span></span></label></td>
+							<td>${user.loginId}</td>
+							<td>${user.userName}</td>
+							<td><span class="${user.icon} pe-2x pe-va"></span></td>
+							<td>${user.profile}</td>
+							<td colspan="2"><button class="btn btn-empty btn-light"
+									name="edit" type="submit" value="${user.loginId}">編集</button></td>
+						</tr>
+
+					</c:forEach>
+				</table>
+			</form>
 		</div>
 	</div>
 	<script>

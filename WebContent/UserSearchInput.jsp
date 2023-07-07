@@ -52,26 +52,24 @@
 						<td class="color-main text-left"><span
 							class="icon-user pe-2xpe-va">&nbsp;</span>ユーザー名</td>
 						<td class="text-left"><input class="form-control" type="text"
-							maxlength="8" size="20" name="userName" id="userName"
-							value=""></td>
+							maxlength="8" size="20" name="userName" id="userName" value=""></td>
 					</tr>
 					<%-- アイコン入力欄の名前は icon --%>
 					<tr>
 						<td class="color-main text-left"><span
 							class="icon-smile pe-2xpe-va">&nbsp;</span>アイコン</td>
-						<td><label><input type="checkbox"  name="icon1"
-								id="icon1"  value="icon-users" ><span
-								class="icon-users pe-2x pe-va"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox"
-								name="icon2" id="icon2"  value="icon-piggy"> <span
-								class="icon-piggy pe-2x pe-va"></span></label></td>
+						<td><label class="fancy-checkbox icon-users pe-2x pe-va"><input
+								type="checkbox" name="icon1" id="icon1" value="icon-users"><span></span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<label
+							class="fancy-checkbox icon-piggy pe-2x pe-va"><input
+								type="checkbox" name="icon2" id="icon2" value="icon-piggy">
+								<span></span></label></td>
 					</tr>
 					<tr>
 						<%-- プロフィール入力欄の名前は profile --%>
 						<td class="color-main text-left"><span
 							class="icon-note pe-2xpe-va">&nbsp;</span>プロフィール</td>
 						<td class="text-left"><input class="form-control" type="text"
-							maxlength="50" size="20" name="profile" id="profile"
-							value=""></td>
+							maxlength="50" size="20" name="profile" id="profile" value=""></td>
 					</tr>
 					<tr>
 						<td colspan="2" class="text-right"><input class="btn"
