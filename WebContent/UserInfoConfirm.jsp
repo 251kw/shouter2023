@@ -5,7 +5,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>ユーザー登録確認画面</title>
+<title>ユーザー編集確認画面</title>
 <link rel="stylesheet" href="./css/skyblue.css">
 <link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 <link rel="stylesheet" href="./css/helper.css">
@@ -19,9 +19,9 @@
 
 	<div class="bg-success padding-y-5">
 		<div class="padding-y-5 text-center">
-			<strong><h1>ユーザー登録確認画面</h1>
+			<strong><h1>ユーザー編集確認画面</h1>
 			<h6>
-			登録します。よろしいでしょうか？
+			編集します。よろしいでしょうか？
 			</h6>
 			</strong>
 		</div>

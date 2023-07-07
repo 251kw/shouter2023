@@ -20,7 +20,7 @@
 		</div>
 	</div>
 	<div class="padding-y-5 text-center">
-		<div style="width: 60%" class="container padding-y-5 text-center">
+		<div style="width: 100%" class="container padding-y-5 text-center">
 			<%-- action 属性にサーブレットを指定 --%>
 			<%-- action 属性は送信データの送信先の設定 --%>
 	<jsp:useBean id="userr" scope="session" type="java.util.ArrayList<dto.UserDTO>" />
@@ -34,7 +34,7 @@
 				<div style="width: 100%" class="container padding-y-5">
 					<%-- リストにある要素の数だけ繰り返し --%>
 
-					<table class="table table-striped table-bordered table-hover">
+					<table class="table table-striped table-bordered table-hover"  >
 						<tr>
 							<th class="result"></th>
 							<%-- ログインID 入力欄の名前は loginId --%>
@@ -57,11 +57,10 @@
 								<td class="result">${User.userName}</td>
 								<td class="result"><span class="${User.icon} pe-2x pe-va"></span></td>
 								<td class="result">${User.profile}</td>
-								<td><a class="btn btn-empty btn-dark">編集</a></td>
+								<td><button type="submit" name="edit-ID" class="btn" formaction="./usr" value="${User.loginId}" >編集</button></td>
 							</tr>
 						</c:forEach>
 					</table>
-
 				</div>
 			</form>
 								<p>

@@ -272,4 +272,45 @@ public class DBManager extends SnsDAO {
 
 		return Search_list;
 	}
+
+
+public UserDTO SearchRe(String loginId) {
+	Connection conn = null; // データベース接続情報
+	PreparedStatement pstmt = null; // SQL 管理情報
+	ResultSet rset = null; // 検索結果
+
+	String sql = "SELECT * FROM users WHERE loginId=?";
+	UserDTO searchR = null; // 登録ユーザ情報
+
+	try {
+		// データベース接続情報取得
+		conn = getConnection();
+
+		// SELECT 文の登録と実行
+		pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+		pstmt.setString(1, loginId);
+		rset = pstmt.executeQuery();
+
+		// 検索結果があれば
+		if (rset.next()) {
+			// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+			searchR = new UserDTO();
+			searchR.setLoginId(rset.getString(2));
+			searchR.setPassword(rset.getString(3));
+			searchR.setUserName(rset.getString(4));
+			searchR.setIcon(rset.getString(5));
+			searchR.setProfile(rset.getString(6));
+		}
+	} catch (SQLException e) {
+		e.printStackTrace();
+	} finally {
+		// データベース切断処理
+		close(rset);
+		close(pstmt);
+		close(conn);
+	}
+
+	return searchR;
+}
+
 }

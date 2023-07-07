@@ -50,8 +50,7 @@
 						<td class="color-main text-left"><span class="icon-speaker pe-2x pe-va"></span>&nbsp;&nbsp;&nbsp;&nbsp;アイコン</td>
 						<td><label class="icon-smile pe-2x pe-va">  <input type="checkbox" name="Icon" value="smile"></label>
 								&nbsp;&nbsp;&nbsp;&nbsp;
-								 <label
-							class="icon-speaker pe-2x pe-va">  <input type="checkbox" name="Iconn" value="speaker"></label></td>
+								 <label class="icon-speaker pe-2x pe-va">  <input type="checkbox" name="Iconn" value="speaker"></label></td>
 					<tr>
 						<%-- ログインID 入力欄の名前は loginId --%>
 						<td class="color-main text-left"><span class="icon-speaker pe-2x pe-va"></span>&nbsp;&nbsp;&nbsp;&nbsp;プロフィール</td>

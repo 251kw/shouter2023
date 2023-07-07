@@ -50,8 +50,9 @@ blockquote:before, blockquote:after, q:before, q:after {
 }
 
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
 }
 
 html {

@@ -87,13 +87,13 @@
 						<%-- パスワード入力欄の名前は Icon --%>
 						<td class="color-main text-left"><span class="icon-speaker pe-2x pe-va"></span>&nbsp;&nbsp;&nbsp;&nbsp;アイコン</td>
 						<td><label class="icon-smile pe-2x pe-va"><input
-								type="radio" name="hidden-geticon" value="icon-smile pe-2x pe-va" <%=checked_smile%>></label>
+								type="radio" name="hidden-geticon" value="icon-smile"<%=checked_smile%>></label>
 								&nbsp;&nbsp;&nbsp;&nbsp;
 								 <label
 							class="icon-speaker pe-2x pe-va"><input
 								<%-- <%=checked_smile%>にchwckedが代入してありアイコンにチェックを入れる --%>
 								type="radio"
-								name="hidden-geticon" value="icon-speaker pe-2x pe-va"
+								name="hidden-geticon" value="icon-speaker"
 								<%=checked_speaker%>></label></td>
 					<tr>
 						<%-- ログインID 入力欄の名前は loginId --%>
