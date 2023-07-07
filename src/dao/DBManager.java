@@ -21,7 +21,7 @@ public class DBManager extends SnsDAO {
 		PreparedStatement pstmt = null; // SQL 管理情報
 		ResultSet rset = null; // 検索結果
 
-		String sql = "SELECT * FROM users WHERE loginId = ? AND password = ?";
+		String sql = "SELECT * FROM users WHERE loginId = ? AND password = AES_ENCRYPT(?,'key')";
 		UserDTO user = null; // 登録ユーザ情報
 
 		try {
@@ -152,7 +152,7 @@ public class DBManager extends SnsDAO {
 				return null;
 			} else {
 				//INSERT文の登録と実行
-				sql = "INSERT INTO users(loginId,password,userName,icon,profile) VALUES(?,?,?,?,?)";
+				sql = "INSERT INTO users(loginId,password,userName,icon,profile) VALUES(?,AES_ENCRYPT(?,'key'),?,?,?)";
 				pstmt2 = conn.prepareStatement(sql);
 				pstmt2.setString(1, loginId);
 				pstmt2.setString(2, password);

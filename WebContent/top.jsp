@@ -23,6 +23,7 @@
 			<strong class="color-main">ログインユーザー情報</strong>
 		</div>
 	</div>
+
 	<%-- セッションスコープにある UserDTO 型のオブジェクトを参照 --%>
 	<jsp:useBean id="user" scope="session" type="dto.UserDTO" />
 	<div class="padding-y-5">
@@ -39,10 +40,13 @@
 					<tr>
 						<td colspan="2">${user.profile}</td>
 					</tr>
+
 				</table>
 			</form>
 		</div>
 	</div>
+
+
 	<div class="padding-y-5 text-center">
 		<div style="width: 40%" class="container padding-y-5 text-left">
 			<strong class="color-main">今の気持ちを叫ぼう</strong>
@@ -58,6 +62,13 @@
 						<td><input class="form-control" type="text" name="shout"
 							value="" size="60" /></td>
 						<td><input class="btn" type="submit" value="叫ぶ" /></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+							<%-- 検索ボタン --%> <input class="btn" type="button" value="検索"
+							onClick="window.location.href='./search.jsp'" />
+						</td>
 					</tr>
 					<c:if
 						test="${requestScope.alert !=null && requestScope.alert != '' }">
@@ -93,8 +104,8 @@
 						<td>${shout.date}</td>
 					</tr>
 					<tr>
-						<td colspan="2"><textarea rows="5" class="form-control" readonly style="resize:none;">${shout.writing}</textarea>
-						</td>
+						<td colspan="2"><textarea rows="5" class="form-control"
+								readonly style="resize: none;">${shout.writing}</textarea></td>
 					</tr>
 				</table>
 			</c:forEach>

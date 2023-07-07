@@ -57,14 +57,7 @@ input:hover {
 						<td colspan="1" class="text-right"><input class="btn"
 							type="submit" value="ログイン" /></td>
 					</tr>
-					<tr>
-					<%-- 検索ボタン --%>
-						<td>
-						</td>
-						<td colspan="2" class="text-right">
-						<input class="btn" type = "button" value="検索" onClick="window.location.href='./search.jsp'"/>
-						</td>
-						</tr>
+					
 					<%-- リクエストスコープにalertがあれば --%>
 					<c:if
 						test="${requestScope.alert !=null && requestScope.alert != '' }">

@@ -192,7 +192,7 @@ input[name="password"]:focus {
 						<%-- 戻るボタン --%>
 						<td colspan="1" class="text-right"><input class="btn"
 							type="button" value="戻る"
-							onClick="window.location.href='/Chapter11/index.jsp'" /></td>
+							onClick="window.location.href='./index.jsp'" /></td>
 					</tr>
 				</table>
 			</form>

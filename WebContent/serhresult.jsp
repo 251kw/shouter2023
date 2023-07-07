@@ -107,22 +107,45 @@ input[name="password"]:focus {
 	<%-- セッションスコープにある ArrayList 型のオブジェクトを参照 --%>
 	<jsp:useBean id="users" scope="session"
 		type="java.util.ArrayList<dto.UserDTO>" />
+
 	<div class="padding-y-5">
 		<div style="width: 60%" class="container padding-y-5">
 			<%-- action 属性にサーブレットを指定 --%>
 			<form action="./uii" name="form1" method="post">
 				<%-- 全選択と全解除ボタン --%>
 
+				<%
+					int count = 0;
+				%>
+				<c:forEach var="user" items="${users}">
+					<%
+						count++;
+					%>
+				</c:forEach>
 
+				<%
+					if (count == 0) {
+				%>
+				<table style="width: 1000px" class="table table-bordered">
+					<tr>
+						<td>エラー</td>
+						<td><input class="btn" type="button" value="戻る"
+							onClick="window.location.href='./search.jsp'" /></td>
+					</tr>
+				</table>
+				<%
+					} else {
+				%>
 				<input class="btn" type="button" value="全選択"
 					onClick="checkAll(true)" /> <input class="btn" type="button"
 					value="全解除" onClick="checkAll(false)" />
+
 
 				<table style="width: 1000px" class="table table-bordered">
 
 					<thead>
 						<tr>
-							<th style="width:50px"></th>
+							<th style="width: 50px"></th>
 							<th style="width: 120px">ログインID</th>
 							<th style="width: 120px">ユーザー名</th>
 							<th style="width: 120px">アイコン</th>
@@ -132,53 +155,41 @@ input[name="password"]:focus {
 					</thead>
 
 
-					<%
-						int count = 0;
-					%>
+
 					<c:forEach var="user" items="${users}">
 						<tbody>
 							<tr>
-								<td style="width: 50px">
-								<label class="fancy-checkbox">
-								<input name="check" type="checkbox">
-								<span></span>
-								</label>
-								</td>
+								<td style="width: 50px"><label class="fancy-checkbox">
+										<input name="check" type="checkbox"> <span></span>
+								</label></td>
 								<td style="width: 120px">${user.loginId}</td>
 								<td style="width: 120px">${user.userName}</td>
 								<td style="width: 120px"><span
 									class="${user.icon} pe-3x pe-va"></span></td>
-								<td style="width: 120px">${user.profile}</td>
+								<td style="width: 200px">${user.profile}</td>
 								<td style="width: 120px"><input
 									class="btn btn-light btn-sm btn-empty" type="submit" value="編集"
 									onclick="sendProfile" /></td>
-								<%
-									count++;
-								%>
+
 							</tr>
 						</tbody>
 					</c:forEach>
-					<%
-						if (count == 0) {
-					%><tbody>
-						<tr>
-							<td></td>
-							<th style="width: 120px">エラー</th>
-						</tr>
-					</tbody>
-					<%
-						}
-					%>
+
 
 				</table>
+
 				<%-- 全選択と全解除ボタン --%>
 				<input class="btn" type="button" value="全選択"
 					onClick="checkAll(true)" /> <input class="btn" type="button"
 					value="全解除" onClick="checkAll(false)" />
 				<%-- 削除と戻るボタン --%>
 				<input class="btn" type="submit" value="削除" onclick="sendProfile" />
+
 				<input class="btn" type="button" value="戻る"
 					onClick="window.location.href='./search.jsp'" />
+				<%
+					}
+				%>
 			</form>
 		</div>
 	</div>

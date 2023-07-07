@@ -99,7 +99,7 @@ input[name="password"]:focus {
 		<div style="width: 40%" class="container padding-y-5">
 			<%-- action 属性にサーブレットを指定 --%>
 			<form action="./usi" name="form1" method="post">
-				<table style="width: 400px" class="table">
+				<table style="width: 450px" class="table">
 					<tr>
 						<%-- ログインID入力欄の名前はloginId --%>
 						<td style="width: 200px" class="color-man text-left"><span
@@ -148,26 +148,28 @@ input[name="password"]:focus {
 						<td>
 
 							<div class="wrapper">
+								<span
+									class="icon-user pe-2x"></span>&nbsp;
 								<label class="fancy-checkbox"><input type="checkbox"
 									name="icon1"
 									<c:if test="${param.icon=='icon-user' }">checked="checked"</c:if>
-									value="icon-user" /><span></span> </label> <span
-									class="icon-user pe-2x"></span>
+									value="icon-user" /><span></span> </label>
 &nbsp;&nbsp;&nbsp;&nbsp;
+									<span
+									class="icon-user-female pe-2x"></span>&nbsp;&nbsp;
 									<label
 									class="fancy-checkbox"><input type="checkbox"
 									name="icon2"
 									<c:if test="${param.icon=='icon-user-female' }">checked="checked"</c:if>
-									value="icon-user-female" /><span></span> </label>&nbsp;
+									value="icon-user-female" /><span></span> </label>
+&nbsp;&nbsp;&nbsp;
 									<span
-									class="icon-user-female pe-2x"></span>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									class="icon-bell pe-2x"></span>
 									 <label
 									class="fancy-checkbox"><input type="checkbox"
 									name="icon3"
 									<c:if test="${param.icon=='icon-bell' }">checked="checked"</c:if>
-									value="icon-bell" /><span></span> </label> <span
-									class="icon-bell pe-2x"></span>
+									value="icon-bell" /><span></span> </label>
 							</div>
 						</td>
 					<tr>
@@ -193,11 +195,11 @@ input[name="password"]:focus {
 					<tr>
 						<%-- 登録ボタン --%>
 						<td colspan="1" class="text-left"><input class="btn"
-							type="submit" value="検索" onclick="sendProfile" /></td>
+							type="submit" value="検索" onClick="sendProfile" /></td>
 						<%-- 戻るボタン --%>
 						<td colspan="1" class="text-right"><input class="btn"
 							type="button" value="戻る"
-							onClick="window.location.href='/Chapter11/index.jsp'" /></td>
+							onClick="window.location.href='./top.jsp'" /></td>
 					</tr>
 				</table>
 			</form>
