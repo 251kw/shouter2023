@@ -69,7 +69,7 @@ public class UserSearchInputSvt extends HttpServlet {
 			message = "検索結果はありません";
 			request.setAttribute("alert", message);
 			// touroku.jsp に処理を転送
-			dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
+			dispatcher = request.getRequestDispatcher("UserSearchResultAlert.jsp");
 			dispatcher.forward(request, response);
 			}else {
 		// 処理の転送先を .jsp に指定

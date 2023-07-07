@@ -73,8 +73,8 @@
 
 						<%-- checkbox --%>
 						<tr>
-							<td><label class="fancy-checkbox"><input type="checkbox" name="box"><span></span>
-							</label></td>
+							<td><label class="fancy-checkbox"><input
+									type="checkbox" name="box"><span></span> </label></td>
 							<td class="text-left"><label>${user.loginId}</label></td>
 
 							<td class="text-left"><label>${user.userName}</label></td>
@@ -84,8 +84,9 @@
 							<td class="text-left"><label>${user.profile}</label></td>
 
 							<%--編集--%>
-							<td class="color-main text-left"><input class="btn btn-success"
-							 type="submit" value="編集" formaction="userEditInput.jsp"/></td>
+							<td class="color-main text-left"><input
+								class="btn btn-success" type="submit" value="編集"
+								formaction="userEditInput.jsp" /></td>
 						</tr>
 
 					</c:forEach>
@@ -94,24 +95,24 @@
 							onclick="checkall(true)" type="button" value="全選択" /></td>
 						<td class="text-right"><input class="btn"
 							onclick="checkall(false)" type="button" value="全解除" /></td>
-						<script>
-							const checkbox = document.getElementsByName("box")
-
-							function checkall(trueOrfalse) {
-								for (i = 0; i < checkbox.length; i++) {
-									checkbox[i].checked = trueOrfalse
-								}
-							}
-						</script>
 					</tr>
 					<tr>
-					<td colspan="2" class="text-right"><input class="btn btn-error"
-							type="submit" value="削除" /></td>
-						<td class="text-right"><input class="btn"
-							type="submit" value="戻る" /></td>
+						<td colspan="2" class="text-right"><input
+							class="btn btn-error" type="submit" value="削除" /></td>
+						<td class="text-right"><input class="btn" type="submit"
+							value="戻る" /></td>
 					</tr>
 
 				</table>
+				<script>
+					const checkbox = document.getElementsByName("box")
+
+					function checkall(trueOrfalse) {
+						for (i = 0; i < checkbox.length; i++) {
+							checkbox[i].checked = trueOrfalse
+						}
+					}
+				</script>
 			</form>
 		</div>
 	</div>
