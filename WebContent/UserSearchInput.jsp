@@ -46,8 +46,7 @@
 							class="icon-smile pe-2x pe-va"></span> ログインID</td>
 						<td class="text-left"><input class="form-control" type="text"
 							name="loginId" size="20" id="login" pattern="[0-9a-zA-Z]+$"
-							placeholder="10文字以下半角英数字空白禁止" autofocus maxlength="10"
-							value=""></td>
+							placeholder="10文字以下半角英数字空白禁止" autofocus maxlength="10" value=""></td>
 					</tr>
 					<tr>
 						<td class="color-main text-left"><span
@@ -60,10 +59,12 @@
 						<%--checkedで必ずチェックいれる、選択したiconがicon-smileならそっちにチェック--%>
 						<td class="color-main text-left"><span
 							class="icon-joy pe-2x pe-va"></span> アイコン</td>
-						<td><label class="fancy-checkbox"><input type="checkbox" name="icon"
-								value="icon-users"><span></span></label><span class="icon-users pe-2x pe-va"></span>
-						 <label class="fancy-checkbox"><input type="checkbox" name="icon2"
-								value="icon-smile"><span></span></label><span class="icon-smile pe-2x pe-va"></span></td>
+						<td><label class="fancy-checkbox"><input
+								type="checkbox" name="icon" value="icon-users"><span></span></label><span
+							class="icon-users pe-2x pe-va"></span> <label
+							class="fancy-checkbox"><input type="checkbox"
+								name="icon2" value="icon-smile"><span></span></label><span
+							class="icon-smile pe-2x pe-va"></span></td>
 					</tr>
 					<tr>
 						<td class="color-main text-left"><span
