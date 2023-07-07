@@ -16,39 +16,13 @@
 		request.setCharacterEncoding("UTF-8");
 	%>
 	<%
-		UserDTO editUser = (UserDTO) request.getAttribute("editUser");
-	%>
-	<%
-		String icon = "";
-		if (request.getParameter("icon") != null) {
-			icon = request.getParameter("icon");
-		}
-	%>
-	<%
-		String smileIcon = "";
-		String bellIcon = "";
-		String userIcon = "";
-		String userFemaleIcon = "";
-		if (icon.equals("icon-user")) {
-			userIcon = "checked";
-		} else if (icon.equals("icon-bell")) {
-			bellIcon = "checked";
-		} else if (icon.equals("icon-user-female")) {
-			userFemaleIcon = "checked";
-		} else {
-			smileIcon = "checked";
-		}
+		UserDTO editUser = (UserDTO)request.getAttribute("editUser");
 	%>
 	<div class="bg-success padding-y-5">
 		<div class="container padding-y-5 text-center">
 			<h1>
-				ユーザー情報編集画面<br>編集内容を入力してください。
+				ユーザー情報更新画面<br>更新する内容を入力してください。
 			</h1>
-		</div>
-	</div>
-	<div class="padding-y-5 text-center">
-		<div style="width: 40%" class="container padding-y-5 text-left">
-			<strong class="color-main">編集情報を入力してください。</strong>
 		</div>
 	</div>
 	<%-- action 属性にサーブレットを指定 --%>
@@ -60,6 +34,7 @@
 		<input type="hidden" name="icon-bell" value="<%=request.getAttribute("icon-bell")%>">
 		<input type="hidden" name="icon-smile" value="<%=request.getAttribute("icon-smile")%>">
 		<input type="hidden" name="profile" value="<%=request.getAttribute("profile")%>">
+		<input type="hidden" name="edit" value="<%=request.getAttribute("edit") %>">
 		<table style="width: 60%" class="table">
 			<c:if
 				test="${requestScope.alertSpace != null && requestScope.alertSpace != ''}">
@@ -122,7 +97,7 @@
 				<tr>
 					<%-- リクエストスコープの alert の値を出力 --%>
 					<td colspan="2" class="color-error text-left"><c:out
-							value="${requestScope.alertMaxlimit_profile}" /></td>
+							value="" /></td>
 				</tr>
 			</c:if>
 			<tr>
@@ -159,28 +134,28 @@
 					</div>
 					<div style="margin-left: 1em;">
 						<label class="fancy-radio"><input type="radio" name="e_Icon"
-							value="icon-user-female" <%=smileIcon%>><span></span></label>
+							value="icon-user-female"><span></span></label>
 					</div>
 					<div style="margin-left: 1em">
 						<span class="icon-bell pe-2x pe-va"></span>
 					</div>
 					<div style="margin-left: 1em;">
 						<label class="fancy-radio"><input type="radio" name="e_Icon"
-							value="icon-bell" <%=bellIcon%>><span></span></label>
+							value="icon-bell"><span></span></label>
 					</div>
 					<div style="margin-left: 1em;">
 						<span class="icon-user pe-2x pe-va"> </span>
 					</div>
 					<div style="margin-left: 1em;">
 						<label class="fancy-radio"><input type="radio" name="e_Icon"
-							value="icon-user" <%=userIcon%>><span></span></label>
+							value="icon-user"><span></span></label>
 					</div>
 					<div style="margin-left: 1em;">
 						<span class="icon-smile pe-2x pe-va"></span>
 					</div>
 					<div style="margin-left: 1em;">
 						<label class="fancy-radio"><input type="radio" name="e_Icon"
-							value="icon-smile" <%=userFemaleIcon%>><span></span></label>
+							value="icon-smile"><span></span></label>
 					</div>
 				</td>
 			</tr>

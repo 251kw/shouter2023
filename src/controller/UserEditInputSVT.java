@@ -56,7 +56,8 @@ public class UserEditInputSVT extends HttpServlet {
 		request.setAttribute("e_UserName", e_UserName);
 		request.setAttribute("e_Password", e_Password);
 		request.setAttribute("e_Icon", e_Icon);
-		request.setAttribute("e_Profiel", e_Profile);
+		request.setAttribute("e_Profile", e_Profile);
+		request.setAttribute("edit", edit);
 
 		String messageSpace = "";
 		String messageBlank = "";
@@ -66,7 +67,6 @@ public class UserEditInputSVT extends HttpServlet {
 		String messageMaxlimit_uName = "";
 		String messageMaxlimit_password = "";
 		String messageMaxlimit_profile = "";
-
 		DBManager db = new DBManager();
 		RequestDispatcher dispatcher = null;
 
@@ -124,14 +124,26 @@ public class UserEditInputSVT extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("UserEditInput.jsp");
 			}
 			if (messageSpace.equals("") && messageBlank.equals("") && messageHalf_width.equals("")
-					&& messageDuplication.equals("") && messageMaxlimit_ID.equals("") && messageMaxlimit_uName.equals("")
+					&& messageDuplication.equals("") && messageMaxlimit_ID.equals("")
+					&& messageMaxlimit_uName.equals("")
 					&& messageMaxlimit_password.equals("") && messageMaxlimit_profile.equals("")) {
 				dispatcher = request.getRequestDispatcher("UserEditConfirm.jsp");
 			}
 
-		}else {
-			ArrayList<UserDTO> list = db.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell, icon_smile, profile);
+		} else {
+			ArrayList<UserDTO> list = db.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell,
+					icon_smile, profile);
 			request.setAttribute("searchUser", list);
+			for (UserDTO u : list) {
+				if (u.getLoginId().equals("edit")) {
+					request.setAttribute("e_LoginId", u.getLoginId());
+					request.setAttribute("e_UserName", u.getUserName());
+					request.setAttribute("e_Password", u.getPassword());
+					request.setAttribute("e_Icon", u.getIcon());
+					request.setAttribute("e_Profile", u.getProfile());
+				}
+			}
+
 			dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
 		}
 		dispatcher.forward(request, response);

@@ -195,6 +195,7 @@ public class DBManager extends SnsDAO {
 		ResultSet rset = null;
 		//String[] iconArray= {icon_user_female,icon_user,icon_bell,icon_smile};
 
+
 		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
 
 		try {
@@ -204,26 +205,29 @@ public class DBManager extends SnsDAO {
 			// SELECT 文の実行
 			String sql = "SELECT * FROM users";
 			String sqlCondition = "";
-			if (loginId != "" || userName != "" || profile != "" || icon_user_female != null || icon_user != null
-					|| icon_bell != null || icon_smile != null) {//検索条件が選択されている場合
+			if (!(loginId.equals("")) || !(userName.equals("")) || !(profile.equals(""))
+					|| (icon_user_female != null && !(icon_user_female.equals("null")))
+					|| (icon_bell != null && !(icon_bell.equals("null")))
+					||(icon_smile != null && !(icon_smile.equals("null")))
+					||(icon_user != null && !(icon_user.equals("null")))) {//検索条件が選択されている場合
 				sqlCondition = sql + " WHERE";
-				if (loginId != "") {//ログインIDが指定されている場合
+				if (!(loginId.equals(""))) {//ログインIDが指定されている場合
 					sqlCondition += " loginId=" + "'" + loginId + "'";
 				}
-				if (userName != "") {//ユーザー名が指定されている場合
-					if (loginId != "") {
+				if (userName.equals("")) {//ユーザー名が指定されている場合
+					if (!(loginId.equals(""))) {
 						sqlCondition += " AND";
 					}
 					sqlCondition += " userName LIKE('%" + userName + "%')";
 				}
-				if (profile != "") {//プロフィールが指定されている場合
-					if (userName != "" || loginId != "") {
+				if (profile.equals("")) {//プロフィールが指定されている場合
+					if (!(userName.equals("")) || !(loginId.equals(""))) {
 						sqlCondition += " AND";
 					}
 					sqlCondition += " profile LIKE('%" + profile + "%')";
 				}
 				if (icon_smile != null || icon_user != null || icon_user_female != null || icon_bell != null) {//アイコンが指定されている場合
-					if (loginId != "" || userName != "" || profile != "") {
+					if (!(loginId.equals("")) || !(userName.equals("")) || !(profile.equals(""))) {
 						sqlCondition += " AND";
 					}
 					sqlCondition += " icon IN(";
@@ -282,12 +286,12 @@ public class DBManager extends SnsDAO {
 		return list;
 	}
 
-	public void editUser(UserDTO editUser, String e_LoginId, String e_UserName, String e_Password, String e_Icon,
+	public UserDTO editUser(UserDTO editUser, String e_LoginId, String e_UserName, String e_Password, String e_Icon,
 			String e_Profile) {
 		Connection conn = null; // データベース接続情報
 		PreparedStatement pstmt = null; // SQL 管理情報
 		ResultSet rset = null; // 検索結果
-
+		UserDTO editedUser = null;
 		String sql = "UPDATE users";
 		ArrayList<String> sqlConditions = new ArrayList<String>();
 		try {
@@ -318,10 +322,10 @@ public class DBManager extends SnsDAO {
 				if (i == (sqlConditions.size() - 1)) {
 					sql += " WHERE loginId=" + editUser.getLoginId();
 				}
+				pstmt = conn.prepareStatement(sql);
+				rset = pstmt.executeQuery();
 			}
-			// SELECT 文の登録と実行
-			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
-			rset = pstmt.executeQuery();
+			editedUser = new UserDTO(e_LoginId,e_Password,e_UserName,e_Icon,e_Profile);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -330,7 +334,7 @@ public class DBManager extends SnsDAO {
 			close(pstmt);
 			close(conn);
 		}
-
+		return editedUser;
 	}
 
 }

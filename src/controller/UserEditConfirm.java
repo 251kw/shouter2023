@@ -20,14 +20,15 @@ import dto.UserDTO;
 public class UserEditConfirm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
@@ -35,7 +36,8 @@ public class UserEditConfirm extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String loginId = request.getParameter("loginId");
 		String userName = request.getParameter("userName");
 		String icon_user_female = request.getParameter("icon-user-female");
@@ -47,8 +49,9 @@ public class UserEditConfirm extends HttpServlet {
 		String e_UserName = request.getParameter("e_UserName");
 		String e_Password = request.getParameter("e_Password");
 		String e_Icon = request.getParameter("e_Icon");
-		String e_Profile = request.getParameter("e_Profie");
+		String e_Profile = request.getParameter("e_Profile");
 		String OK = request.getParameter("OK");
+		String edit = request.getParameter("edit");
 		request.setAttribute("loginId", loginId);
 		request.setAttribute("userName", userName);
 		request.setAttribute("icon-user-female", icon_user_female);
@@ -61,14 +64,28 @@ public class UserEditConfirm extends HttpServlet {
 		request.setAttribute("e_Password", e_Password);
 		request.setAttribute("e_Icon", e_Icon);
 		request.setAttribute("e_Profiel", e_Profile);
+		request.setAttribute("edit", edit);
+		UserDTO editUser = null;
 
-		DBManager dbm = new DBManager();
+		DBManager db = new DBManager();
 
 		RequestDispatcher dispatcher = null;
 
-		if(OK != null) {
-			ArrayList<UserDTO> list = dbm.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell, icon_smile, profile);
+		if (OK != null) {
+			ArrayList<UserDTO> list = db.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell,
+					icon_smile, profile);
+			for(UserDTO u:list) {
+				if(u.getLoginId().equals("edit")) {
+					editUser = u;
+				}
+			}
+			UserDTO editedUser = db.editUser(editUser, e_LoginId, e_UserName, e_Password, e_Icon, e_Profile);
+			request.setAttribute("editedUser", editedUser);
+			dispatcher = request.getRequestDispatcher("userEditResult.jsp");
+		}else {
+			dispatcher = request.getRequestDispatcher("userEditInput.jsp");
 		}
+		dispatcher.forward(request, response);
 	}
 
 }

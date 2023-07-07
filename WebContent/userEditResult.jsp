@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>ユーザー情報更新確認</title>
+<title>ユーザー情報更新結果</title>
 <link rel="stylesheet" href="./css/skyblue.css">
 <link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 <link rel="stylesheet" href="./css/helper.css">
@@ -15,7 +15,7 @@
 	<div class="bg-success padding-y-5">
 		<div class="container padding-y-5 text-center">
 			<h1>
-				ユーザー更新確認画面<br>更新します。よろしいでしょうか？
+				ユーザー更新結果画面
 			</h1>
 		</div>
 	</div>
@@ -50,9 +50,7 @@
 				   	</tr>
 					<tr>
 						<td colspan="2" class="text-center"><input class="btn"
-							type="submit" name="OK" value="OK" /></td>
-						<td colspan="2" class="text-center"><input class="btn"
-							type="submit" name="cancel" value="キャンセル" /></td>
+							type="submit" name="retunr" value="戻る" /></td>
 					</tr>
 				</table>
 				<!-- hiddenで送るデータ -->
