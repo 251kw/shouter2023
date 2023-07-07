@@ -6,7 +6,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>Shouter - 新規会員登録 -</title>
+<title>Shouter - 会員情報更新 -</title>
 <link rel="stylesheet" href="./css/skyblue.css">
 <link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 <link rel="stylesheet" href="./css/helper.css">
@@ -23,19 +23,29 @@
 		String prof = "";
 		String check_smile = "checked";
 		String check_users = "";
+		String check_user = "";
+		String check_usersfemale = "";
+		String check_bell = "";
+		HttpSession sess = request.getSession();
 
-
-		if (request.getParameter("loginId") != null) {
-			loginId = request.getParameter("loginId");
-			userName = request.getParameter("userName");
-			password = request.getParameter("password");
-			icon = request.getParameter("icon");
-			prof = request.getParameter("prof");
+		if (sess.getAttribute("olduser") != null) {
+			UserDTO ou = (UserDTO) sess.getAttribute("olduser");
+			loginId = ou.getLoginId();
+			userName = ou.getUserName();
+			password = ou.getPassword();
+			icon = ou.getIcon();
+			prof = ou.getProfile();
 		}
-		if (icon.equals("icon-smile pe-2x pe-va")) {
+		if (icon.equals("icon-smile")) {
 			check_smile = "checked";
-		} else if (icon.equals("icon-users pe-2x pe-va")) {
+		} else if (icon.equals("icon-users")) {
 			check_users = "checked";
+		} else if (icon.equals("icon-user")) {
+			check_user = "checked";
+		} else if (icon.equals("icon-users-female")) {
+			check_usersfemale = "checked";
+		} else if (icon.equals("icon-bell")) {
+			check_bell = "checked";
 		}
 	%>
 	<div class="bg-success padding-y-5">
@@ -45,7 +55,7 @@
 			</h1>
 			<div class="padding-y-5 text-center">
 				<div style="width: 40%" class="container padding-y-5 text-center">
-					<div class="color-Light">ユーザー登録します。内容を入力してください。</div>
+					<div class="color-Light">ユーザー情報を更新します。内容を入力してください。</div>
 				</div>
 			</div>
 		</div>
@@ -101,12 +111,24 @@
 		<div style="width: 40%" class="container color-error text-left">
 			${requestScope.alert_thou}</div>
 	</c:if>
+	<%-- 全ての項目が前のユーザー情報と同じかの確認 --%>
+	<c:if
+		test="${requestScope.alert_same != null && requestScope.alert_same != ''}">
+		<div style="width: 40%" class="container color-error text-left">
+			${requestScope.alert_same}</div>
+	</c:if>
+	<%--update失敗エラー --%>
+	<c:if
+		test="${requestScope.alert_update != null && requestScope.alert_update != ''}">
+		<div style="width: 40%" class="container color-error text-left">
+			${requestScope.alert_update}</div>
+	</c:if>
 
 
 	<div class="padding-y-5 text-center">
 		<div style="width: 60%" class="container padding-y-5 text-center">
 			<%-- action 属性にサーブレットを指定 --%>
-			<form action="./uii" method="post">
+			<form action="./uei" method="post">
 				<table style="width: 800px" class="table">
 					<tr>
 						<%-- ログインID 入力欄の名前は loginId --%>
@@ -137,28 +159,31 @@
 							<%--　アイコン入力欄の名前は icon --%>
 							<div class="parent">
 
-								<label class="fancy-checkbox"><input type="checkbox"
-									name="icon" id="icon-smile" value="icon-smile" /> <span></span></label>
-								<span class="icon-smile pe-2x pe-va "></span>
+								<label class="fancy-radio"><input type="radio"
+									name="icon" id="icon-smile" value="icon-smile"
+									<%=check_smile%> /> <span></span></label> <span
+									class="icon-smile pe-2x pe-va "></span>
 							</div>
 							<div class="parent">
-								<label class="fancy-checkbox "><input type="checkbox"
-									name="icon" id="icon-users" value="icon-users" /> <span></span>
-								</label> <span class="icon-users pe-2x pe-va "></span>
+								<label class="fancy-radio "><input type="radio"
+									name="icon" id="icon-users" value="icon-users"
+									<%=check_users%> /> <span></span> </label> <span
+									class="icon-users pe-2x pe-va "></span>
 							</div>
 							<div class="parent">
-								<label class="fancy-checkbox "><input type="checkbox"
-									name="icon" id="icon-user" value="icon-user" /><span> </span>
-								</label> <span class="icon-user pe-2x pe-va "></span>
+								<label class="fancy-radio "><input type="radio"
+									name="icon" id="icon-user" value="icon-user" <%=check_user%> /><span>
+								</span> </label> <span class="icon-user pe-2x pe-va "></span>
 							</div>
 							<div class="parent">
-								<label class="fancy-checkbox"> <input type="checkbox"
-									name="icon" id="icon-user-female" value="icon-user-female" /><span></span>
+								<label class="fancy-radio"> <input type="radio"
+									name="icon" id="icon-user-female" value="icon-user-female"
+									<%=check_usersfemale%> /><span></span>
 								</label><span class="icon-user-female pe-2x pe-va"></span>
 							</div>
 							<div class="parent">
-								<label class="fancy-checkbox "> <input type="checkbox"
-									name="icon" id="icon-bell" value="icon-bell" /><span></span>
+								<label class="fancy-radio "> <input type="radio"
+									name="icon" id="icon-bell" value="icon-bell" <%=check_bell%> /><span></span>
 								</label><span class="icon-bell pe-2x pe-va "></span>
 							</div>
 						</td>
@@ -175,8 +200,8 @@
 						<%--送信ボタンと戻るボタン --%>
 						<td colspan="2" class="text-right"><input class="btn"
 							type="submit" value="登録" /></td>
-						<td colspan="2" class="text-right"><a href="index.jsp"
-							class="btn">戻る</a></td>
+						<td colspan="2" class="text-right"><input type="submit"
+							formaction="./usr" class="btn" value="戻る"></td>
 					</tr>
 				</table>
 			</form>

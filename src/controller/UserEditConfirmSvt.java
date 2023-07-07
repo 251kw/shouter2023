@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,16 +14,16 @@ import dao.DBManager;
 import dto.UserDTO;
 
 /**
- * Servlet implementation class UserSerchResultSvt
+ * Servlet implementation class UserEditConfirmSvt
  */
-@WebServlet("/usr")
-public class UserSerchResultSvt extends HttpServlet {
+@WebServlet("/uec")
+public class UserEditConfirmSvt extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public UserSerchResultSvt() {
+	public UserEditConfirmSvt() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -41,45 +40,35 @@ public class UserSerchResultSvt extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//文字化け対策
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		HttpSession session = request.getSession();
 
-		String checkAll = request.getParameter("checkall");
-		String loginId = (String) session.getAttribute("loginId");
-		String userName = (String) session.getAttribute("userName");
-		String[] icon = (String[]) session.getAttribute("icon");
-		String prof = (String) session.getAttribute("prof");
+		//hiddenで送られてきたパラメータの取得
+		String loginId = request.getParameter("loginId");
+		String userName = request.getParameter("userName");
+		String password = request.getParameter("password");
+		String icon = request.getParameter("icon");
+		String prof = request.getParameter("prof");
+		UserDTO olduser =(UserDTO)session.getAttribute("olduser");
 		RequestDispatcher dispatcher = null;
 
+		//取得したパラメータからUserDTOオブジェクトを作り、usersテーブルをupdate
 		DBManager dbm = new DBManager();
-		ArrayList<UserDTO> users  = dbm.SerchUser(loginId, userName, icon, prof);
-		String check = "";
-		if(checkAll != null) {
-			if(checkAll.equals("全選択")) {
-				check = "checked";
-				request.setAttribute("check", check);
-				request.setAttribute("users",users);
-				dispatcher = request.getRequestDispatcher("UserSerchResult.jsp");
-
-			}else if(checkAll.equals("全解除")) {
-				check = "";
-				request.setAttribute("check", check);
-				request.setAttribute("users",users);
-				dispatcher = request.getRequestDispatcher("UserSerchResult.jsp");
-			}
-		}else if(request.getParameter("edit")!=null) {
-			int editIndex = Integer.parseInt(request.getParameter("edit"));
-			UserDTO editUser=users.get(editIndex);
-			session.setAttribute("olduser", editUser);
+		UserDTO user = new UserDTO(loginId,userName,password,icon,prof);
+		int result = dbm.updateUser(olduser, user);
+		request.setAttribute("user", user);
+		if (result == 0){
+			String message_update = "情報の更新に失敗しました。";
+			request.setAttribute("alert_update", message_update);
 			dispatcher = request.getRequestDispatcher("UserEditInput.jsp");
+
 		}else {
-			request.setAttribute("users",users);
-			dispatcher = request.getRequestDispatcher("UserSerchResult.jsp");
+			//UserEditResult.jspに遷移
+			dispatcher = request.getRequestDispatcher("UserEditResult.jsp");
 		}
-
 		dispatcher.forward(request, response);
-
 	}
 
 }

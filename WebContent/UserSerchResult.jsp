@@ -64,9 +64,8 @@
 							<td>${u.userName}</td>
 							<td><span class="${u.icon} pe-2x pe-va"></span></td>
 							<td>${u.profile}</td>
-							<td><input type="button" name="edit" value="編集"
-								class="btn btn-sm btn-empty"></td>
-							<td><input type="hidden" value="${s.index}" />
+							<td><button type="submit" name="edit" value="${s.index}"
+								class="btn btn-empty" formaction="./usr">編集</button></td>
 						</tr>
 					</c:forEach>
 

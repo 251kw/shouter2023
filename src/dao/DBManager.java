@@ -270,4 +270,52 @@ public class DBManager extends SnsDAO {
 
 		return users;
 	}
+
+	//更新前後の情報を比べて、更新されている値だけupdate文に追加する。
+	public int updateUser(UserDTO olduser,UserDTO user) {
+		Connection conn = null;            // データベース接続情報
+		PreparedStatement pstmt = null;    // SQL 管理情報
+		int rset = 0;             // 検索結果
+
+		String sql = "UPDATE users SET";
+		ArrayList<String> sqls = new ArrayList<String>();
+
+		if(!user.getLoginId().equals(olduser.getLoginId())){
+			sqls.add(" loginId= '"+user.getLoginId()+"'");
+		}if(!user.getUserName().equals(olduser.getUserName())){
+			sqls.add(" userName='"+user.getUserName()+"'");
+		}if(!user.getPassword().equals(olduser.getPassword())){
+			sqls.add(" password='"+user.getPassword()+"'");
+		}if(!user.getIcon().equals(olduser.getIcon())){
+			sqls.add(" Icon='"+user.getIcon()+"'");
+		}if(!user.getProfile().equals(olduser.getProfile())){
+			sqls.add(" profile='"+user.getProfile()+"'");
+		}
+
+		sql = sql + sqls.get(0);
+		for(int i = 1 ; i < sqls.size(); i++) {
+			sql = sql + "," + sqls.get(i);
+		}
+		sql = sql + " where loginId = '"+olduser.getLoginId()+"'";
+
+
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql);	// SELECT 構文登録
+			rset = pstmt.executeUpdate();
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(pstmt);
+			close(conn);
+		}
+
+		return rset;
+	}
 }

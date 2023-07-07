@@ -3,6 +3,8 @@ package check;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import dto.UserDTO;
+
 public class Check_func {
 	//半角英数字かどうか判断するメソッド
 	public static boolean checkLogic(String regex, String target) {
@@ -90,5 +92,17 @@ public class Check_func {
 			result_pass = true;
 		}
 		return (result_id||result_pass);
+	}
+
+	public static boolean checkSame(UserDTO user, UserDTO olduser) {
+		boolean result = false;
+		if(user.getLoginId().equals(olduser.getLoginId()) &&
+				user.getPassword().equals(olduser.getPassword()) &&
+				user.getUserName().equals(olduser.getUserName()) &&
+				user.getIcon().equals(olduser.getIcon()) &&
+				user.getProfile().equals(olduser.getProfile()) ) {
+			result = true;
+		}
+		return result;
 	}
 }
