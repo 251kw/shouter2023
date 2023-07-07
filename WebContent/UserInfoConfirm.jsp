@@ -6,7 +6,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>Shouter - 確認 -</title>
+<title>Shouter - 登録確認 -</title>
 <link rel="stylesheet" href="./css/skyblue.css">
 <link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 <link rel="stylesheet" href="./css/helper.css">
@@ -16,21 +16,9 @@
 	UserDTO u = (UserDTO)request.getAttribute("user");
 %>
 <body>
-	<%-- <div class="bg-success padding-y-5">
-		<div class="container padding-y-5 text-center">
-			<h1>
-				Shouter&nbsp;<span class="icon-speaker"></span>
-			</h1>
-		</div>
-	</div>
-	<div class="padding-y-5 text-center">
-		<div style="width: 40%" class="container padding-y-5 text-left">
-			<strong class="color-main">ユーザ登録確認画面</strong>
-		</div>
-	</div>--%>
 		<div class="bg-main padding-y-5">
 	<div class="padding-y-5 text-center">
-		<strong>ユーザ登録確認画面</strong><br>
+		<strong>ユーザ確認画面</strong><br>
 		<p style=display:inline>登録します。よろしいでしょうか？</p>
 	</div>
 	</div>

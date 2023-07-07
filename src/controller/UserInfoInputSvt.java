@@ -72,7 +72,7 @@ public class UserInfoInputSvt extends HttpServlet {
 		String message6 = null;
 
 		// 未入力の項目があれば
-		if (loginId.equals("") || userName.equals("") || password.equals("") /*|| icon==null*/ || profile.equals("")) {
+		if (loginId.equals("") || userName.equals("") || password.equals("") || profile.equals("")) {
 			message1 = "すべて必須項目です";
 			// エラーメッセージをリクエストオブジェクトに保存
 			request.setAttribute("alert1", message1);
@@ -136,7 +136,7 @@ public class UserInfoInputSvt extends HttpServlet {
 			else {
 				//UserDTO　インスタンス化
 				UserDTO user = new UserDTO(loginId, password, userName, icon, profile);
-				// ユーザ情報をセッションに保存
+				// ユーザ情報をリクエストに保存
 				request.setAttribute("user", user);
 				// 問題なければ、処理の転送先を UserInfoConfirm.jsp に指定。確認画面表示される。
 				dispatcher = request.getRequestDispatcher("UserInfoConfirm.jsp");

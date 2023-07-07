@@ -29,53 +29,54 @@
 					<%-- リクエストスコープに alert があれば リクエストスコープの alert の値を出力 --%>
 					<c:when
 						test="${requestScope.alert != null && requestScope.alert != ''}">
-						<div class = "color-error text-center">
-						<c:out value="${requestScope.alert}" />
+						<div class="color-error text-center">
+							<c:out value="${requestScope.alert}" />
 						</div>
 					</c:when>
 
 					<%-- 検索結果があれば 表を出す--%>
 					<c:otherwise>
-					<jsp:useBean id="user2" scope="session" type="java.util.ArrayList<dto.UserDTO>" />
-						<div class = "padding-y-5 text-left">
-						<input type="button" onClick="checkAll()" value="全選択">
-						<input type="button" onClick="uncheckAll()" value="全解除">
+						<jsp:useBean id="user2" scope="session" type="java.util.ArrayList<dto.UserDTO>" />
+						<div class="padding-y-5 text-left">
+							<input type="button" onClick="checkAll()" value="全選択"> <input
+								type="button" onClick="uncheckAll()" value="全解除">
 						</div>
-						<table border="1" style="width: 400px"  class="table table-striped table-bordered table-hover" >
+						<table border="1" style="width: 400px"
+							class="table table-striped table-bordered table-hover">
 							<tr bgcolor="#1BBC9B">
 								<th></th>
-								<th style="text-align:center" nowrap>ログインID</th>
-								<th style="text-align:center" nowrap>ユーザー名</th>
-								<th style="text-align:center" nowrap>アイコン</th>
-								<th style="text-align:center" nowrap>プロフィール</th>
+								<th style="text-align: center" nowrap>ログインID</th>
+								<th style="text-align: center" nowrap>ユーザー名</th>
+								<th style="text-align: center" nowrap>アイコン</th>
+								<th style="text-align: center" nowrap>プロフィール</th>
 								<th></th>
 							</tr>
 							<c:forEach var="result" items="${user2}">
-								<%--  int i = 1; --%>
-								<%-- java.util.ArrayList<dto.UserDTO> u = (java.util.ArrayList<dto.UserDTO>)request.getAttribute("user2"); --%>
+								<%!  int i = 0; %>
 								<tr>
-									<td><label class="fancy-checkbox"><input type="checkbox" name="check" value="user2"><span></span></label></td>
+									<td><label class="fancy-checkbox">
+									<input type="checkbox" name="check" value="user2"><span></span></label></td>
 									<td nowrap>${result.loginId}</td>
 									<td nowrap>${result.userName}</td>
-									<td nowrap><span class = "${result.icon}  pe-2x pe-va"></span></td>
+									<td nowrap><span class="${result.icon}  pe-2x pe-va"></span></td>
 									<td nowrap>${result.profile}</td>
-									<%-- <input type ="hidden" name="user<%=i%>" value=<%=u%>>--%>
-									<%-- i++; --%>
-									<td><input class="btn" type="submit" value="編集" formaction="" /></td>
+									<td><button type="submit" name="edit" value="${result.loginId}" formaction="./usr">編集</button></td>
 								</tr>
+								<%  i++; %>
 							</c:forEach>
 						</table>
 
-						<div class = "text-left">
-						<input type="button" onClick="checkAll()" value="全選択">
-						<input type="button" onClick="uncheckAll()" value="全解除">
+						<div class="text-left">
+							<input type="button" onClick="checkAll()" value="全選択"> <input
+								type="button" onClick="uncheckAll()" value="全解除">
 						</div>
 					</c:otherwise>
 				</c:choose>
 
-				<br>
-				<input class="btn" type="submit" value="削除" formaction="" />	<%-- 削除ボタンで?にとぶ --%>
-				<a href="UserSearchInput.jsp" class="btn">戻る</a>				<%-- 戻る時は送る値がないのでハイパーリンクでOK --%>
+				<br> <input class="btn" type="submit" value="削除" formaction="" />
+				<%-- 削除ボタンで?にとぶ --%>
+				<a href="UserSearchInput.jsp" class="btn">戻る</a>
+				<%-- 戻る時は送る値がないのでハイパーリンクでOK --%>
 
 			</form>
 
@@ -83,9 +84,9 @@
 	</div>
 
 	<script>
-	//getElementsByName()メソッド:name属性がcheckのチェックボックスを取得
-	//取得したチェックボックス群は、HTMLコレクション(配列みたいなもの)に格納されるので、配列と同じようにcheckbox1[i]の形で取り出せる
-	//forで配列の長さ（取得したチェックボックスの数）分回して、全てのチェックボックスのchecked属性を順番に変更(trueだとチェック、falseだとチェックはずれる)
+		//getElementsByName()メソッド:name属性がcheckのチェックボックスを取得
+		//取得したチェックボックス群は、HTMLコレクション(配列みたいなもの)に格納されるので、配列と同じようにcheckbox1[i]の形で取り出せる
+		//forで配列の長さ（取得したチェックボックスの数）分回して、全てのチェックボックスのchecked属性を順番に変更(trueだとチェック、falseだとチェックはずれる)
 		//全選択
 		const check = document.getElementsByName("check")
 		function checkAll() {
@@ -98,9 +99,9 @@
 		const uncheck = document.getElementsByName("check")
 
 		function uncheckAll() {
-		  for(i = 0; i < uncheck.length; i++) {
-			  uncheck[i].checked = false
-		  }
+			for (i = 0; i < uncheck.length; i++) {
+				uncheck[i].checked = false
+			}
 		}
 	</script>
 

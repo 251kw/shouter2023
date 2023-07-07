@@ -42,7 +42,7 @@
 					</tr>
 					<tr>
 						<td colspan="2" class="text-right">
-						<input class="btn" type="submit" value="新規登録" formaction="UserInfoInput.jsp"/>
+						<a href="UserInfoInput.jsp" class="btn">新規登録</a><%-- 戻る時は送る値がないのでハイパーリンクでOK --%>
 						<input class="btn" type="submit" value="ログイン" formaction="./login"/>
 						</td>
 					</tr>

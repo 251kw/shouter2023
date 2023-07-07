@@ -459,4 +459,40 @@ public class DBManager extends SnsDAO {
 		}
 		return list;
 	}
+
+	/***更新(6番目の引数は、更新前のID)***/
+	public boolean getEditUser(String loginId, String password, String userName, String icon, String profile, String edituserId) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		boolean result = false;
+
+		try {
+			conn = getConnection();
+
+			// update文の登録と実行
+			String sql = "UPDATE users SET loginId=?, userName=?, password=?, icon=?, profile=? WHERE loginId=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, loginId);
+			pstmt.setString(2, userName);
+			pstmt.setString(3, password);
+			pstmt.setString(4, icon);
+			pstmt.setString(5, profile);
+			pstmt.setString(6, edituserId);
+
+			// 実行結果が１なら更新成功。結果をtrueにする。
+			int cnt = pstmt.executeUpdate();
+			if (cnt == 1) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(pstmt);
+			close(conn);
+		}
+
+		return result;
+	}
 }

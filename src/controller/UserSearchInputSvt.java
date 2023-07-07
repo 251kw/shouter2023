@@ -68,14 +68,14 @@ public class UserSearchInputSvt extends HttpServlet {
 		DBManager dbm = new DBManager();
 
 		//入力していないとき全件検索のメソッド、elseで条件に応じて検索するメソッド
-		if(loginId=="" && userName=="" && icon==null && profile=="") {
+		if(loginId.equals("") && userName.equals("") && icon==null && profile.equals("")) {
 			ArrayList<UserDTO> user = dbm.searchall();
 			// セッションに保存
 			session.setAttribute("user2", user);
 			dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
 			dispatcher.forward(request, response);
 		}
-		else if(loginId!="") {	//入力はされてるけど、
+		else if(!loginId.equals("")) {	//入力はされてるけど、
 			// 半角スペースがあれば
 			if (loginId.contains(" ")|| userName.contains(" ")) {
 				message2 = "プロフィール以外に半角スペースは使えません";
@@ -104,7 +104,7 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher.forward(request, response);
 			}
 		}
-		if(!(loginId=="" && userName=="" && icon==null && profile=="")) {
+		if(!(loginId.equals("") && userName.equals("") && icon==null && profile.equals(""))) {
 			ArrayList<UserDTO> user = dbm.search(loginId, userName, icon, profile);
 			if(user.size() == 0) {	//userの長さがゼロ(検索結果がなかったら)
 				message = "検索結果に一致するユーザはいません";
