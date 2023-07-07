@@ -35,7 +35,7 @@
 		</div>
 	</div>
 	<div class="padding-y-5 text-center">
-		<div style="width: 50%" class="container padding-y-5 text-center">
+		<div style="width: 60%" class="container padding-y-5 text-center">
 			<%-- action 属性にサーブレットを指定./UserSearchInputSvt --%>
 			<form action="./UserSearchInputSvt" method="post">
 				<table style="width: 700px" class="table">
@@ -60,11 +60,10 @@
 						<%--checkedで必ずチェックいれる、選択したiconがicon-smileならそっちにチェック--%>
 						<td class="color-main text-left"><span
 							class="icon-joy pe-2x pe-va"></span> アイコン</td>
-						<td><label><input type="checkbox" name="icon"
-								value="icon-users"><span class="icon-users pe-2x pe-va"></span>
-						</label> <label><input type="checkbox" name="icon2"
-								value="icon-smile"><span
-								class="icon-smile pe-2x pe-va"></span></label></td>
+						<td><label class="fancy-checkbox"><input type="checkbox" name="icon"
+								value="icon-users"><span></span></label><span class="icon-users pe-2x pe-va"></span>
+						 <label class="fancy-checkbox"><input type="checkbox" name="icon2"
+								value="icon-smile"><span></span></label><span class="icon-smile pe-2x pe-va"></span></td>
 					</tr>
 					<tr>
 						<td class="color-main text-left"><span

@@ -84,7 +84,8 @@
 							<td class="text-left"><label>${user.profile}</label></td>
 
 							<%--編集--%>
-							<td class="color-main text-left">編集</td>
+							<td class="color-main text-left"><input class="btn btn-success"
+							 type="submit" value="編集" formaction="userEditInput.jsp"/></td>
 						</tr>
 
 					</c:forEach>
@@ -104,7 +105,7 @@
 						</script>
 					</tr>
 					<tr>
-					<td colspan="2" class="text-right"><input class="btn"
+					<td colspan="2" class="text-right"><input class="btn btn-error"
 							type="submit" value="削除" /></td>
 						<td class="text-right"><input class="btn"
 							type="submit" value="戻る" /></td>
