@@ -52,7 +52,6 @@
 								<th></th>
 							</tr>
 							<c:forEach var="result" items="${user2}">
-								<%!  int i = 0; %>
 								<tr>
 									<td><label class="fancy-checkbox">
 									<input type="checkbox" name="check" value="user2"><span></span></label></td>
@@ -62,7 +61,6 @@
 									<td nowrap>${result.profile}</td>
 									<td><button type="submit" name="edit" value="${result.loginId}" formaction="./usr">編集</button></td>
 								</tr>
-								<%  i++; %>
 							</c:forEach>
 						</table>
 
@@ -72,11 +70,10 @@
 						</div>
 					</c:otherwise>
 				</c:choose>
-
-				<br> <input class="btn" type="submit" value="削除" formaction="" />
 				<%-- 削除ボタンで?にとぶ --%>
-				<a href="UserSearchInput.jsp" class="btn">戻る</a>
+				<br> <input class="btn" type="submit" value="削除" name="delete" formaction="" />
 				<%-- 戻る時は送る値がないのでハイパーリンクでOK --%>
+				<a href="UserSearchInput.jsp" class="btn">戻る</a>
 
 			</form>
 

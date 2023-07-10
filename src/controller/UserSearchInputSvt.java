@@ -55,14 +55,18 @@ public class UserSearchInputSvt extends HttpServlet {
 		String icon[] = request.getParameterValues("icon");	//2つあるので配列で受け取る
 		String profile = request.getParameter("profile");
 
+		HttpSession session = request.getSession();	//セッション開始
+		session.setAttribute("saveLoginId", loginId);
+		session.setAttribute("saveUserName", userName);
+		session.setAttribute("saveIcon", icon);
+		session.setAttribute("saveProfile", profile);
+
 		String message = null;
 		String message2 = null;
 		String message3 = null;
 		String message4 = null;
 
 		RequestDispatcher dispatcher = null;
-
-		HttpSession session = request.getSession();	//セッション開始
 
 		// DataManager オブジェクトを生成。
 		DBManager dbm = new DBManager();

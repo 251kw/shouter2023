@@ -48,7 +48,7 @@
 						<td>
 						<input type="hidden" name="icon" id="icon" value="<%=u.getIcon()%>">
 						<label for="icon">
-						<span class = <%=u.getIcon()%>></span>
+						<span class = "<%=u.getIcon()%> pe-2x pe-va"></span>
 						</label>
 
 						</td>
