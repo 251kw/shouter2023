@@ -44,13 +44,15 @@ public class UserEditInputSvt extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 
+		//打ち込まれた内容を受け取る
 		String loginId = request.getParameter("loginId");
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
 		String icon = request.getParameter("icon");
 		String prof = request.getParameter("prof");
 
-		UserDTO user = new UserDTO(loginId,userName,password,icon,prof);
+		UserDTO user = new UserDTO(loginId,password,userName,icon,prof);
+		//
 		request.setAttribute("user", user);
 		RequestDispatcher dispatcher = null;
 		HttpSession session = request.getSession();
@@ -100,7 +102,7 @@ public class UserEditInputSvt extends HttpServlet {
 			request.setAttribute("alert_thou", message_thou);
 			flag++;
 		}if(Check_func.checkSame(user,olduser)){
-			message_thou="ユーザー情報を変更してください。";
+			message_same="ユーザー情報を変更してください。";
 			request.setAttribute("alert_same", message_same);
 			flag++;
 		}

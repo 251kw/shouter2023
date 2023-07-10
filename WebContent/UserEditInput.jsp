@@ -36,13 +36,30 @@
 			icon = ou.getIcon();
 			prof = ou.getProfile();
 		}
+		if (request.getAttribute("user") != null) {
+
+			UserDTO ou = (UserDTO) request.getAttribute("user");
+			loginId = ou.getLoginId();
+			userName = ou.getUserName();
+			password = ou.getPassword();
+			icon = ou.getIcon();
+			prof = ou.getProfile();
+
+		}
+		if(request.getParameter("loginId")!=null){
+			loginId = request.getParameter("loginId");
+			userName = request.getParameter("userName");
+			password = request.getParameter("password");
+			icon = request.getParameter("icon");
+			prof = request.getParameter("prof");
+		}
 		if (icon.equals("icon-smile")) {
 			check_smile = "checked";
 		} else if (icon.equals("icon-users")) {
 			check_users = "checked";
 		} else if (icon.equals("icon-user")) {
 			check_user = "checked";
-		} else if (icon.equals("icon-users-female")) {
+		} else if (icon.equals("icon-user-female")) {
 			check_usersfemale = "checked";
 		} else if (icon.equals("icon-bell")) {
 			check_bell = "checked";
@@ -160,15 +177,13 @@
 							<div class="parent">
 
 								<label class="fancy-radio"><input type="radio"
-									name="icon" id="icon-smile" value="icon-smile"
-									<%=check_smile%> /> <span></span></label> <span
-									class="icon-smile pe-2x pe-va "></span>
+									name="icon" id="icon-smile" value="icon-smile" <%=check_smile%> />
+									<span></span></label> <span class="icon-smile pe-2x pe-va "></span>
 							</div>
 							<div class="parent">
 								<label class="fancy-radio "><input type="radio"
-									name="icon" id="icon-users" value="icon-users"
-									<%=check_users%> /> <span></span> </label> <span
-									class="icon-users pe-2x pe-va "></span>
+									name="icon" id="icon-users" value="icon-users" <%=check_users%> />
+									<span></span> </label> <span class="icon-users pe-2x pe-va "></span>
 							</div>
 							<div class="parent">
 								<label class="fancy-radio "><input type="radio"

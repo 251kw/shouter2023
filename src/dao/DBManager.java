@@ -277,7 +277,7 @@ public class DBManager extends SnsDAO {
 		PreparedStatement pstmt = null;    // SQL 管理情報
 		int rset = 0;             // 検索結果
 
-		String sql = "UPDATE users SET";
+		String sql = "UPDATE users SET";//
 		ArrayList<String> sqls = new ArrayList<String>();
 
 		if(!user.getLoginId().equals(olduser.getLoginId())){

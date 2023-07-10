@@ -56,7 +56,7 @@ public class UserEditConfirmSvt extends HttpServlet {
 
 		//取得したパラメータからUserDTOオブジェクトを作り、usersテーブルをupdate
 		DBManager dbm = new DBManager();
-		UserDTO user = new UserDTO(loginId,userName,password,icon,prof);
+		UserDTO user = new UserDTO(loginId,password,userName,icon,prof);
 		int result = dbm.updateUser(olduser, user);
 		request.setAttribute("user", user);
 		if (result == 0){
