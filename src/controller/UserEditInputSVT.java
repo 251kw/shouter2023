@@ -85,23 +85,9 @@ public class UserEditInputSVT extends HttpServlet {
 		edit_User.setProfile(e_Profile);
 		request.setAttribute("editUser", edit_User);
 
-		if(turnBack!=null){//戻るボタンが押された時の処理
-			/*ArrayList<UserDTO> list = db.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell, icon_smile, profile);
-			request.setAttribute("searchUser", list);*/
+		if (turnBack != null) {//戻るボタンが押された時の処理
 			dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
-		}else {//編集ボタンが押された時の処理
-			/*ArrayList<UserDTO> list = db.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell,
-					icon_smile, profile);//検索条件に該当するユーザー情報をまとめて受け取り
-			request.setAttribute("searchUser", list);//検索結果の一覧を遷移先のファイルに渡すための処理
-			for (UserDTO u : list) {//検索対象から、編集対象を抽出し、その情報を遷移先のファイルに渡すための処理
-				if (u.getLoginId().equals("edit")) {
-					request.setAttribute("e_LoginId", u.getLoginId());
-					request.setAttribute("e_UserName", u.getUserName());
-					request.setAttribute("e_Password", u.getPassword());
-					request.setAttribute("e_Icon", u.getIcon());
-					request.setAttribute("e_Profile", u.getProfile());
-				}
-			}*/
+		} else {//編集ボタンが押された時の処理
 			dispatcher = request.getRequestDispatcher("userEditConfirm.jsp");
 			if (e_Password.contains(" ")) {//パスワード欄にスペースが入っているかどうかの確認
 				messageSpace = "パスワードにはスペースを入力しないでください。";
@@ -119,19 +105,19 @@ public class UserEditInputSVT extends HttpServlet {
 				// ユーザー情報登録画面 に処理を転送
 				dispatcher = request.getRequestDispatcher("userEditInput.jsp");
 			}
-			if(e_UserName.length()>=11) {//ユーザー名の文字数制限
+			if (e_UserName.length() >= 11) {//ユーザー名の文字数制限
 				messageMaxlimit_uName = "ユーザー名は10文字以内で入力してください。";
-				request.setAttribute("alertMaxlimit_uName",messageMaxlimit_uName);
+				request.setAttribute("alertMaxlimit_uName", messageMaxlimit_uName);
 
 				dispatcher = request.getRequestDispatcher("userEditInput.jsp");
 			}
-			if(e_Password.length()>=11) {//パスワードの文字数制限
+			if (e_Password.length() >= 11) {//パスワードの文字数制限
 				messageMaxlimit_password = "パスワードは10文字以内で入力してください。";
 				request.setAttribute("alertMaxlimit_password", messageMaxlimit_password);
 
 				dispatcher = request.getRequestDispatcher("userEditInput.jsp");
 			}
-			if(e_Profile.length()>=51) {//プロフィールの文字数制限
+			if (e_Profile.length() >= 51) {//プロフィールの文字数制限
 				messageMaxlimit_profile = "プロフィールは50文字以内で入力してください。";
 				request.setAttribute("alertMaxlimit_profile", messageMaxlimit_profile);
 

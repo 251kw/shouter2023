@@ -20,18 +20,19 @@ import dto.UserDTO;
 public class UserEditConfirmSVT extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UserEditConfirmSVT() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public UserEditConfirmSVT() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
@@ -39,7 +40,8 @@ public class UserEditConfirmSVT extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		//文字化け対策
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html:charset=UTF-8");
@@ -51,8 +53,8 @@ public class UserEditConfirmSVT extends HttpServlet {
 		String icon_bell = request.getParameter("icon-bell");
 		String icon_smile = request.getParameter("icon-smile");
 		String profile = request.getParameter("profile");
-		String e_UserName = request.getParameter("e_UserName");
 		//編集内容の受け取り
+		String e_UserName = request.getParameter("e_UserName");
 		String e_Password = request.getParameter("e_Password");
 		String e_Icon = request.getParameter("e_Icon");
 		String e_Profile = request.getParameter("e_Profile");
@@ -72,21 +74,28 @@ public class UserEditConfirmSVT extends HttpServlet {
 		request.setAttribute("e_Icon", e_Icon);
 		request.setAttribute("e_Profile", e_Profile);
 		request.setAttribute("edit", edit);
-		UserDTO editUser = null;
+
 		DBManager db = new DBManager();
 		//検索条件に該当するユーザー情報の一覧を取得
-		ArrayList<UserDTO> list = db.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell,
-				icon_smile, profile);
-		//編集対象のデータの抽出
-		editUser = list.get(Integer.parseInt(edit));
-		//編集対象のデータを遷移先のファイルに送るための処理
-		request.setAttribute("editUser", editUser);
+
 		RequestDispatcher dispatcher = null;
 
 		if (OK != null) {//OKボタンが押された時の処理
+			ArrayList<UserDTO> list = db.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell,
+					icon_smile, profile);
+			//検索結果を遷移先に送るための処理
+			request.setAttribute("searchUser", list);
+			//編集画面で入力された内容を、戻るボタンが押された際にテキストボックスに保持するための処理
+			UserDTO editUser = list.get(Integer.parseInt(edit));
 			db.editUser(editUser, e_UserName, e_Password, e_Icon, e_Profile);
 			dispatcher = request.getRequestDispatcher("userEditResult.jsp");
 		} else {//キャンセルボタンが押された時の処理
+			UserDTO edit_User = new UserDTO();
+			edit_User.setUserName(e_UserName);
+			edit_User.setPassword(e_Password);
+			edit_User.setProfile(e_Profile);
+			edit_User.setIcon(e_Icon);
+			request.setAttribute("editUser", edit_User);
 			dispatcher = request.getRequestDispatcher("userEditInput.jsp");
 		}
 		dispatcher.forward(request, response);

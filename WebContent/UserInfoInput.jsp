@@ -76,138 +76,144 @@
 			<strong class="color-main">登録情報を入力してください。</strong>
 		</div>
 	</div>
-			<%-- action 属性にサーブレットを指定 --%>
-			<form action="./uii" method="post">
-				<table style="width: 60%" class="table">
-					<c:if
-						test="${requestScope.alertSpace != null && requestScope.alertSpace != ''}">
-						<tr>
-							<%-- リクエストスコープの alert の値を出力 --%>
-							<td colspan="2" class="color-error text-left"><c:out
-									value="${requestScope.alertSpace}" /></td>
-						</tr>
-					</c:if>
-					<c:if
-						test="${requestScope.alertBlank != null && requestScope.alertBlank != ''}">
-						<tr>
-							<%-- リクエストスコープの alert の値を出力 --%>
-							<td colspan="2" class="color-error text-left">
-							<c:out value="${requestScope.alertBlank}" /></td>
-						</tr>
-					</c:if>
-					<c:if
-						test="${requestScope.alertHalf_width != null && requestScope.alertHalf_width != ''}">
-						<tr>
-							<%-- リクエストスコープの alert の値を出力 --%>
-							<td colspan="2" class="color-error text-left">
-							<c:out value="${requestScope.alertHalf_width}" /></td>
-						</tr>
-					</c:if>
-					<c:if
-						test="${requestScope.alertDuplication != null && requestScope.alertDuplication != ''}">
-						<tr>
-							<%-- リクエストスコープの alert の値を出力 --%>
-							<td colspan="2" class="color-error text-left">
-							<c:out	value="${requestScope.alertDuplication}" /></td>
-						</tr>
-					</c:if>
-					<c:if
-						test="${requestScope.alertMaxlimit_ID != null && requestScope.alertMaxlimit_ID != ''}">
-						<tr>
-							<%-- リクエストスコープの alert の値を出力 --%>
-							<td colspan="2" class="color-error text-left">
-							<c:out	value="${requestScope.alertMaxlimit_ID}" /></td>
-						</tr>
-					</c:if>
-					<c:if
-						test="${requestScope.alertMaxlimit_uName != null && requestScope.messageMaxlimit_uName != ''}">
-						<tr>
-							<%-- リクエストスコープの alert の値を出力 --%>
-							<td colspan="2" class="color-error text-left">
-							<c:out	value="${requestScope.alertMaxlimit_uName}" /></td>
-						</tr>
-					</c:if>
-					<c:if
-						test="${requestScope.alertMaxlimit_password != null && requestScope.alertMaxlimit_password != ''}">
-						<tr>
-							<%-- リクエストスコープの alert の値を出力 --%>
-							<td colspan="2" class="color-error text-left">
-							<c:out	value="${requestScope.alertMaxlimit_password}" /></td>
-						</tr>
-					</c:if>
-					<c:if
-						test="${requestScope.alertMaxlimit_profile != null && requestScope.alertMaxlimit_profile != ''}">
-						<tr>
-							<%-- リクエストスコープの alert の値を出力 --%>
-							<td colspan="2" class="color-error text-left">
-							<c:out	value="${requestScope.alertMaxlimit_profile}" /></td>
-						</tr>
-					</c:if>
-					<tr>
-						<%-- ログインID 入力欄の名前は loginId --%>
-						<td class="color-main text-left"><span class="icon-smile pe-2x pe-va"></span>ログインID</td>
-						<td class="text-left"><input class="form-control" type="text"
-							name="loginId" value="<%=loginId%>" size="20" placeholder="10文字以内、半角英数字で入力してください。"autofocus /></td>
-					</tr>
-					<tr>
-						<%-- ユーザー名 入力欄の名前は userName --%>
-						<td class="color-main text-left"><span class="icon-smile pe-2x pe-va"></span>ユーザー名</td>
-						<td class="text-left"><input class="form-control" type="text"
-							name="userName" value="<%=userName%>" placeholder="10文字以内で入力してください。"size="20" /></td>
-					</tr>
-					<tr>
-						<%-- パスワード入力欄の名前は password --%>
-						<td class="color-main text-left"><span class="icon-smile pe-2x pe-va"></span>パスワード</td>
-						<td class="text-left"><input class="form-control"
-							type="password" name="password" value="<%=password%>" size="20" placeholder="10文字以内で入力してください。"/></td>
-					</tr>
-					<tr>
-						<%-- ログインID 入力欄の名前は loginId --%>
-						<td class="color-main text-left"><span class="icon-smile pe-2x pe-va"></span>アイコン</td>
-						<td class="text-left" style="display: flex;">
-							<div style="margin-left: 1em;">
-								<span class="icon-user-female pe-2x pe-va"></span>
-							</div>
-							<div style="margin-left: 1em;">
-								<label class="fancy-radio"><input type="radio"
-									name="icon" value="icon-user-female" <%=smileIcon%>><span></span></label>
-							</div>
-							<div style="margin-left: 1em">
-								<span class="icon-bell pe-2x pe-va"></span>
-							</div>
-							<div style="margin-left: 1em;">
-							<label class="fancy-radio"><input type="radio"
-									name="icon" value="icon-bell" <%=bellIcon%>><span></span></label>
-							</div>
-							<div style="margin-left: 1em;">
-								<span class="icon-user pe-2x pe-va">
-								</span>
-							</div>
-							<div style="margin-left: 1em;">
-							<label class="fancy-radio"><input type="radio"
-									name="icon" value="icon-user" <%=userIcon%>><span></span></label>
-							</div>
-							<div style="margin-left: 1em;">
-								<span class="icon-smile pe-2x pe-va"></span>
-							</div>
-							<div style="margin-left: 1em;">
-							<label class="fancy-radio"><input type="radio"
-									name="icon" value="icon-smile" <%=userFemaleIcon%>><span></span></label>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td class="color-main text-left"><span class="icon-smile pe-2x pe-va"></span>プロフィール</td>
-						<td class="text-left"><input class="form-control" type="text"
-							name="profile" value="<%=profile%>" size="20" placeholder="50文字以内で入力してください。"/>
-					</tr>
-				</table>
-				<div class="text-center">
-				<input class="btn"
-							type="submit" name="register" value="登録" />
-			   	<input class="btn"
-							type="submit" name="return" value="戻る" />
-				</div>
-			</form>
+	<%-- action 属性にサーブレットを指定 --%>
+	<form action="./uii" method="post">
+		<table style="width: 60%" class="table">
+			<c:if
+				test="${requestScope.alertSpace != null && requestScope.alertSpace != ''}">
+				<tr>
+					<%-- リクエストスコープの alert の値を出力 --%>
+					<td colspan="2" class="color-error text-left"><c:out
+							value="${requestScope.alertSpace}" /></td>
+				</tr>
+			</c:if>
+			<c:if
+				test="${requestScope.alertBlank != null && requestScope.alertBlank != ''}">
+				<tr>
+					<%-- リクエストスコープの alert の値を出力 --%>
+					<td colspan="2" class="color-error text-left"><c:out
+							value="${requestScope.alertBlank}" /></td>
+				</tr>
+			</c:if>
+			<c:if
+				test="${requestScope.alertHalf_width != null && requestScope.alertHalf_width != ''}">
+				<tr>
+					<%-- リクエストスコープの alert の値を出力 --%>
+					<td colspan="2" class="color-error text-left"><c:out
+							value="${requestScope.alertHalf_width}" /></td>
+				</tr>
+			</c:if>
+			<c:if
+				test="${requestScope.alertDuplication != null && requestScope.alertDuplication != ''}">
+				<tr>
+					<%-- リクエストスコープの alert の値を出力 --%>
+					<td colspan="2" class="color-error text-left"><c:out
+							value="${requestScope.alertDuplication}" /></td>
+				</tr>
+			</c:if>
+			<c:if
+				test="${requestScope.alertMaxlimit_ID != null && requestScope.alertMaxlimit_ID != ''}">
+				<tr>
+					<%-- リクエストスコープの alert の値を出力 --%>
+					<td colspan="2" class="color-error text-left"><c:out
+							value="${requestScope.alertMaxlimit_ID}" /></td>
+				</tr>
+			</c:if>
+			<c:if
+				test="${requestScope.alertMaxlimit_uName != null && requestScope.messageMaxlimit_uName != ''}">
+				<tr>
+					<%-- リクエストスコープの alert の値を出力 --%>
+					<td colspan="2" class="color-error text-left"><c:out
+							value="${requestScope.alertMaxlimit_uName}" /></td>
+				</tr>
+			</c:if>
+			<c:if
+				test="${requestScope.alertMaxlimit_password != null && requestScope.alertMaxlimit_password != ''}">
+				<tr>
+					<%-- リクエストスコープの alert の値を出力 --%>
+					<td colspan="2" class="color-error text-left"><c:out
+							value="${requestScope.alertMaxlimit_password}" /></td>
+				</tr>
+			</c:if>
+			<c:if
+				test="${requestScope.alertMaxlimit_profile != null && requestScope.alertMaxlimit_profile != ''}">
+				<tr>
+					<%-- リクエストスコープの alert の値を出力 --%>
+					<td colspan="2" class="color-error text-left"><c:out
+							value="${requestScope.alertMaxlimit_profile}" /></td>
+				</tr>
+			</c:if>
+			<tr>
+				<%-- ログインID 入力欄の名前は loginId --%>
+				<td class="color-main text-left"><span
+					class="icon-smile pe-2x pe-va"></span>ログインID</td>
+				<td class="text-left"><input class="form-control" type="text"
+					name="loginId" value="<%=loginId%>" size="20"
+					placeholder="10文字以内、半角英数字で入力してください。" autofocus /></td>
+			</tr>
+			<tr>
+				<%-- ユーザー名 入力欄の名前は userName --%>
+				<td class="color-main text-left"><span
+					class="icon-smile pe-2x pe-va"></span>ユーザー名</td>
+				<td class="text-left"><input class="form-control" type="text"
+					name="userName" value="<%=userName%>"
+					placeholder="10文字以内で入力してください。" size="20" /></td>
+			</tr>
+			<tr>
+				<%-- パスワード入力欄の名前は password --%>
+				<td class="color-main text-left"><span
+					class="icon-smile pe-2x pe-va"></span>パスワード</td>
+				<td class="text-left"><input class="form-control"
+					type="password" name="password" value="<%=password%>" size="20"
+					placeholder="10文字以内で入力してください。" /></td>
+			</tr>
+			<tr>
+				<%-- ログインID 入力欄の名前は loginId --%>
+				<td class="color-main text-left"><span
+					class="icon-smile pe-2x pe-va"></span>アイコン</td>
+				<td class="text-left" style="display: flex;">
+					<div style="margin-left: 1em;">
+						<span class="icon-user-female pe-2x pe-va"></span>
+					</div>
+					<div style="margin-left: 1em;">
+						<label class="fancy-radio"><input type="radio" name="icon"
+							value="icon-user-female" <%=smileIcon%>><span></span></label>
+					</div>
+					<div style="margin-left: 1em">
+						<span class="icon-bell pe-2x pe-va"></span>
+					</div>
+					<div style="margin-left: 1em;">
+						<label class="fancy-radio"><input type="radio" name="icon"
+							value="icon-bell" <%=bellIcon%>><span></span></label>
+					</div>
+					<div style="margin-left: 1em;">
+						<span class="icon-user pe-2x pe-va"> </span>
+					</div>
+					<div style="margin-left: 1em;">
+						<label class="fancy-radio"><input type="radio" name="icon"
+							value="icon-user" <%=userIcon%>><span></span></label>
+					</div>
+					<div style="margin-left: 1em;">
+						<span class="icon-smile pe-2x pe-va"></span>
+					</div>
+					<div style="margin-left: 1em;">
+						<label class="fancy-radio"><input type="radio" name="icon"
+							value="icon-smile" <%=userFemaleIcon%>><span></span></label>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="color-main text-left"><span
+					class="icon-smile pe-2x pe-va"></span>プロフィール</td>
+				<td class="text-left"><input class="form-control" type="text"
+					name="profile" value="<%=profile%>" size="20"
+					placeholder="50文字以内で入力してください。" />
+			</tr>
+		</table>
+		<div class="text-center">
+			<input class="btn" type="submit" name="register" value="登録" /> <input
+				class="btn" type="submit" name="return" value="戻る" />
+		</div>
+	</form>
 </body>
 </html>

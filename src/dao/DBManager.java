@@ -290,31 +290,31 @@ public class DBManager extends SnsDAO {
 		Connection conn = null; // データベース接続情報
 		PreparedStatement pstmt = null; // SQL 管理情報
 		String sql = "UPDATE users";
-		ArrayList<String> sqlConditions = new ArrayList<String>();
+		ArrayList<String> sqlConditions = new ArrayList<String>();//検索条件を格納するためのArrayList
 		try {
 			// データベース接続情報取得
 			conn = getConnection();
-			if ((!(e_UserName.equals(editUser.getUserName()))) && (!(e_UserName.equals("")))) {
-				sqlConditions.add("userName='" + e_UserName + "'");
+			if ((!(e_UserName.equals(editUser.getUserName()))) && (!(e_UserName.equals("")))) {//ユーザー名に変更があり、かつ、空文字でない場合
+				sqlConditions.add("userName='" + e_UserName + "'");//ユーザー名更新のためのsql文
 			}
-			if ((!(e_Password.equals(editUser.getPassword()))) && (!(e_Password.equals("")))) {
-				sqlConditions.add("password='" + e_Password + "'");
+			if ((!(e_Password.equals(editUser.getPassword()))) && (!(e_Password.equals("")))) {//パスワードに変更があり、かつ、空文字でない場合
+				sqlConditions.add("password='" + e_Password + "'");//パスワード更新のためのsql文
 			}
-			if ((!(e_Icon.equals(editUser.getIcon())))) {
-				sqlConditions.add("icon='" + e_Icon + "'");
+			if (!(e_Icon.equals(editUser.getIcon()))) {//アイコンに変更がある場合
+				sqlConditions.add("icon='" + e_Icon + "'");//アイコンを変更するためのsql文
 			}
-			if ((!(e_Profile.equals(editUser.getProfile()))) && (!(e_Profile.equals("")))) {
-				sqlConditions.add("profile='" + e_Profile + "'");
+			if ((!(e_Profile.equals(editUser.getProfile()))) && (!(e_Profile.equals("")))) {//プロフィールに変更があり、かつ、空文字でない場合
+				sqlConditions.add("profile='" + e_Profile + "'");//プロフィールを変更するためのsql文
 			}
-			if (sqlConditions.size() != 0) {
-				for (int i = 0; i < sqlConditions.size(); i++) {
-					if (i == 0) {
+			if (sqlConditions.size() != 0) {//更新の必要がある場合（更新のためのsql文を保持しているsqlConditionsに要素がある場合）
+				for (int i = 0; i < sqlConditions.size(); i++) {//sqlConditionsの要素数だけ繰り返し
+					if (i == 0) {//１回目のループの場合の処理
 						sql += " SET";
-					} else {
+					} else {//２回目以降のループの場合の処理
 						sql += ",";
 					}
-					sql += " " + sqlConditions.get(i);
-					if (i == (sqlConditions.size() - 1)) {
+					sql += " " + sqlConditions.get(i);//sqlConditionsが保持する更新のためのsql文を追加
+					if (i == (sqlConditions.size() - 1)) {//最後のループの時の処理
 						sql += " WHERE loginId='" + editUser.getLoginId() + "'";
 					}
 				}

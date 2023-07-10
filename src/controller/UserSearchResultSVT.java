@@ -52,21 +52,23 @@ public class UserSearchResultSVT extends HttpServlet {
 		RequestDispatcher dispatcher;
 		DBManager db = new DBManager();
 
-		if (allCheck!=null || allClear!=null) {
-			if(allCheck!=null) {
+		if (allCheck != null || allClear != null) {
+			if (allCheck != null) {
 				request.setAttribute("allCheck", allCheck);
 			}
-			ArrayList<UserDTO> list = db.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell, icon_smile, profile);
+			ArrayList<UserDTO> list = db.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell,
+					icon_smile, profile);
 			request.setAttribute("searchUser", list);
 			dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
-		}else if(edit!=null) {
+		} else if (edit != null) {
 			int ed = Integer.parseInt(edit);
-			ArrayList<UserDTO> list = db.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell, icon_smile, profile);
+			ArrayList<UserDTO> list = db.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell,
+					icon_smile, profile);
 			UserDTO editUser = list.get(ed);
 			request.setAttribute("editUser", editUser);
 
 			dispatcher = request.getRequestDispatcher("userEditInput.jsp");
-		}else {
+		} else {
 			dispatcher = request.getRequestDispatcher("UserSearchInput.jsp");
 		}
 		dispatcher.forward(request, response);
