@@ -57,6 +57,7 @@ public class UserSearchInputSvt extends HttpServlet {
 		String icon2 = request.getParameter("icon2");
 		String profile = request.getParameter("profile");
 
+
 		if (dbm == null) {
 			dbm = new DBManager();
 		}
@@ -64,6 +65,12 @@ public class UserSearchInputSvt extends HttpServlet {
 		ArrayList<UserDTO> list = dbm.getUserList(loginId, userName, icon1, icon2, profile);
 
 		HttpSession session = request.getSession();
+
+		session.setAttribute("loginId", loginId);
+		session.setAttribute("userName", userName);
+		session.setAttribute("icon1", icon1);
+		session.setAttribute("icon2", icon2);
+		session.setAttribute("profile", profile);
 
 		// リストをセッションに保存
 		session.setAttribute("users", list);
