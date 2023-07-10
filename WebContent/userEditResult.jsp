@@ -20,7 +20,7 @@
 		</div>
 	</div>
 			<%-- action 属性にサーブレットを指定 --%>
-			<form action="./uec" method="post">
+			<form action="./uer" method="post">
 				<table style="width: 400px" class="table">
 					<tr>
 						<%-- ログインID 入力欄の名前は loginId --%>

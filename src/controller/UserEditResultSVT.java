@@ -14,21 +14,32 @@ import dao.DBManager;
 import dto.UserDTO;
 
 /**
- * Servlet implementation class UserSearchInputSVT
+ * Servlet implementation class UserEditResultSVT
  */
-@WebServlet("/usr")
-public class UserSearchResultSVT extends HttpServlet {
+@WebServlet("/uer")
+public class UserEditResultSVT extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public UserEditResultSVT() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html:charset=UTF-8");
 		String loginId = request.getParameter("loginId");
@@ -45,30 +56,11 @@ public class UserSearchResultSVT extends HttpServlet {
 		request.setAttribute("icon-bell", icon_bell);
 		request.setAttribute("icon-smile", icon_smile);
 		request.setAttribute("profile", profile);
-		String allCheck = request.getParameter("allCheck");
-		String allClear = request.getParameter("allClear");
-		String edit = request.getParameter("edit");
-		request.setAttribute("edit", edit);
 		RequestDispatcher dispatcher;
 		DBManager db = new DBManager();
-
-		if (allCheck!=null || allClear!=null) {
-			if(allCheck!=null) {
-				request.setAttribute("allCheck", allCheck);
-			}
-			ArrayList<UserDTO> list = db.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell, icon_smile, profile);
-			request.setAttribute("searchUser", list);
-			dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
-		}else if(edit!=null) {
-			int ed = Integer.parseInt(edit);
-			ArrayList<UserDTO> list = db.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell, icon_smile, profile);
-			UserDTO editUser = list.get(ed);
-			request.setAttribute("editUser", editUser);
-
-			dispatcher = request.getRequestDispatcher("userEditInput.jsp");
-		}else {
-			dispatcher = request.getRequestDispatcher("UserSearchInput.jsp");
-		}
+		ArrayList<UserDTO> list = db.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell, icon_smile, profile);
+		request.setAttribute("searchUser", list);
+		dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
 		dispatcher.forward(request, response);
 	}
 

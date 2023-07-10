@@ -195,7 +195,6 @@ public class DBManager extends SnsDAO {
 		ResultSet rset = null;
 		//String[] iconArray= {icon_user_female,icon_user,icon_bell,icon_smile};
 
-
 		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
 
 		try {
@@ -208,8 +207,8 @@ public class DBManager extends SnsDAO {
 			if (!(loginId.equals("")) || !(userName.equals("")) || !(profile.equals(""))
 					|| (icon_user_female != null && !(icon_user_female.equals("null")))
 					|| (icon_bell != null && !(icon_bell.equals("null")))
-					||(icon_smile != null && !(icon_smile.equals("null")))
-					||(icon_user != null && !(icon_user.equals("null")))) {//検索条件が選択されている場合
+					|| (icon_smile != null && !(icon_smile.equals("null")))
+					|| (icon_user != null && !(icon_user.equals("null")))) {//検索条件が選択されている場合
 				sqlCondition = sql + " WHERE";
 				if (!(loginId.equals(""))) {//ログインIDが指定されている場合
 					sqlCondition += " loginId=" + "'" + loginId + "'";
@@ -286,55 +285,51 @@ public class DBManager extends SnsDAO {
 		return list;
 	}
 
-	public UserDTO editUser(UserDTO editUser, String e_LoginId, String e_UserName, String e_Password, String e_Icon,
+	public void editUser(UserDTO editUser, String e_UserName, String e_Password, String e_Icon,
 			String e_Profile) {
 		Connection conn = null; // データベース接続情報
 		PreparedStatement pstmt = null; // SQL 管理情報
-		ResultSet rset = null; // 検索結果
-		UserDTO editedUser = null;
 		String sql = "UPDATE users";
 		ArrayList<String> sqlConditions = new ArrayList<String>();
 		try {
 			// データベース接続情報取得
 			conn = getConnection();
-			if (!(editUser.getLoginId().equals(e_LoginId)) && e_LoginId.equals("")) {
-				sqlConditions.add("'loginId'=" + e_LoginId);
+			if ((!(e_UserName.equals(editUser.getUserName()))) && (!(e_UserName.equals("")))) {
+				sqlConditions.add("userName='" + e_UserName + "'");
 			}
-			if (!(e_UserName.equals(editUser.getUserName())) && e_UserName.equals("")) {
-				sqlConditions.add("'userName'=" + e_UserName);
+			if ((!(e_Password.equals(editUser.getPassword()))) && (!(e_Password.equals("")))) {
+				sqlConditions.add("password='" + e_Password + "'");
 			}
-			if (!(e_Password.equals(editUser.getPassword())) && e_Password.equals("")) {
-				sqlConditions.add("'password'=" + e_Password);
+			if ((!(e_Icon.equals(editUser.getIcon())))) {
+				sqlConditions.add("icon='" + e_Icon + "'");
 			}
-			if (!e_Icon.equals(editUser.getIcon())) {
-				sqlConditions.add("'icon'=" + e_Icon);
+			if ((!(e_Profile.equals(editUser.getProfile()))) && (!(e_Profile.equals("")))) {
+				sqlConditions.add("profile='" + e_Profile + "'");
 			}
-			if (!(e_Profile.equals(editUser.getProfile()))) {
-				sqlConditions.add("'profile'=" + e_Profile);
-			}
-			for (int i = 0; i < sqlConditions.size(); i++) {
-				if (i == 0) {
-					sql += " SET";
-				} else {
-					sql += ",";
-				}
-				sql += " " + sqlConditions.get(i);
-				if (i == (sqlConditions.size() - 1)) {
-					sql += " WHERE loginId=" + editUser.getLoginId();
+			if (sqlConditions.size() != 0) {
+				for (int i = 0; i < sqlConditions.size(); i++) {
+					if (i == 0) {
+						sql += " SET";
+					} else {
+						sql += ",";
+					}
+					sql += " " + sqlConditions.get(i);
+					if (i == (sqlConditions.size() - 1)) {
+						sql += " WHERE loginId='" + editUser.getLoginId() + "'";
+					}
 				}
 				pstmt = conn.prepareStatement(sql);
-				rset = pstmt.executeQuery();
+				pstmt.executeUpdate();
 			}
-			editedUser = new UserDTO(e_LoginId,e_Password,e_UserName,e_Icon,e_Profile);
-		} catch (SQLException e) {
+		} catch (
+
+		SQLException e) {
 			e.printStackTrace();
 		} finally {
 			// データベース切断処理
-			close(rset);
 			close(pstmt);
 			close(conn);
 		}
-		return editedUser;
 	}
 
 }
