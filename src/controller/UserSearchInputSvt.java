@@ -60,12 +60,12 @@ public class UserSearchInputSvt extends HttpServlet {
 		HttpSession session = request.getSession();
 		String message = null;
 
-		//検索条件をセット
+		//editから戻るときのために検索条件を保存しておく
 		String searchid = new String(id);
 		session.setAttribute("searchid", searchid);
 		String searchname = new String(name);
 		session.setAttribute("searchname", searchname);
-		if (icon == null) {
+		if (icon == null) {//アイコン未チェック対策
 			icon = "";
 		}
 		String searchicon = new String(icon);

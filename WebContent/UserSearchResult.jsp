@@ -28,7 +28,7 @@
 	<div class="padding-y-5 text-center">
 		<div class="container padding-y-5 text-center">
 			<%-- action 属性にサーブレットを指定 --%>
-			<form action="/uii" method="post" id="checkForm">
+			<form action="./UserDeleteConfirm.jsp" method="post" id="checkForm">
 
 				<table class="table" border="1">
 					<tr>
