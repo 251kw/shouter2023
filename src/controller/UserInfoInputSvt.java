@@ -62,6 +62,7 @@ public class UserInfoInputSvt extends HttpServlet {
 
 		int n = -1;//絶対にならない値を適当にセット
         n=pass.indexOf(" ");
+
         int error=0;
 		if(result.equals("true")) {
 			String message="ログインIDが存在します";
@@ -70,7 +71,6 @@ public class UserInfoInputSvt extends HttpServlet {
 			error++;
 		}
 
-		//if(pass.replaceAll("　", " ").trim().isEmpty()){
         if(n!=-1) {
 			// スペースがある場合エラー
 			String message2="ユーザIDとパスワードにはスペースは使用できません";

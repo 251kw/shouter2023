@@ -58,12 +58,12 @@
 							<td><label class="fancy-checkbox"><input
 									type="checkbox" name="test1" value="" /> <span></span></label></td>
 							<td><label class="form-control text-center">${users.loginId}</label>
-							<input type="hidden" name="id" value="${users.loginId}"></td>
+							<input type="hidden" name="id<%= count%>" value="${users.loginId}"></td>
 							<td><label class="form-control text-center">${users.userName}</label></td>
 							<td><span class="${users.icon} pe-3x pe-va" /></span></td>
 							<td><label class="form-control text-center">${users.profile}</label></td>
 							<td><button class="btn" type="submit" name="edit"
-								value="<%= count%>" size="20" formaction="./UserEditinput.jsp">編集</button></td>
+								value="<%= count%>" size="20" formaction="usr" method="post">編集</button></td>
 						</tr>
 						<%
 							count++;

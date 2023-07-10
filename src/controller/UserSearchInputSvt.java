@@ -60,13 +60,31 @@ public class UserSearchInputSvt extends HttpServlet {
 		HttpSession session = request.getSession();
 		String message = null;
 
+		//検索条件をセット
+		String searchid = new String(id);
+		session.setAttribute("searchid", searchid);
+		String searchname = new String(name);
+		session.setAttribute("searchname", searchname);
+		if (icon == null) {
+			icon = "";
+		}
+		String searchicon = new String(icon);
+		session.setAttribute("searchicon", searchicon);
+		if (icon2 == null) {
+			icon2 = "";
+		}
+		String searchicon2 = new String(icon2);
+		session.setAttribute("searchicon2", searchicon2);
+		String searchpro = new String(pro);
+		session.setAttribute("searchpro", searchpro);
+
 		//未入力
-		if ((id.equals("")) && (name.equals("")) && icon == null && icon2 == null && pro.equals("")) {
+		if ((id.equals("")) && (name.equals("")) && icon.equals("") && icon2.equals("") && pro.equals("")) {
 			ArrayList<UserDTO> user = dbm.allnull();
 			session.setAttribute("userlist", user);
 			dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			//ログインIDのみ
-		} else if (!(id.equals("")) && name.equals("") && icon == null && icon2 == null && pro.equals("")) {
+		} else if (!(id.equals("")) && name.equals("") && icon.equals("") && icon2.equals("") && pro.equals("")) {
 			ArrayList<UserDTO> user = dbm.loginid(id);
 			session.setAttribute("userlist", user);
 			if (user.size() == 0) {
@@ -79,7 +97,7 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//ユーザ名のみ
-		} else if (id.equals("") && !(name.equals("")) && icon == null && icon2 == null && pro.equals("")) {
+		} else if (id.equals("") && !(name.equals("")) && icon.equals("") && icon2.equals("") && pro.equals("")) {
 			ArrayList<UserDTO> user = dbm.username(name);
 			session.setAttribute("userlist", user);
 			if (user.size() == 0) {
@@ -92,7 +110,7 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//プロフィールのみ
-		} else if (id.equals("") && name.equals("") && icon == null && icon2 == null && !(pro.equals(""))) {
+		} else if (id.equals("") && name.equals("") && icon.equals("") && icon2.equals("") && !(pro.equals(""))) {
 			ArrayList<UserDTO> user = dbm.profile(pro);
 			session.setAttribute("userlist", user);
 			if (user.size() == 0) {
@@ -105,7 +123,7 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//アイコンのみ２つ
-		} else if (id.equals("") && name.equals("") && icon != null && icon2 != null && pro.equals("")) {
+		} else if (id.equals("") && name.equals("") && !(icon.equals("")) && !(icon2.equals("")) && pro.equals("")) {
 			ArrayList<UserDTO> user = dbm.icon2();
 			session.setAttribute("userlist", user);
 			if (user.size() == 0) {
@@ -118,7 +136,7 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//アイコンのみ１つ
-		} else if (id.equals("") && name.equals("") && icon != null && icon2 == null && pro.equals("")) {
+		} else if (id.equals("") && name.equals("") && !(icon.equals("")) && icon2.equals("") && pro.equals("")) {
 			ArrayList<UserDTO> user = dbm.icon(icon);
 			session.setAttribute("userlist", user);
 			if (user.size() == 0) {
@@ -131,7 +149,7 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//アイコンのみ１つ
-		} else if (id.equals("") && name.equals("") && icon == null && icon2 != null && pro.equals("")) {
+		} else if (id.equals("") && name.equals("") && icon.equals("") && !(icon2.equals("")) && pro.equals("")) {
 			ArrayList<UserDTO> user = dbm.icon(icon2);
 			session.setAttribute("userlist", user);
 			if (user.size() == 0) {
@@ -144,7 +162,7 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//ユーザ名とアイコン１つ
-		} else if (id.equals("") && !(name.equals("")) && icon != null && icon2 == null && pro.equals("")) {
+		} else if (id.equals("") && !(name.equals("")) && !(icon.equals("")) && icon2.equals("") && pro.equals("")) {
 			ArrayList<UserDTO> user = dbm.nameicon1(name, icon);
 			session.setAttribute("userlist", user);
 			if (user.size() == 0) {
@@ -157,7 +175,7 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//ユーザ名とアイコン１つ
-		} else if (id.equals("") && !(name.equals("")) && icon == null && icon2 != null && pro.equals("")) {
+		} else if (id.equals("") && !(name.equals("")) && icon.equals("") && !(icon2.equals("")) && pro.equals("")) {
 			ArrayList<UserDTO> user = dbm.nameicon1(name, icon2);
 			session.setAttribute("userlist", user);
 			if (user.size() == 0) {
@@ -170,7 +188,7 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//ユーザ名とアイコン２つ
-		} else if (id.equals("") && !(name.equals("")) && icon != null && icon2 != null && pro.equals("")) {
+		} else if (id.equals("") && !(name.equals("")) && !(icon.equals("")) && !(icon2.equals("")) && pro.equals("")) {
 			ArrayList<UserDTO> user = dbm.nameicon2(name);
 			session.setAttribute("userlist", user);
 			if (user.size() == 0) {
@@ -183,7 +201,7 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//ユーザ名とプロフィール
-		} else if (id == "" && name != "" && icon == null && icon2 == null && pro != "") {
+		} else if (id == "" && name != "" && icon.equals("") && icon2.equals("") && pro != "") {
 			ArrayList<UserDTO> user = dbm.namepro(name, pro);
 			session.setAttribute("userlist", user);
 			if (user.size() == 0) {
@@ -196,7 +214,7 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//ユーザ名とアイコン1とプロフィール
-		} else if (id.equals("") && !(name.equals("")) && icon != null && icon2 == null && !(pro.equals(""))) {
+		} else if (id.equals("") && !(name.equals("")) && !(icon.equals("")) && icon2.equals("") && !(pro.equals(""))) {
 			ArrayList<UserDTO> user = dbm.nameicon1pro(name, icon, pro);
 			session.setAttribute("userlist", user);
 			if (user.size() == 0) {
@@ -209,7 +227,7 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//ユーザ名とアイコン1とプロフィール
-		} else if (id.equals("") && !(name.equals("")) && icon == null && icon2 != null && !(pro.equals(""))) {
+		} else if (id.equals("") && !(name.equals("")) && icon.equals("") && !(icon2.equals("")) && !(pro.equals(""))) {
 			ArrayList<UserDTO> user = dbm.nameicon1pro(name, icon2, pro);
 			session.setAttribute("userlist", user);
 			if (user.size() == 0) {
@@ -222,7 +240,8 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//ユーザ名とアイコン2とプロフィール
-		} else if (id.equals("") && !(name.equals("")) && icon != null && icon2 != null && !(pro.equals(""))) {
+		} else if (id.equals("") && !(name.equals("")) && !(icon.equals("")) && !(icon2.equals(""))
+				&& !(pro.equals(""))) {
 			ArrayList<UserDTO> user = dbm.nameicon2pro(name, pro);
 			session.setAttribute("userlist", user);
 			if (user.size() == 0) {
@@ -235,7 +254,7 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//アイコン1とプロフィール
-		} else if (id.equals("") && name.equals("") && icon != null && icon2 == null && !(pro.equals(""))) {
+		} else if (id.equals("") && name.equals("") && !(icon.equals("")) && icon2.equals("") && !(pro.equals(""))) {
 			ArrayList<UserDTO> user = dbm.icon1pro(icon, pro);
 			session.setAttribute("userlist", user);
 			if (user.size() == 0) {
@@ -248,7 +267,7 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//アイコン1とプロフィール
-		} else if (id.equals("") && name.equals("") && icon == null && icon2 != null && !(pro.equals(""))) {
+		} else if (id.equals("") && name.equals("") && icon.equals("") && !(icon2.equals("")) && !(pro.equals(""))) {
 			ArrayList<UserDTO> user = dbm.icon1pro(icon2, pro);
 			session.setAttribute("userlist", user);
 			if (user.size() == 0) {
@@ -261,7 +280,7 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//アイコン2とプロフィール
-		} else if (id.equals("") && name.equals("") && icon != null && icon2 != null && !(pro.equals(""))) {//アイコン２つ
+		} else if (id.equals("") && name.equals("") && !(icon.equals("")) && !(icon2.equals("")) && !(pro.equals(""))) {//アイコン２つ
 			ArrayList<UserDTO> user = dbm.icon2pro(pro);
 			session.setAttribute("userlist", user);
 			if (user.size() == 0) {
@@ -275,7 +294,7 @@ public class UserSearchInputSvt extends HttpServlet {
 			}
 
 			//全入力icon1
-		} else if (!(id.equals("")) && !(name.equals("")) && icon != null && icon2 == null
+		} else if (!(id.equals("")) && !(name.equals("")) && !(icon.equals("")) && icon2.equals("")
 				&& !(pro.equals(""))) {
 			ArrayList<UserDTO> user = dbm.searchall(id, icon, name, pro);
 			session.setAttribute("userlist", user);
@@ -289,7 +308,7 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//全入力アイコン１
-		} else if (!(id.equals("")) && !(name.equals("")) && icon == null && icon2 != null
+		} else if (!(id.equals("")) && !(name.equals("")) && icon.equals("") && !(icon2.equals(""))
 				&& !(pro.equals(""))) {
 			ArrayList<UserDTO> user = dbm.searchall(id, icon2, name, pro);
 			session.setAttribute("userlist", user);
@@ -303,7 +322,7 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//全入力アイコン２
-		} else if (!(id.equals("")) && !(name.equals("")) && icon != null && icon2 != null
+		} else if (!(id.equals("")) && !(name.equals("")) && !(icon.equals("")) && !(icon2.equals(""))
 				&& !(pro.equals(""))) {//全入力アイコン２
 			ArrayList<UserDTO> user = dbm.searchall2(id, name, pro);
 			session.setAttribute("userlist", user);
@@ -317,7 +336,7 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//ログインIDとユーザ名
-		} else if (!(id.equals("")) && !(name.equals("")) && icon == null && icon2 == null
+		} else if (!(id.equals("")) && !(name.equals("")) && icon.equals("") && icon2.equals("")
 				&& (pro.equals(""))) {
 			ArrayList<UserDTO> user = dbm.idname(id, name);
 			session.setAttribute("userlist", user);
@@ -331,7 +350,7 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//ログインIDとアイコン１
-		} else if (!(id.equals("")) && (name.equals("")) && icon != null && icon2 == null
+		} else if (!(id.equals("")) && (name.equals("")) && !(icon.equals("")) && icon2.equals("")
 				&& (pro.equals(""))) {
 			ArrayList<UserDTO> user = dbm.idicon1(id, icon);
 			session.setAttribute("userlist", user);
@@ -345,7 +364,7 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//ログインIDとアイコン１
-		} else if (!(id.equals("")) && (name.equals("")) && icon == null && icon2 != null
+		} else if (!(id.equals("")) && (name.equals("")) && icon.equals("") && !(icon2.equals(""))
 				&& (pro.equals(""))) {
 			ArrayList<UserDTO> user = dbm.idicon1(id, icon2);
 			session.setAttribute("userlist", user);
@@ -359,7 +378,7 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//IDとアイコン２
-		} else if (!(id.equals("")) && (name.equals("")) && icon != null && icon2 != null
+		} else if (!(id.equals("")) && (name.equals("")) && !(icon.equals("")) && !(icon2.equals(""))
 				&& (pro.equals(""))) {
 			ArrayList<UserDTO> user = dbm.idicon2(id);
 			session.setAttribute("userlist", user);
@@ -372,10 +391,10 @@ public class UserSearchInputSvt extends HttpServlet {
 			} else {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
-		//IDとプロフィール
-		}else if (!(id.equals("")) && (name.equals("")) && icon == null && icon2 == null
+			//IDとプロフィール
+		} else if (!(id.equals("")) && (name.equals("")) && icon.equals("") && icon2.equals("")
 				&& !(pro.equals(""))) {
-			ArrayList<UserDTO> user = dbm.idpro(id,pro);
+			ArrayList<UserDTO> user = dbm.idpro(id, pro);
 			session.setAttribute("userlist", user);
 			if (user.size() == 0) {
 				message = "データがありません";
@@ -387,9 +406,9 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//ID,name,icon1
-		}else if (!(id.equals("")) && !(name.equals("")) && icon != null && icon2 == null
+		} else if (!(id.equals("")) && !(name.equals("")) && !(icon.equals("")) && icon2.equals("")
 				&& (pro.equals(""))) {
-			ArrayList<UserDTO> user = dbm.idnameicon1(id,name,icon);
+			ArrayList<UserDTO> user = dbm.idnameicon1(id, name, icon);
 			session.setAttribute("userlist", user);
 			if (user.size() == 0) {
 				message = "データがありません";
@@ -401,9 +420,9 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//id,name,icon1
-		}else if (!(id.equals("")) && !(name.equals("")) && icon == null && icon2 != null
+		} else if (!(id.equals("")) && !(name.equals("")) && icon.equals("") && !(icon2.equals(""))
 				&& (pro.equals(""))) {
-			ArrayList<UserDTO> user = dbm.idnameicon1(id,name,icon2);
+			ArrayList<UserDTO> user = dbm.idnameicon1(id, name, icon2);
 			session.setAttribute("userlist", user);
 			if (user.size() == 0) {
 				message = "データがありません";
@@ -415,9 +434,9 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//id,name,icon2
-		}else if (!(id.equals("")) && !(name.equals("")) && icon != null && icon2 != null
+		} else if (!(id.equals("")) && !(name.equals("")) && !(icon.equals("")) && !(icon2.equals(""))
 				&& (pro.equals(""))) {
-			ArrayList<UserDTO> user = dbm.idnameicon2(id,name);
+			ArrayList<UserDTO> user = dbm.idnameicon2(id, name);
 			session.setAttribute("userlist", user);
 			if (user.size() == 0) {
 				message = "データがありません";
@@ -429,9 +448,9 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//id,name,pro
-		}else if (!(id.equals("")) && !(name.equals("")) && icon == null && icon2 == null
+		} else if (!(id.equals("")) && !(name.equals("")) && icon.equals("") && icon2.equals("")
 				&& !(pro.equals(""))) {
-			ArrayList<UserDTO> user = dbm.idnamepro(id,name,pro);
+			ArrayList<UserDTO> user = dbm.idnamepro(id, name, pro);
 			session.setAttribute("userlist", user);
 			if (user.size() == 0) {
 				message = "データがありません";
@@ -443,9 +462,9 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//id,icon,pro
-		}else if (!(id.equals("")) && (name.equals("")) && icon != null && icon2 == null
+		} else if (!(id.equals("")) && (name.equals("")) && !(icon.equals("")) && icon2.equals("")
 				&& !(pro.equals(""))) {
-			ArrayList<UserDTO> user = dbm.idicon1pro(id,icon,pro);
+			ArrayList<UserDTO> user = dbm.idicon1pro(id, icon, pro);
 			session.setAttribute("userlist", user);
 			if (user.size() == 0) {
 				message = "データがありません";
@@ -457,9 +476,9 @@ public class UserSearchInputSvt extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
 			//id,icon1,pro
-		}else if (!(id.equals("")) && (name.equals("")) && icon == null && icon2 != null
+		} else if (!(id.equals("")) && (name.equals("")) && icon.equals("") && !(icon2.equals(""))
 				&& !(pro.equals(""))) {
-			ArrayList<UserDTO> user = dbm.idicon1pro(id,icon2,pro);
+			ArrayList<UserDTO> user = dbm.idicon1pro(id, icon2, pro);
 			session.setAttribute("userlist", user);
 			if (user.size() == 0) {
 				message = "データがありません";
@@ -470,8 +489,8 @@ public class UserSearchInputSvt extends HttpServlet {
 			} else {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
-		}else {
-			ArrayList<UserDTO> user = dbm.idicon2pro(id,pro);
+		} else {
+			ArrayList<UserDTO> user = dbm.idicon2pro(id, pro);
 			session.setAttribute("userlist", user);
 			if (user.size() == 0) {
 				message = "データがありません";
@@ -482,6 +501,7 @@ public class UserSearchInputSvt extends HttpServlet {
 			} else {
 				dispatcher = request.getRequestDispatcher("./UserSearchResult.jsp");
 			}
+
 		}
 
 		dispatcher.forward(request, response);
