@@ -23,30 +23,25 @@
 			<form action="./uec" method="post">
 				<table style="width: 400px" class="table">
 					<tr>
-						<%-- ログインID 入力欄の名前は loginId --%>
-						<th class="color-main text-left"><span class="icon-smile pe-2x pe-va"></span>ログインID</th>
-						<td><%=request.getAttribute("e_LoginId") %></td>
-					</tr>
-					<tr>
 						<%-- ユーザー名 入力欄の名前は userName --%>
 						<th class="color-main text-left"><span class="icon-smile pe-2x pe-va"></span>ユーザー名</th>
-						<td><%=request.getAttribute("e_UserName") %></td>
+						<td><%=request.getAttribute("e_UserName") %><!-- 編集後のユーザー名を受け取り表示 --></td>
 					</tr>
 					<tr>
 						<%-- パスワード入力欄の名前は password --%>
 						<th class="color-main text-left"><span class="icon-smile pe-2x pe-va"></span>パスワード</th>
-						<td><%=request.getAttribute("e_Password") %></td>
+						<td><%=request.getAttribute("e_Password") %><!-- 編集後のパスワードを受け取り表示 --></td>
 					</tr>
 					<tr>
 						<%-- ログインID 入力欄の名前は loginId --%>
 						<th class="color-main text-left"><span class="icon-smile pe-2x pe-va"></span>アイコン</th>
 						<td class="text-left">
-							 <span class="<%=request.getAttribute("e_Icon")%> pe-2x pe-va"></span>
+							 <span class="<%=request.getAttribute("e_Icon")%> pe-2x pe-va"><!-- 編集後のアイコンを取得し表示 --></span>
 						</td>
 					</tr>
 					<tr>
 						<th class="color-main text-left"><span class="icon-smile pe-2x pe-va"></span>プロフィール</th>
-						<td><%=request.getAttribute("e_Profile") %></td>
+						<td><%=request.getAttribute("e_Profile") %><!-- 編集後のプロフィールを取得し表示 --></td>
 				   	</tr>
 					<tr>
 						<td colspan="2" class="text-center"><input class="btn"
@@ -55,7 +50,7 @@
 							type="submit" name="cancel" value="キャンセル" /></td>
 					</tr>
 				</table>
-				<!-- hiddenで送るデータ -->
+					<!-- 検索条件を取得し、UserEditConfirm.jspに渡すための処理 -->
 					<input type="hidden" name="loginId" value="<%=request.getAttribute("loginId")%>" >
 					<input type="hidden" name="userName" value="<%=request.getAttribute("userName")%>" >
 					<input type="hidden" name="icon-user-female" value="<%=request.getAttribute("icon-user-female")%>">
@@ -63,11 +58,12 @@
 					<input type="hidden" name="icon-bell" value="<%=request.getAttribute("icon-bell")%>" >
 					<input type="hidden" name="icon-smile" value="<%=request.getAttribute("icon-smile")%>" >
 					<input type="hidden" name="profile" value="<%=request.getAttribute("profile")%>" >
-					<input type="hidden" name="e_LoginId" value="<%=request.getAttribute("e_LoginId")%>" >
+					<!-- 編集内容を取得し、UserEditConfirm.jspに渡すための処理 -->
 					<input type="hidden" name="e_UserName" value="<%=request.getAttribute("e_UserName")%>" >
 					<input type="hidden" name="e_Password" value="<%=request.getAttribute("e_Password")%>" >
 					<input type="hidden" name="e_Icon" value="<%=request.getAttribute("e_Icon")%>" >
 					<input type="hidden" name="e_Profile" value="<%=request.getAttribute("e_Profile")%>" >
+					<!-- 編集対象が検索されたデータの何番目かを特定する情報をUserEditConfirm.jspに渡すための処理 -->
 					<input type="hidden" name="edit" value="<%=request.getAttribute("edit") %>">
 			</form>
 </body>

@@ -32,8 +32,10 @@ public class UserEditInputSVT extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//文字化け対策
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html:charset=UTF-8");
+		//検索条件の受け取り
 		String loginId = request.getParameter("loginId");
 		String userName = request.getParameter("userName");
 		String icon_user_female = request.getParameter("icon-user-female");
@@ -41,13 +43,14 @@ public class UserEditInputSVT extends HttpServlet {
 		String icon_bell = request.getParameter("icon-bell");
 		String icon_smile = request.getParameter("icon-smile");
 		String profile = request.getParameter("profile");
-		String e_LoginId = request.getParameter("e_LoginId");
+		//編集内容の受け取り
 		String e_UserName = request.getParameter("e_UserName");
 		String e_Password = request.getParameter("e_Password");
 		String e_Icon = request.getParameter("e_Icon");
 		String e_Profile = request.getParameter("e_Profile");
 		String turnBack = request.getParameter("return");
 		String edit = request.getParameter("edit");
+		//検索条件を遷移先のファイルに送るための処理
 		request.setAttribute("loginId", loginId);
 		request.setAttribute("userName", userName);
 		request.setAttribute("icon-user-female", icon_user_female);
@@ -55,24 +58,42 @@ public class UserEditInputSVT extends HttpServlet {
 		request.setAttribute("icon-bell", icon_bell);
 		request.setAttribute("icon-smile", icon_smile);
 		request.setAttribute("profile", profile);
-		request.setAttribute("e_LoginId", e_LoginId);
+		//編集内容を遷移先のファイルに送るための処理
 		request.setAttribute("e_UserName", e_UserName);
 		request.setAttribute("e_Password", e_Password);
 		request.setAttribute("e_Icon", e_Icon);
 		request.setAttribute("e_Profile", e_Profile);
 		request.setAttribute("edit", edit);
+		//エラーメッセージの代入先
+		String messageSpace = "";
+		String messageBlank = "";
+		String messageMaxlimit_uName = "";
+		String messageMaxlimit_password = "";
+		String messageMaxlimit_profile = "";
 		DBManager db = new DBManager();
 		RequestDispatcher dispatcher = null;
+		//検索条件に該当するユーザー情報の一覧を取得
+		ArrayList<UserDTO> list = db.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell,
+				icon_smile, profile);
+		//検索結果を遷移先に送るための処理
+		request.setAttribute("searchUser", list);
+		//編集画面で入力された内容を、戻るボタンが押された際にテキストボックスに保持するための処理
+		UserDTO edit_User = new UserDTO();
+		edit_User.setUserName(e_UserName);
+		edit_User.setPassword(e_Password);
+		edit_User.setIcon(e_Icon);
+		edit_User.setProfile(e_Profile);
+		request.setAttribute("editUser", edit_User);
 
 		if(turnBack!=null){//戻るボタンが押された時の処理
-			ArrayList<UserDTO> list = db.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell, icon_smile, profile);
-			request.setAttribute("searchUser", list);
-			dispatcher = request.getRequestDispatcher("userSearchResult.jsp");
-		}else {//
-			ArrayList<UserDTO> list = db.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell,
-					icon_smile, profile);
-			request.setAttribute("searchUser", list);
-			for (UserDTO u : list) {
+			/*ArrayList<UserDTO> list = db.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell, icon_smile, profile);
+			request.setAttribute("searchUser", list);*/
+			dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
+		}else {//編集ボタンが押された時の処理
+			/*ArrayList<UserDTO> list = db.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell,
+					icon_smile, profile);//検索条件に該当するユーザー情報をまとめて受け取り
+			request.setAttribute("searchUser", list);//検索結果の一覧を遷移先のファイルに渡すための処理
+			for (UserDTO u : list) {//検索対象から、編集対象を抽出し、その情報を遷移先のファイルに渡すための処理
 				if (u.getLoginId().equals("edit")) {
 					request.setAttribute("e_LoginId", u.getLoginId());
 					request.setAttribute("e_UserName", u.getUserName());
@@ -80,8 +101,42 @@ public class UserEditInputSVT extends HttpServlet {
 					request.setAttribute("e_Icon", u.getIcon());
 					request.setAttribute("e_Profile", u.getProfile());
 				}
-			}
+			}*/
 			dispatcher = request.getRequestDispatcher("userEditConfirm.jsp");
+			if (e_Password.contains(" ")) {//パスワード欄にスペースが入っているかどうかの確認
+				messageSpace = "パスワードにはスペースを入力しないでください。";
+
+				request.setAttribute("alertSpace", messageSpace);
+				dispatcher = request.getRequestDispatcher("userEditInput.jsp");
+			}
+			if (e_Password.equals("") || e_UserName.replaceAll("　", " ").trim().equals("")) {
+				// 必須項目が未入力なら
+				messageBlank = "未入力項目があります。";
+
+				// エラーメッセージをリクエストオブジェクトに保存
+				request.setAttribute("alertBlank", messageBlank);
+
+				// ユーザー情報登録画面 に処理を転送
+				dispatcher = request.getRequestDispatcher("userEditInput.jsp");
+			}
+			if(e_UserName.length()>=11) {//ユーザー名の文字数制限
+				messageMaxlimit_uName = "ユーザー名は10文字以内で入力してください。";
+				request.setAttribute("alertMaxlimit_uName",messageMaxlimit_uName);
+
+				dispatcher = request.getRequestDispatcher("userEditInput.jsp");
+			}
+			if(e_Password.length()>=11) {//パスワードの文字数制限
+				messageMaxlimit_password = "パスワードは10文字以内で入力してください。";
+				request.setAttribute("alertMaxlimit_password", messageMaxlimit_password);
+
+				dispatcher = request.getRequestDispatcher("userEditInput.jsp");
+			}
+			if(e_Profile.length()>=51) {//プロフィールの文字数制限
+				messageMaxlimit_profile = "プロフィールは50文字以内で入力してください。";
+				request.setAttribute("alertMaxlimit_profile", messageMaxlimit_profile);
+
+				dispatcher = request.getRequestDispatcher("userEditInput.jsp");
+			}
 		}
 		dispatcher.forward(request, response);
 

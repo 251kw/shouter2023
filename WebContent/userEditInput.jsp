@@ -12,13 +12,13 @@
 <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-	<%
+	<%//文字化け対策
 		request.setCharacterEncoding("UTF-8");
 	%>
-	<%
+	<%//編集対象のユーザーのインスタンスの受け取り
 		UserDTO editUser = (UserDTO)request.getAttribute("editUser");
 	%>
-	<%
+	<%//編集対象のユーザーのアイコンにチェックをつけるための処理
 		String icon_user_check="";
 		String icon_user_female_check="";
 		String icon_bell_check="";
@@ -45,6 +45,7 @@
 	</div>
 	<%-- action 属性にサーブレットを指定 --%>
 	<form action="./uei" method="post">
+		<!-- 検索条件のUserEditInputSVT.javaへの送信 -->
 		<input type="hidden" name="loginId" value="<%=request.getAttribute("loginId")%>">
 		<input type="hidden" name="userName" value="<%=request.getAttribute("userName")%>">
 		<input type="hidden" name="icon-user-female" value="<%=request.getAttribute("icon-user-female")%>">
@@ -54,6 +55,46 @@
 		<input type="hidden" name="profile" value="<%=request.getAttribute("profile")%>">
 		<input type="hidden" name="edit" value="<%=request.getAttribute("edit") %>">
 		<table style="width: 60%" class="table">
+							<c:if
+						test="${requestScope.alertSpace != null && requestScope.alertSpace != ''}">
+						<tr>
+							<%-- リクエストスコープの alert の値を出力 --%>
+							<td colspan="2" class="color-error text-left"><c:out
+									value="${requestScope.alertSpace}" /></td>
+						</tr>
+					</c:if>
+					<c:if
+						test="${requestScope.alertBlank != null && requestScope.alertBlank != ''}">
+						<tr>
+							<%-- リクエストスコープの alert の値を出力 --%>
+							<td colspan="2" class="color-error text-left">
+							<c:out value="${requestScope.alertBlank}" /></td>
+						</tr>
+					</c:if>
+					<c:if
+						test="${requestScope.alertMaxlimit_uName != null && requestScope.messageMaxlimit_uName != ''}">
+						<tr>
+							<%-- リクエストスコープの alert の値を出力 --%>
+							<td colspan="2" class="color-error text-left">
+							<c:out	value="${requestScope.alertMaxlimit_uName}" /></td>
+						</tr>
+					</c:if>
+					<c:if
+						test="${requestScope.alertMaxlimit_password != null && requestScope.alertMaxlimit_password != ''}">
+						<tr>
+							<%-- リクエストスコープの alert の値を出力 --%>
+							<td colspan="2" class="color-error text-left">
+							<c:out	value="${requestScope.alertMaxlimit_password}" /></td>
+						</tr>
+					</c:if>
+					<c:if
+						test="${requestScope.alertMaxlimit_profile != null && requestScope.alertMaxlimit_profile != ''}">
+						<tr>
+							<%-- リクエストスコープの alert の値を出力 --%>
+							<td colspan="2" class="color-error text-left">
+							<c:out	value="${requestScope.alertMaxlimit_profile}" /></td>
+						</tr>
+					</c:if>
 			<tr>
 				<%-- ユーザー名 入力欄の名前は userName --%>
 				<td class="color-main text-left"><span

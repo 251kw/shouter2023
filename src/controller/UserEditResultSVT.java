@@ -40,8 +40,10 @@ public class UserEditResultSVT extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//文字化け対策
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html:charset=UTF-8");
+		//検索画面で入力された条件の受け取り
 		String loginId = request.getParameter("loginId");
 		String userName = request.getParameter("userName");
 		String icon_user_female = request.getParameter("icon-user-female");
@@ -49,6 +51,7 @@ public class UserEditResultSVT extends HttpServlet {
 		String icon_bell = request.getParameter("icon-bell");
 		String icon_smile = request.getParameter("icon-smile");
 		String profile = request.getParameter("profile");
+		//検索条件の受け渡し
 		request.setAttribute("loginId", loginId);
 		request.setAttribute("userName", userName);
 		request.setAttribute("icon-user-female", icon_user_female);
@@ -58,6 +61,7 @@ public class UserEditResultSVT extends HttpServlet {
 		request.setAttribute("profile", profile);
 		RequestDispatcher dispatcher;
 		DBManager db = new DBManager();
+		//検索の実行
 		ArrayList<UserDTO> list = db.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell, icon_smile, profile);
 		request.setAttribute("searchUser", list);
 		dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
