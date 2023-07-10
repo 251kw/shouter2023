@@ -2,16 +2,11 @@ package controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import dao.DBManager;
-import dto.UserDTO;
 
 
 @WebServlet("/uic")
@@ -31,7 +26,7 @@ public class UserInfoConfirmSvt extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//文字化け対策
+		/**文字化け対策
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 
@@ -63,6 +58,7 @@ public class UserInfoConfirmSvt extends HttpServlet {
 
 		dispatcher = request.getRequestDispatcher("UserInfoResult.jsp"); //UserInforesult.jspに転送
 		dispatcher.forward(request, response);
+		**/
 	}
 
 }

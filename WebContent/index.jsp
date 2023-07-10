@@ -45,7 +45,7 @@
 					<tr>
 						<td  colspan="2" class="text-center">
 							<button class="btn" type="submit" value="ログイン" formaction="./login">ログイン</button>
-						 	<button class="btn" type="submit" value="新規登録" formaction="UserInfoInput.jsp">新規登録</button>
+						 	<a href="UserInfoInput.jsp" class ="btn">新規登録</a>
 						 </td>
 					</tr>
 				</table>

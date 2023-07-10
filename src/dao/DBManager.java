@@ -194,7 +194,7 @@ public class DBManager extends SnsDAO {
 			rset = pstmt.executeQuery();
 
 			// 検索結果
-			while (rset.next()) {
+			while(rset.next()) {
 				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
 				user = new UserDTO();
 				user.setLoginId(rset.getString(2));
@@ -354,6 +354,47 @@ public class DBManager extends SnsDAO {
 			close(conn);
 		}
 		return list;
+	}
+
+
+	//ユーザー情報更新
+	public int editProfile(String loginId, String userName, String password, String icon, String profile, String oldLoginId) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+
+		//ArrayListの作成　型はUserDTO型
+		UserDTO user = null;
+
+		String sql = "UPDATE users SET loginId=?, userName=?, password=?, icon=?, profile=? where loginId =?  ";
+
+		try {
+			conn = getConnection(); //DBとの接続
+			pstmt = conn.prepareStatement(sql); //preparedStatement
+			pstmt.setString(1, loginId);
+			pstmt.setString(2, userName);
+			pstmt.setString(3, password);
+			pstmt.setString(4, icon);
+			pstmt.setString(5, profile);
+			pstmt.setString(6, oldLoginId);
+
+
+			//SQlの実行
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+					e.printStackTrace();
+
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return result;
+
 	}
 
 }

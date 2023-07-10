@@ -78,12 +78,12 @@
 										</td>
 
 										<td class="text-left"><!--ログインID -->
-											<input class="form-control" type="hidden" name="loginId" value="" size="20" autofocus>
+											<input class="form-control" type="hidden" name="loginId" value="${user.loginId}" size="20" autofocus>
 											${user.loginId}
 										</td>
 
 										<td class="text-left"><!--ユーザー名 -->
-											<input class="form-control" type="hidden" name="userName" value="" size="20" />
+											<input class="form-control" type="hidden" name="userName" value="${user.userName}" size="20" />
 											${user.userName}</td>
 
 										<td class="pe-2x pe-va"><!--アイコン-->
@@ -92,12 +92,12 @@
 										</td>
 
 										<td class="text-left"><!--プロフィール-->
-											<input class="form-control" type="hidden" name="profile" value="" size="20" />
+											<input class="form-control" type="hidden" name="profile" value="${user.profile}" size="20" />
 											${user.profile}
 										</td>
 
 										<td colspan="2" class="text-right"><!-- 編集ボタン -->
-											<button class="btn" type="submit" value="編集" formaction="">編集</button>
+											<button class="btn" type="submit" value="${user.loginId}" formaction="./usr" name="edit" >編集</button>
 										</td>
 									</tr>
 								</c:forEach>

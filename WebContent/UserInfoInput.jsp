@@ -154,7 +154,7 @@
 					<tr><!-- 登録＆戻るボタン -->
 						<td colspan="2" class="text-center">
 							<button class="btn" type="submit" value="登録" formaction="./uii">登録</button>
-					 		<a href="top.jsp" class ="btn">戻る</a>
+					 		<a href="index.jsp" class ="btn">戻る</a>
 					 	</td>
 					</tr>
 				</table>
