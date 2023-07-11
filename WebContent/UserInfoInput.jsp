@@ -23,6 +23,9 @@
 		String prof = "";
 		String check_smile = "checked";
 		String check_users = "";
+		String check_user ="";
+		String check_user_female="";
+		String check_bell = "";
 
 
 		if (request.getParameter("loginId") != null) {
@@ -32,10 +35,16 @@
 			icon = request.getParameter("icon");
 			prof = request.getParameter("prof");
 		}
-		if (icon.equals("icon-smile pe-2x pe-va")) {
+		if (icon.equals("icon-smile")) {
 			check_smile = "checked";
-		} else if (icon.equals("icon-users pe-2x pe-va")) {
+		} else if (icon.equals("icon-users")) {
 			check_users = "checked";
+		}else if (icon.equals("icon-user")) {
+			check_user = "checked";
+		}else if (icon.equals("icon-user-female")) {
+			check_user_female = "checked";
+		}else if (icon.equals("icon-bell")) {
+			check_bell = "checked";
 		}
 	%>
 	<div class="bg-success padding-y-5">
@@ -137,28 +146,28 @@
 							<%--　アイコン入力欄の名前は icon --%>
 							<div class="parent">
 
-								<label class="fancy-checkbox"><input type="checkbox"
-									name="icon" id="icon-smile" value="icon-smile" /> <span></span></label>
+								<label class="fancy-radio"><input type="radio"
+									name="icon" id="icon-smile" value="icon-smile" <%=check_smile %>/> <span></span></label>
 								<span class="icon-smile pe-2x pe-va "></span>
 							</div>
 							<div class="parent">
-								<label class="fancy-checkbox "><input type="checkbox"
-									name="icon" id="icon-users" value="icon-users" /> <span></span>
+								<label class="fancy-radio "><input type="radio"
+									name="icon" id="icon-users" value="icon-users" <%=check_users %>/> <span></span>
 								</label> <span class="icon-users pe-2x pe-va "></span>
 							</div>
 							<div class="parent">
-								<label class="fancy-checkbox "><input type="checkbox"
-									name="icon" id="icon-user" value="icon-user" /><span> </span>
+								<label class="fancy-radio "><input type="radio"
+									name="icon" id="icon-user" value="icon-user" <%=check_user %>/><span> </span>
 								</label> <span class="icon-user pe-2x pe-va "></span>
 							</div>
 							<div class="parent">
-								<label class="fancy-checkbox"> <input type="checkbox"
+								<label class="fancy-radio"> <input type="radio"
 									name="icon" id="icon-user-female" value="icon-user-female" /><span></span>
-								</label><span class="icon-user-female pe-2x pe-va"></span>
+								</label><span class="icon-user-female pe-2x pe-va" <%=check_user_female %>></span>
 							</div>
 							<div class="parent">
-								<label class="fancy-checkbox "> <input type="checkbox"
-									name="icon" id="icon-bell" value="icon-bell" /><span></span>
+								<label class="fancy-radio "> <input type="radio"
+									name="icon" id="icon-bell" value="icon-bell" <%=check_bell %>/><span></span>
 								</label><span class="icon-bell pe-2x pe-va "></span>
 							</div>
 						</td>

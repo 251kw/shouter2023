@@ -49,7 +49,7 @@
 						<%-- ユーザー名 --%>
 						<td class="color-main text-left"><span
 							class="icon-unlock pe-2x pe-va"></span>
-						<nobr>パスワード</nobr></td>
+						<nobr>ユーザー名</nobr></td>
 						<td class="text-left">${user.userName}</td>
 					</tr>
 					<tr>

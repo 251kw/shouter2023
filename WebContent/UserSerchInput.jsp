@@ -20,12 +20,7 @@
 			</h1>
 		</div>
 	</div>
-	<c:if
-		test="${requestScope.noresult_error != null && requestScope.noresult_error != ''}">
-		<%-- リクエストスコープの alert の値を出力 --%>
-		<div style="width: 40%" class="container color-error text-left">
-			${requestScope.noresult_error}</div>
-	</c:if>
+
 	<c:if
 		test="${requestScope.alert_id != null && requestScope.alert_id != ''}">
 		<%-- リクエストスコープの alert の値を出力 --%>

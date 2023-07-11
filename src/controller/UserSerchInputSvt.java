@@ -71,7 +71,7 @@ public class UserSerchInputSvt extends HttpServlet {
 		ArrayList<UserDTO> users  = dbm.SerchUser(loginId, userName, icon, prof);
 		if(users.size() == 0) {
 			request.setAttribute("noresult_error", "条件に一致する結果は存在しません。");
-			dispatcher = request.getRequestDispatcher("UserSerchInput.jsp");
+			dispatcher = request.getRequestDispatcher("UserSerchResult.jsp");
 		}else {
 			request.setAttribute("users",users);
 			dispatcher = request.getRequestDispatcher("UserSerchResult.jsp");

@@ -55,6 +55,7 @@ public class UserSerchResultSvt extends HttpServlet {
 		DBManager dbm = new DBManager();
 		ArrayList<UserDTO> users  = dbm.SerchUser(loginId, userName, icon, prof);
 		String check = "";
+
 		if(checkAll != null) {
 			if(checkAll.equals("全選択")) {
 				check = "checked";
@@ -74,8 +75,13 @@ public class UserSerchResultSvt extends HttpServlet {
 			session.setAttribute("olduser", editUser);
 			dispatcher = request.getRequestDispatcher("UserEditInput.jsp");
 		}else {
-			request.setAttribute("users",users);
-			dispatcher = request.getRequestDispatcher("UserSerchResult.jsp");
+			if(users.size() == 0) {
+				request.setAttribute("noresult_error", "条件に一致する結果は存在しません。");
+				dispatcher = request.getRequestDispatcher("UserSerchResult.jsp");
+			}else {
+				request.setAttribute("users",users);
+				dispatcher = request.getRequestDispatcher("UserSerchResult.jsp");
+			}
 		}
 
 		dispatcher.forward(request, response);

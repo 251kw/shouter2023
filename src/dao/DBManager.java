@@ -318,4 +318,44 @@ public class DBManager extends SnsDAO {
 
 		return rset;
 	}
+
+	public int deleteUser(ArrayList<String>  Ids) {
+		Connection conn = null;            // データベース接続情報
+		PreparedStatement pstmt = null;    // SQL 管理情報
+		int rset = 0;             // 検索結果
+
+		String sql = "DELETE FROM users WHERE";//
+		ArrayList<String> sqls = new ArrayList<String>();
+		for(String loginId:Ids) {
+			sqls.add(loginId);
+		}
+
+		if(sqls.size()<=0) {
+			return 0;
+		}
+
+		sql = sql + " loginId = '"+ sqls.get(0)+"'";
+		for(int i = 1 ; i <sqls.size() ; i++) {
+			sql = sql + " or loginId = '"+sqls.get(i)+"'";
+		}
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql);	// SELECT 構文登録
+			rset = pstmt.executeUpdate();
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(pstmt);
+			close(conn);
+		}
+
+		return rset;
+
+	}
 }

@@ -32,9 +32,15 @@
 	<div class="padding-y-5 text-center">
 		<div style="width: 60%" class="container padding-y-5 text-center">
 			<%-- action 属性にサーブレットを指定 --%>
+			<c:if
+				test="${requestScope.noresult_error != null && requestScope.noresult_error != ''}">
+				<%-- リクエストスコープの alert の値を出力 --%>
+				<div style="width: 40%" class="container color-error text-left">
+					${requestScope.noresult_error}</div>
+			</c:if>
 
 
-			<form action="./usi" method="post">
+			<form action="./udc" method="post">
 				<table class="table table-striped table-borderd">
 					<tr>
 						<td></td>
@@ -47,25 +53,25 @@
 						<td></td>
 					</tr>
 
-					<tr bgcolor="#bee0c2" >
+					<tr bgcolor="#bee0c2">
 						<th></th>
 						<th><strong>ログインID</strong></th>
 						<th><strong>ユーザー名</strong></th>
 						<th><strong>アイコン</strong></th>
 						<th><strong>プロフィール</strong></th>
 						<th></th>
-						</tr>
+					</tr>
 
 					<c:forEach items="${users}" var="u" varStatus="s">
 						<tr>
-							<td><label class="fancy-checkbox"><input type="checkbox" name="user_check"
-								value="${s.index}" <%=check%> /><span></span></label></td>
+							<td><label class="fancy-checkbox"><input
+									type="checkbox" name="user_check" value="${s.index}" <%=check%> /><span></span></label></td>
 							<td>${u.loginId}</td>
 							<td>${u.userName}</td>
 							<td><span class="${u.icon} pe-2x pe-va"></span></td>
 							<td>${u.profile}</td>
 							<td><button type="submit" name="edit" value="${s.index}"
-								class="btn btn-empty" formaction="./usr">編集</button></td>
+									class="btn btn-empty" formaction="./usr">編集</button></td>
 						</tr>
 					</c:forEach>
 
@@ -80,9 +86,8 @@
 						<td></td>
 					</tr>
 				</table>
-				<input type="submit" value="削除" class="btn" />
-				<input type ="submit" formaction="UserSerchInput.jsp"
-					class="btn" value="戻る">
+				<input type="submit" value="削除" class="btn" /> <input type="submit"
+					formaction="UserSerchInput.jsp" class="btn" value="戻る">
 			</form>
 		</div>
 	</div>
