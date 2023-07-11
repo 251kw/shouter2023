@@ -5,7 +5,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>ユーザー編集確認画面</title>
+<title>ユーザー登録確認画面</title>
 <link rel="stylesheet" href="./css/skyblue.css">
 <link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 <link rel="stylesheet" href="./css/helper.css">
@@ -19,11 +19,11 @@
 
 	<div class="bg-success padding-y-5">
 		<div class="padding-y-5 text-center">
-			<strong><h1>ユーザー編集確認画面</h1>
-			<h6>
-			編集します。よろしいでしょうか？
-			</h6>
-			</strong>
+			<h1><strong>ユーザー登録確認画面</strong></h1>
+			<h6><strong>
+			登録します。よろしいでしょうか？
+			</strong></h6>
+
 		</div>
 	</div>
 	<div class="container padding-y-5">
@@ -62,14 +62,14 @@
 
 				</table>
 
-<input type="submit" value="OK" formaction="./ucs">&nbsp;&nbsp;&nbsp;&nbsp;
+<input class="btn"  type="submit" value="OK" formaction="./ucs">&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="hidden" name="hidden-loginID" value="${user.loginId }">
 				<input type="hidden" name="hidden-username" value="${user.userName }">
 				<input type="hidden" name="hidden-pass" value="${user.password }">
 				<input type="hidden" name="hidden-geticon" value="${user.icon }">
 				<input type="hidden" name="hidden-profile" value="${user.profile }">
 				<%-- fromactionで送信先の決定 --%>
-				<input type="submit" value="キャンセル" formaction="UserInfoInput.jsp">
+				<input class="btn"  type="submit" value="キャンセル" formaction="UserInfoInput.jsp">
 
 
 			</form>

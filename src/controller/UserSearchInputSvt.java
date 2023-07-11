@@ -61,11 +61,17 @@ public class UserSearchInputSvt extends HttpServlet {
 		String icon1 = request.getParameter("Iconn");
 		String profile = request.getParameter("Prof");
 
+		HttpSession session = request.getSession();
+		session.setAttribute("Seach_login",loginId);
+		session.setAttribute("Seach_username",username);
+		session.setAttribute("Seach_Icon",icon);
+		session.setAttribute("Seach_Iconn",icon1);
+		session.setAttribute("Seach_prof",profile);
+
 			DBManager dbm1 = new DBManager();
 			ArrayList<UserDTO> Serach1 = dbm1.Search(loginId, username, icon,icon1, profile);
 			//Userがnull出ない場合その値をセットする
 			if (Serach1.size() !=0 ) {
-				HttpSession session = request.getSession();
 				session.setAttribute("userr",Serach1);
 
 				// 処理の転送先を UserInfoConfirm.jsp に指定

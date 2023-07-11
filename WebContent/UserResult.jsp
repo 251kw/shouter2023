@@ -13,10 +13,10 @@
 
 	<div class="bg-success padding-y-5">
 		<div class="padding-y-5 text-center">
-			<strong><h1>ユーザー登録結果画面<br></h1>
-			<h6>以下の内容で登録が完了しました。
-			</h6>
-			</strong>
+			<h1><strong>ユーザー登録結果画面</strong></h1><br>
+			<h6><strong>以下の内容で登録が完了しました。
+			</strong></h6>
+
 		</div>
 	</div>
 	<div class="container padding-y-5">
@@ -52,7 +52,7 @@
 
 				</table>
 
-				<input type="submit" value="戻る">
+				<input class="btn"  type="submit" value="戻る">
 			</form>
 		</div>
 	</div>

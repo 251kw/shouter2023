@@ -98,7 +98,7 @@
 					<tr>
 						<%-- ログインID 入力欄の名前は loginId --%>
 						<td class="color-main text-left"><span class="icon-speaker pe-2x pe-va"></span>&nbsp;&nbsp;&nbsp;&nbsp;プロフィール</td>
-						<td class="text-left"><input class="form-control" type="text" maxlength="100" name="hidden-profile" value="<%=hProf%>" cols="20" rows="10"  autofocus /></td>
+						<td class="text-left"><input class="form-control" type="text" maxlength="100" name="hidden-profile" value="<%=hProf%>"  autofocus /></td>
 					</tr>
 
 					<tr>

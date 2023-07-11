@@ -170,7 +170,6 @@ public class DBManager extends SnsDAO {
 
 		boolean result = true;
 		String sql = "SELECT * FROM users WHERE loginId=?";
-		UserDTO user = null; // 登録ユーザ情報
 		try {
 			// データベース接続情報取得
 			conn = getConnection();
@@ -208,17 +207,17 @@ public class DBManager extends SnsDAO {
 		ArrayList<String> SearchDT = new ArrayList<>();
 		ArrayList<UserDTO> Search_list = new ArrayList<UserDTO>();
 
-		if (loginId == "" && username == "" && icon == null && icon1 == null && profile == "") {
+		if (loginId.equals("") && username.equals("") && icon == null && icon1 == null && profile.equals("")) {
 			sql = sql + ";";
 
 		} else {
 			//lodinIDに何か入力された場合
-			if (loginId != "") {
+			if (!(loginId.equals(""))) {
 				SearchDT.add(" loginId=" + "'" + loginId + "'");
 			}
 
 			//usernameに何か入力された場合
-			if (username != "") {
+			if ((!username.equals(""))) {
 				SearchDT.add(" userName like " + "'%" + username + "%'");
 			}
 			//iconに何か入力された場合
@@ -233,7 +232,7 @@ public class DBManager extends SnsDAO {
 				}
 			}
 			//profile何か入力された場合
-			if (profile != "") {
+			if ((!profile.equals(""))) {
 				SearchDT.add(" profile like " + "'%" + profile + "%' ");
 			}
 
@@ -273,44 +272,108 @@ public class DBManager extends SnsDAO {
 		return Search_list;
 	}
 
+	public UserDTO SearchRe(String loginId) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
 
-public UserDTO SearchRe(String loginId) {
-	Connection conn = null; // データベース接続情報
-	PreparedStatement pstmt = null; // SQL 管理情報
-	ResultSet rset = null; // 検索結果
+		String sql = "SELECT * FROM users WHERE loginId=?";
+		UserDTO searchR = null; // 登録ユーザ情報
 
-	String sql = "SELECT * FROM users WHERE loginId=?";
-	UserDTO searchR = null; // 登録ユーザ情報
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
 
-	try {
-		// データベース接続情報取得
-		conn = getConnection();
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+			pstmt.setString(1, loginId);
+			rset = pstmt.executeQuery();
 
-		// SELECT 文の登録と実行
-		pstmt = conn.prepareStatement(sql); // SELECT 構文登録
-		pstmt.setString(1, loginId);
-		rset = pstmt.executeQuery();
-
-		// 検索結果があれば
-		if (rset.next()) {
-			// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
-			searchR = new UserDTO();
-			searchR.setLoginId(rset.getString(2));
-			searchR.setPassword(rset.getString(3));
-			searchR.setUserName(rset.getString(4));
-			searchR.setIcon(rset.getString(5));
-			searchR.setProfile(rset.getString(6));
+			// 検索結果があれば
+			if (rset.next()) {
+				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				searchR = new UserDTO();
+				searchR.setLoginId(rset.getString(2));
+				searchR.setPassword(rset.getString(3));
+				searchR.setUserName(rset.getString(4));
+				searchR.setIcon(rset.getString(5));
+				searchR.setProfile(rset.getString(6));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
 		}
-	} catch (SQLException e) {
-		e.printStackTrace();
+
+		return searchR;
+	}
+
+	public boolean Edit_IDcheck(String loginId) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+
+		boolean result = true;
+		String sql = "SELECT * FROM users WHERE loginId=?";
+
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+			pstmt.setString(1, loginId);
+			rset = pstmt.executeQuery();
+
+			// 検索結果があれば
+			if (rset.next()) {
+				//
+				result = true;
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return result;
+
+	}
+
+public boolean updatadata(UserDTO user) {
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+
+	boolean result = false;
+
+		// INSERT 文の登録と実行
+		String sql = "UPDATE users SET " + "userName=" + "'" + user.getUserName() +"'" +", " +"password="+ "'"+ user.getPassword() +"'" +", " + "icon="+ "'"+ user.getIcon() +"'"+ ", "+ "profile=" + "'"+ user.getProfile() + "' " +  " where loginId=" +"'"+ user. getLoginId()+"'";
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+			int cnt = pstmt.executeUpdate();
+			if (cnt == 1) {
+				// INSERT 文の実行結果が１なら登録成功
+				result = true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
 	} finally {
 		// データベース切断処理
-		close(rset);
 		close(pstmt);
 		close(conn);
 	}
-
-	return searchR;
+	return result;
 }
-
 }
