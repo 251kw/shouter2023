@@ -28,7 +28,7 @@
 	<div class="padding-y-5 text-center">
 		<div class="container padding-y-5 text-center">
 			<%-- action 属性にサーブレットを指定 --%>
-			<form action="./UserDeleteConfirm.jsp" method="post" id="checkForm">
+			<form action="usrdel" method="post" id="checkForm">
 
 				<table class="table" border="1">
 					<tr>
@@ -53,12 +53,10 @@
 						type="java.util.ArrayList<dto.UserDTO>" />
 					<%-- リストにある要素の数だけ繰り返し --%>
 					<c:forEach var="users" items="${userlist}">
-
 						<tr>
-							<td><label class="fancy-checkbox"><input
-									type="checkbox" name="test1" value="" /> <span></span></label></td>
+							<td><label class="fancy-checkbox"><input type="checkbox" name="test1" value="<%= count%>" /> <span></span></label></td>
 							<td><label class="form-control text-center">${users.loginId}</label>
-							<input type="hidden" name="id<%= count%>" value="${users.loginId}"></td>
+							<input type="hidden" name="<%= count%>" value="${users.loginId}"></td>
 							<td><label class="form-control text-center">${users.userName}</label></td>
 							<td><span class="${users.icon} pe-3x pe-va" /></span></td>
 							<td><label class="form-control text-center">${users.profile}</label></td>

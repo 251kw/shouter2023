@@ -1242,10 +1242,10 @@ public class DBManager extends SnsDAO {
 	}
 
 	//ユーザデータ更新
-	public String update(String id, String name, String pass, String icon, String pro,String hiddenid) {
+	public String update(String id, String name, String pass, String icon, String pro, String hiddenid) {
 		Connection conn = null; // データベース接続情報
 		PreparedStatement pstmt = null; // SQL 管理情報
-		String result ="false";
+		String result = "false";
 
 		String sql = "update users set loginId = ? ,password = ?,"
 				+ " userName = ? ,icon = ?,profile = ? where loginId =?";
@@ -1265,7 +1265,7 @@ public class DBManager extends SnsDAO {
 			int cnt = pstmt.executeUpdate();
 			if (cnt == 1) {
 				// INSERT 文の実行結果が１なら登録成功
-				result ="true";
+				result = "true";
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1278,4 +1278,91 @@ public class DBManager extends SnsDAO {
 		return result;
 	}
 
+	//チェックされ、削除するユーザ検索
+	public ArrayList<UserDTO> delete(ArrayList<String> id) {
+		Connection conn = null; // データベース接続情報
+		Statement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+
+		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
+
+		String sql = "SELECT * FROM users where";
+		for (int i = 0; i < id.size(); i++) {
+			if (i == 0) {//最初はorいらない
+				sql += " loginId='" + id.get(i) + "'";
+			} else {
+				sql += " or loginId='" + id.get(i) + "'";
+			}
+
+		}
+
+		try {
+			// SnsDAO クラスのメソッド呼び出し
+			conn = getConnection();
+			pstmt = conn.createStatement();
+			rset = pstmt.executeQuery(sql);
+
+			// 検索結果の数だけ繰り返す
+			while (rset.next()) {
+				// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
+				UserDTO user = new UserDTO();
+				user.setLoginId(rset.getString(2));
+				user.setPassword(rset.getString(3));
+				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
+
+				// 書き込み内容をリストに追加
+				list.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return list;
+	}
+
+	//ユーザ削除
+	public Boolean deleteuser(ArrayList<String> id) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		boolean result = false;
+
+		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
+
+		String sql = "delete FROM users where";
+		for (int i = 0; i < id.size(); i++) {
+			if (i == 0) {//最初はorいらない
+				sql += " loginId='" + id.get(i) + "'";
+			} else {
+				sql += " or loginId='" + id.get(i) + "'";
+			}
+
+		}
+
+		try {
+			// SnsDAO クラスのメソッド呼び出し
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			int cnt = pstmt.executeUpdate();
+
+			if (cnt == 1) {
+				//INSERT 文の実行結果が１なら登録成功
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(pstmt);
+			close(conn);
+		}
+
+		return result;
+	}
 }
