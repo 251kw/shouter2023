@@ -110,8 +110,7 @@ input[name="password"]:focus {
 
 	<div class="padding-y-5">
 		<div style="width: 60%" class="container padding-y-5">
-			<%-- action 属性にサーブレットを指定 --%>
-			<form action="./uii" name="form1" method="post">
+
 				<%-- 全選択と全解除ボタン --%>
 
 				<%
@@ -157,22 +156,41 @@ input[name="password"]:focus {
 
 
 					<c:forEach var="user" items="${users}">
+					<%-- action 属性にサーブレットを指定 --%>
+
 						<tbody>
+
 							<tr>
+
 								<td style="width: 50px"><label class="fancy-checkbox">
 										<input name="check" type="checkbox"> <span></span>
 								</label></td>
-								<td style="width: 120px">${user.loginId}</td>
-								<td style="width: 120px">${user.userName}</td>
+								<td style="width: 120px">
+
+								${user.loginId}
+
+
+								</td>
+								<td style="width: 120px">${user.userName}
+								</td>
 								<td style="width: 120px"><span
-									class="${user.icon} pe-3x pe-va"></span></td>
+									class="${user.icon} pe-3x pe-va"></span>
+									</td>
 								<td style="width: 200px">${user.profile}</td>
-								<td style="width: 120px"><input
+								<td style="width: 120px">
+								<form action="./userEditInput.jsp">
+								<input
+								type="hidden" name="loginId" value="${user.loginId}">
+								<input
 									class="btn btn-light btn-sm btn-empty" type="submit" value="編集"
-									onclick="sendProfile" /></td>
+									onclick="sendProfile" />
+								</form>
+									</td>
 
 							</tr>
+
 						</tbody>
+
 					</c:forEach>
 
 
@@ -190,7 +208,7 @@ input[name="password"]:focus {
 				<%
 					}
 				%>
-			</form>
+
 		</div>
 	</div>
 </body>

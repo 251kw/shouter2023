@@ -234,7 +234,7 @@ public class DBManager extends SnsDAO {
 				if (i > 0) {
 					countIcon_last = stringMatch(sql, countIcon_last);
 				}
-				sql = sql +")";
+				sql = sql + ")";
 			}
 
 			/*
@@ -341,5 +341,43 @@ public class DBManager extends SnsDAO {
 			count++;
 		}
 		return count;
+	}
+
+	public UserDTO updateUser(String loginId, String password, String userName, String icon, String profile) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+
+		UserDTO user = null; // 登録ユーザ情報
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+			String sql = "UPDATE users SET userName = ?, password = AES_ENCRYPT(?,'key'), icon = ?, profile = ? WHERE loginId = ?";
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userName);
+			pstmt.setString(2, password);
+			pstmt.setString(3, icon);
+			pstmt.setString(4, profile);
+			pstmt.setString(5, loginId);
+			int cnt = pstmt.executeUpdate();
+
+			user = new UserDTO();
+			user.setLoginId(loginId);
+			user.setPassword(password);
+			user.setUserName(userName);
+			user.setIcon(icon);
+			user.setProfile(profile);
+			if (cnt == 1) {
+				// INSERT文の実行結果が1なら登録成功
+				return user;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {// データベース切断処理
+			close(pstmt);
+			close(conn);
+		}
+		return user;
 	}
 }
