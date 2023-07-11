@@ -131,13 +131,17 @@
 						</th>
 						<td class="text-left"  id =parent>
 							<div class ="child">
-								<label for="icon"><span class="icon-smile pe-2x pe-va" > </span></label>
-								<input type="radio" name="icon" id="icon" value="icon-smile pe-2x pe-va"  <%=checkSmile %> >
+								<span class="icon-smile pe-2x pe-va" > </span>
+								<label class="fancy-radio">
+									<input type="radio" name="icon" id="icon" value="icon-smile pe-2x pe-va"  <%=checkSmile %> ><span></span>
+								</label>
 							</div>
 
 							<div class ="child">
-								<label for="icon"><span class="icon-joy pe-2x pe-va"> </span></label>
-								<input type="radio" name="icon" id="icon" value="icon-joy pe-2x pe-va" <%= checkJoy %>>
+								<span class="icon-joy pe-2x pe-va"> </span>
+								<label class="fancy-radio">
+									<input type="radio" name="icon" id="icon" value="icon-joy pe-2x pe-va" <%= checkJoy %>><span></span>
+								</label>
 							</div>
 						</td>
 					</tr>

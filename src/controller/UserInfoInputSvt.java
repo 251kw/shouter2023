@@ -46,7 +46,6 @@ public class UserInfoInputSvt extends HttpServlet {
 		String password = request.getParameter("password");
 		String icon = request.getParameter("icon");
 		String profile = request.getParameter("profile");
-		int userNameLength = userName.length()-1; //最後の空文字
 
 		//フォワードの準備
 		RequestDispatcher dispatcher = null;

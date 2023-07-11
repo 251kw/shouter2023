@@ -72,7 +72,7 @@
 					<tr><!-- アイコン -->
 						<th nowrap><span class="icon-joy pe-2x pe-va"></span>&nbsp;アイコン</th>
 						<td class="text-left">
-							<label for="icon"><span class=${user.icon}> </span></label>
+							<label for="icon"><span class="${user.icon}"> </span></label>
 							<input type="hidden" name="icon" id="icon" value="" checked>
 						</td>
 					</tr>

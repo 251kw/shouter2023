@@ -87,7 +87,7 @@
 											${user.userName}</td>
 
 										<td class="pe-2x pe-va"><!--アイコン-->
-											<label for="icon"><span class= ${user.icon} ></span></label>
+											<label for="icon"><span class= "${user.icon}" ></span></label>
 											<input type="hidden" name="icon" id="icon" value="${user.icon}" checked>
 										</td>
 

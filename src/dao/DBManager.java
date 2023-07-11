@@ -357,15 +357,12 @@ public class DBManager extends SnsDAO {
 	}
 
 
-	//ユーザー情報更新
+	//ユーザー情報更新メソッド
 	public int editProfile(String loginId, String userName, String password, String icon, String profile, String oldLoginId) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int result = 0;
-
-		//ArrayListの作成　型はUserDTO型
-		UserDTO user = null;
 
 		String sql = "UPDATE users SET loginId=?, userName=?, password=?, icon=?, profile=? where loginId =?  ";
 

@@ -39,7 +39,7 @@
 					<tr>
 						<%-- パスワード入力欄の名前は password --%>
 						<th nowrap class="color-main text-left" >&nbsp;パスワード </th>
-						<td class="text-left"><input class="form-control" type="password" name="password" value="" size="20" /></td>
+						<td class="text-left"><input class="form-control" type="password" name="password" value="" size="20" maxlength="10" /></td>
 					</tr>
 
 					<tr>

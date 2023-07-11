@@ -63,6 +63,12 @@ public class UserSearchInput extends HttpServlet {
 		String profile = request.getParameter("profile");
 		boolean loginIdResult = true;
 
+		//検索結果から戻るを押下した際に、検索条件を保持し結果を表示させるためにsessionに検索条件を保存させる
+		session.setAttribute("searchLoginId", loginId);
+		session.setAttribute("searchUserName", userName);
+		session.setAttribute("searchIcon", icon);
+		session.setAttribute("searchProfile", profile);
+
 		//alertメッセージ変数
 		String loginIdMessage = null;
 		String empResultMessage = null;
