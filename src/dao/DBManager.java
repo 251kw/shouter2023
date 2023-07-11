@@ -213,13 +213,13 @@ public class DBManager extends SnsDAO {
 				if (!(loginId.equals(""))) {//ログインIDが指定されている場合
 					sqlCondition += " loginId=" + "'" + loginId + "'";
 				}
-				if (userName.equals("")) {//ユーザー名が指定されている場合
+				if (!(userName.equals(""))) {//ユーザー名が指定されている場合
 					if (!(loginId.equals(""))) {
 						sqlCondition += " AND";
 					}
 					sqlCondition += " userName LIKE('%" + userName + "%')";
 				}
-				if (profile.equals("")) {//プロフィールが指定されている場合
+				if (!(profile.equals(""))) {//プロフィールが指定されている場合
 					if (!(userName.equals("")) || !(loginId.equals(""))) {
 						sqlCondition += " AND";
 					}
