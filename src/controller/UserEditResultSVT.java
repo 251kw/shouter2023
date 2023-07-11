@@ -20,18 +20,19 @@ import dto.UserDTO;
 public class UserEditResultSVT extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UserEditResultSVT() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public UserEditResultSVT() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
@@ -39,7 +40,8 @@ public class UserEditResultSVT extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		//文字化け対策
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html:charset=UTF-8");
@@ -62,10 +64,17 @@ public class UserEditResultSVT extends HttpServlet {
 		RequestDispatcher dispatcher;
 		DBManager db = new DBManager();
 		//検索の実行
-		ArrayList<UserDTO> list = db.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell, icon_smile, profile);
-		request.setAttribute("searchUser", list);
+		ArrayList<UserDTO> list = db.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell, icon_smile,
+				profile);
+		if (list.size() != 0) {
+			request.setAttribute("searchUser", list);
+		} else {
+			String msg = "検索条件に一致する結果が見つかりません。";
+			request.setAttribute("alert", msg);
+		}
 		dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
 		dispatcher.forward(request, response);
+
 	}
 
 }

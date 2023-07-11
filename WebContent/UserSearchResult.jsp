@@ -51,12 +51,23 @@ function checkAllBox(trueOrFalse) {
 		<div class="padding-y-5">
 			<div style="width: 60%" class="container padding-y-5">
 				<table class="table table-striped table-bordered">
+				<!-- 検索結果が存在しないときの処理 -->
+				<c:if
+					test="${requestScope.alert != null && requestScope.alert != ''}">
+					<tr>
+						<%-- リクエストスコープの alert の値を出力 --%>
+						<td colspan="2" class="color-error text-left"><c:out
+								value="${requestScope.alert}" /></td>
+					</tr>
+				</c:if>
+				<c:if test="${requestScope.alert == null || requestScope.alert == ''}"><!-- 検索結果が存在するときの処理 -->
 					<tr>
 						<th></th>
 						<th><input class="btn btn-success btn-sm" type="submit"
 							name="allCheck" value="全選択"></th>
 						<th><input class="btn btn-success btn-sm" type="submit"
 							name="allClear" value="全解除"></th>
+					</tr>
 					<tr>
 						<%-- ログインID 入力欄の名前は loginId --%>
 						<th class="color-main text-left"></th>
@@ -89,7 +100,8 @@ function checkAllBox(trueOrFalse) {
 						<th></th>
 						<th></th>
 						<th></th>
-					<tr>
+					</tr>
+				</c:if>
 				</table>
 				<div class="text-center">
 					<input class="btn" type="submit" name="delete" value="削除">

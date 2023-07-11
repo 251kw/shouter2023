@@ -57,7 +57,7 @@ public class UserSearchInputSVT extends HttpServlet {
 				message = "検索条件に一致する結果が見つかりません。";
 				request.setAttribute("alert", message);
 
-				dispatcher = request.getRequestDispatcher("UserSearchInput.jsp");
+				dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
 			}
 		}else {
 			dispatcher = request.getRequestDispatcher("top.jsp");

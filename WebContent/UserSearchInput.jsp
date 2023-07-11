@@ -12,6 +12,42 @@
 <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
+	<%//戻るボタンが押された時にログインID、ユーザー名、プロフィールの情報が保持されるための処理
+		String loginId = "";
+		String userName = "";
+		String profile = "";
+		if(request.getAttribute("loginId") != null){
+			loginId = (String)request.getAttribute("loginId");
+		}
+		if(request.getAttribute("userName")!=null){
+			userName = (String)request.getAttribute("userName");
+		}
+		if(request.getAttribute("profile")!=null){
+			profile = (String)request.getAttribute("profile");
+		}
+	%>
+	<%//検索結果画面から戻るボタンが押された時に検索条件のアイコンが保持されるための処理
+		String iconSmile ="";
+		String iconBell="";
+		String iconUser="";
+		String iconUserFemale="";
+		String icon_user = (String)request.getAttribute("icon-user");
+		String icon_user_female= (String)request.getAttribute("icon-user-female");
+		String icon_bell = (String)request.getAttribute("icon-bell");
+		String icon_smile = (String)request.getAttribute("icon-smile");
+		if(icon_user!=null  && !(icon_user.equals("null"))){
+			iconUser = "checked";
+		}
+		if(icon_user_female!=null && !(icon_user_female.equals("null"))){
+			iconUserFemale = "checked";
+		}
+		if(icon_smile!=null && !(icon_smile.equals("null"))){
+			iconSmile = "checked";
+		}
+		if(icon_bell!=null && !(icon_bell.equals("null"))){
+			iconBell = "checked";
+		}
+	%>
 	<div class="bg-success padding-y-5">
 		<div class="container padding-y-5 text-center">
 			<h1>ユーザー検索入力画面</h1>
@@ -25,14 +61,14 @@
 				<td class="color-main text-left"><span
 					class="icon-smile pe-2x pe-va"></span>ログインID</td>
 				<td class="text-left"><input class="form-control" type="text"
-					name="loginId" value="" size="20" autofocus /></td>
+					name="loginId" value="<%=loginId %>" size="20" autofocus /></td>
 			</tr>
 			<tr>
 				<%-- ユーザー名 入力欄の名前は userName --%>
 				<td class="color-main text-left"><span
 					class="icon-smile pe-2x pe-va"></span>ユーザー名</td>
 				<td class="text-left"><input class="form-control" type="text"
-					name="userName" value="" size="20" /></td>
+					name="userName" value="<%=userName %>" size="20" /></td>
 			</tr>
 			<tr>
 				<%-- ログインID 入力欄の名前は loginId --%>
@@ -42,16 +78,16 @@
 					<div style="display: flex;">
 						<span class="icon-user-female pe-2x pe-va"></span><label
 							class="fancy-checkbox"> <input type="checkbox"
-							name="icon-user-female" value="icon-user-female"> <span></span></label>
+							name="icon-user-female" value="icon-user-female" <%=iconUserFemale %>> <span></span></label>
 						<span class="icon-bell pe-2x pe-va"></span><label
 							class="fancy-checkbox"> <input type="checkbox"
-							name="icon-bell" value="icon-bell"> <span></span></label> <span
+							name="icon-bell" value="icon-bell" <%=iconBell %>> <span></span></label> <span
 							class="icon-user pe-2x pe-va"></span><label
 							class="fancy-checkbox"> <input type="checkbox"
-							name="icon-user" value="icon-user"> <span></span></label> <span
+							name="icon-user" value="icon-user" <%=iconUser %>> <span></span></label> <span
 							class="icon-smile pe-2x pe-va"></span><label
 							class="fancy-checkbox"> <input type="checkbox"
-							name="icon-smile" value="icon-smile"> <span></span></label>
+							name="icon-smile" value="icon-smile" <%=iconSmile %>> <span></span></label>
 					</div>
 				</td>
 			</tr>
@@ -59,17 +95,17 @@
 				<td class="color-main text-left"><span
 					class="icon-smile pe-2x pe-va"></span>プロフィール</td>
 				<td class="text-left"><input class="form-control" type="text"
-					name="profile" value="" size="20" />
+					name="profile" value="<%=profile %>" size="20" />
 			</tr>
 			<tr>
-				<c:if
+				<!--<c:if
 					test="${requestScope.alert != null && requestScope.alert != ''}">
 					<tr>
 						<%-- リクエストスコープの alert の値を出力 --%>
 						<td colspan="2" class="color-error text-left"><c:out
 								value="${requestScope.alert}" /></td>
 					</tr>
-				</c:if>
+				</c:if>-->
 			</tr>
 		</table>
 		<div class="text-center">

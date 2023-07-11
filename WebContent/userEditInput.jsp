@@ -55,6 +55,14 @@
 		<input type="hidden" name="profile" value="<%=request.getAttribute("profile")%>">
 		<input type="hidden" name="edit" value="<%=request.getAttribute("edit") %>">
 		<table style="width: 60%" class="table">
+									<c:if
+						test="${requestScope.alertDuplicate != null && requestScope.alertDuplicate != ''}">
+						<tr>
+							<%-- リクエストスコープの alert の値を出力 --%>
+							<td colspan="2" class="color-error text-left"><c:out
+									value="${requestScope.alertDuplicate}" /></td>
+						</tr>
+					</c:if>
 							<c:if
 						test="${requestScope.alertSpace != null && requestScope.alertSpace != ''}">
 						<tr>
@@ -85,6 +93,14 @@
 							<%-- リクエストスコープの alert の値を出力 --%>
 							<td colspan="2" class="color-error text-left">
 							<c:out	value="${requestScope.alertMaxlimit_password}" /></td>
+						</tr>
+					</c:if>
+					<c:if
+						test="${requestScope.alertHalf_width != null && requestScope.alertHalf_width != ''}">
+						<tr>
+							<%-- リクエストスコープの alert の値を出力 --%>
+							<td colspan="2" class="color-error text-left">
+							<c:out	value="${requestScope.alertHalf_width}" /></td>
 						</tr>
 					</c:if>
 					<c:if
