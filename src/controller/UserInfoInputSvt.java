@@ -61,7 +61,7 @@ public class UserInfoInputSvt extends HttpServlet {
 		String messageMaxlimit_uName = "";
 		String messageMaxlimit_password = "";
 		String messageMaxlimit_profile = "";
- 		if (register != null) {
+		if (register != null) {
 			if (password.contains(" ")) {//パスワード欄にスペースが入っているかどうかの確認
 				messageSpace = "パスワードにはスペースを入力しないでください。";
 
@@ -90,32 +90,33 @@ public class UserInfoInputSvt extends HttpServlet {
 
 				dispatcher = request.getRequestDispatcher("UserInfoInput.jsp");
 			}
-			if(loginId.length()>=11) {
+			if (loginId.length() >= 11) {
 				messageMaxlimit_ID = "ログインIDは10文字以内で入力してください。";
 				request.setAttribute("alertMaxlimit_ID", messageMaxlimit_ID);
 
 				dispatcher = request.getRequestDispatcher("UserInfoInput.jsp");
 			}
-			if(userName.length()>=11) {
+			if (userName.length() >= 11) {
 				messageMaxlimit_uName = "ユーザー名は10文字以内で入力してください。";
-				request.setAttribute("alertMaxlimit_uName",messageMaxlimit_uName);
+				request.setAttribute("alertMaxlimit_uName", messageMaxlimit_uName);
 
 				dispatcher = request.getRequestDispatcher("UserInfoInput.jsp");
 			}
-			if(password.length()>=11) {
+			if (password.length() >= 11) {
 				messageMaxlimit_password = "パスワードは10文字以内で入力してください。";
 				request.setAttribute("alertMaxlimit_password", messageMaxlimit_password);
 
 				dispatcher = request.getRequestDispatcher("UserInfoInput.jsp");
 			}
-			if(profile.length()>=51) {
+			if (profile.length() >= 51) {
 				messageMaxlimit_profile = "プロフィールは50文字以内で入力してください。";
 				request.setAttribute("alertMaxlimit_profile", messageMaxlimit_profile);
 
 				dispatcher = request.getRequestDispatcher("UserInfoInput.jsp");
 			}
 			if (messageSpace.equals("") && messageBlank.equals("") && messageHalf_width.equals("")
-					&& messageDuplication.equals("") && messageMaxlimit_ID.equals("") && messageMaxlimit_uName.equals("")
+					&& messageDuplication.equals("") && messageMaxlimit_ID.equals("")
+					&& messageMaxlimit_uName.equals("")
 					&& messageMaxlimit_password.equals("") && messageMaxlimit_profile.equals("")) {//エラーのパターンに当てはまらない場合
 				UserDTO newUser = new UserDTO(loginId, password, userName, icon, profile);//インスタンス化+引数ありコンストラクタを呼び出し
 				request.setAttribute("newUser", newUser);//UserDTOインスタンスをセット

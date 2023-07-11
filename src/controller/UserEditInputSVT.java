@@ -77,7 +77,7 @@ public class UserEditInputSVT extends HttpServlet {
 			dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
 		} else {//編集ボタンが押された時の処理
 			dispatcher = request.getRequestDispatcher("userEditConfirm.jsp");
-			if(editUser.getUserName().equals(e_UserName) && editUser.getPassword().equals(e_Password)
+			if (editUser.getUserName().equals(e_UserName) && editUser.getPassword().equals(e_Password)
 					&& editUser.getIcon().equals(e_Icon) && editUser.getProfile().equals(e_Profile)) {//編集事項に変更があるかどうかをチェック
 				String msgDuplicate = "変更される項目がありません。";
 				request.setAttribute("alertDuplicate", msgDuplicate);
@@ -111,7 +111,7 @@ public class UserEditInputSVT extends HttpServlet {
 
 				dispatcher = request.getRequestDispatcher("userEditInput.jsp");
 			}
-			if(!e_Password.matches("[0-9a-zA-Z]+")) {//パスワードが半角英数字で入力されているかのチェック
+			if (!e_Password.matches("[0-9a-zA-Z]+")) {//パスワードが半角英数字で入力されているかのチェック
 				String msgHalf_width = "パスワードは半角英数字で入力してください。";
 				request.setAttribute("alertHalf_width", msgHalf_width);
 
