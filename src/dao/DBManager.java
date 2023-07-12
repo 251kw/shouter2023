@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import dto.ShoutDTO;
 import dto.UserDTO;
@@ -347,14 +348,16 @@ public class DBManager extends SnsDAO {
 
 	}
 
-public boolean updatadata(UserDTO user) {
-	Connection conn = null;
-	PreparedStatement pstmt = null;
+	public boolean updatadata(UserDTO user) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
 
-	boolean result = false;
+		boolean result = false;
 
 		// INSERT 文の登録と実行
-		String sql = "UPDATE users SET " + "userName=" + "'" + user.getUserName() +"'" +", " +"password="+ "'"+ user.getPassword() +"'" +", " + "icon="+ "'"+ user.getIcon() +"'"+ ", "+ "profile=" + "'"+ user.getProfile() + "' " +  " where loginId=" +"'"+ user. getLoginId()+"'";
+		String sql = "UPDATE users SET " + "userName=" + "'" + user.getUserName() + "'" + ", " + "password=" + "'"
+				+ user.getPassword() + "'" + ", " + "icon=" + "'" + user.getIcon() + "'" + ", " + "profile=" + "'"
+				+ user.getProfile() + "' " + " where loginId=" + "'" + user.getLoginId() + "'";
 		try {
 			// データベース接続情報取得
 			conn = getConnection();
@@ -369,11 +372,88 @@ public boolean updatadata(UserDTO user) {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-	} finally {
-		// データベース切断処理
-		close(pstmt);
-		close(conn);
+		} finally {
+			// データベース切断処理
+			close(pstmt);
+			close(conn);
+		}
+		return result;
 	}
-	return result;
-}
+
+	public ArrayList<UserDTO> DeleteSearch(List<String> deleteid) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+
+		UserDTO Serachdl = null; // 登録ユーザ情報
+		ArrayList<UserDTO> Searchdl_list = new ArrayList<UserDTO>();
+
+		try {
+			// データベース接続情報取得
+			for (int dl = 0; dl < deleteid.size(); dl++) {
+				String sql = "SELECT * FROM users WHERE loginId=";
+				sql = sql + "'" + deleteid.get(dl) + "'";
+
+				conn = getConnection();
+				// SELECT 文の登録と実行
+				pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+				rset = pstmt.executeQuery();
+				// 検索結果があれば
+
+				if (rset.next()) {
+					// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+					Serachdl = new UserDTO();
+					Serachdl.setLoginId(rset.getString(2));
+					Serachdl.setPassword(rset.getString(3));
+					Serachdl.setUserName(rset.getString(4));
+					Serachdl.setIcon(rset.getString(5));
+					Serachdl.setProfile(rset.getString(6));
+					Searchdl_list.add(Serachdl);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(pstmt);
+			close(conn);
+		}
+
+		return Searchdl_list;
+	}
+
+	public boolean DeleteId(List<String> deletereid) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		boolean result = false;
+
+		try {
+			// データベース接続情報取得
+			String sql = "DELETE FROM users WHERE loginId=";
+			sql = sql + "'" + deletereid.get(0) + "'";
+			for (int dl = 1; dl < deletereid.size(); dl++) {
+				sql = sql + "or loginId=" + "'" + deletereid.get(dl) + "'";
+
+				conn = getConnection();
+				// SELECT 文の登録と実行
+				pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+				// 検索結果があれば
+			}
+			int cnt = pstmt.executeUpdate();
+			if (cnt !=0 ) {
+				// INSERT 文の実行結果が１なら登録成功
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+
+			// データベース切断処理
+			close(pstmt);
+			close(conn);
+		}
+
+		return result;
+	}
+
 }
