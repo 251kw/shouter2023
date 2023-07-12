@@ -394,4 +394,74 @@ public class DBManager extends SnsDAO {
 
 	}
 
+
+    //チェックの入れた値を取得するメソッド
+	public UserDTO getDeleteConfirm(String checkBox){
+		Connection conn = null; // データベース接続
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+
+		//クエリ
+		String sql = "SELECT loginId, userName, icon, profile FROM users WHERE loginId=?";
+		UserDTO user = null; //
+
+		try {
+			conn = getConnection(); //DBとの接続
+			pstmt = conn.prepareStatement(sql); //preparedStatement
+			pstmt.setString(1, checkBox);
+
+			//SQlの実行
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				user = new UserDTO();
+				user.setLoginId(rset.getString(1));
+				user.setUserName(rset.getString(2));
+				user.setIcon(rset.getString(3));
+				user.setProfile(rset.getString(4));
+			}
+
+		}catch (SQLException e) {
+			e.printStackTrace();
+
+		}finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return user;
+	}
+
+	//削除メソッド
+	public int deleteUser(String loginId) {
+		Connection conn = null; // データベース接続
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null;
+		int result=0; // 検索結果
+
+		//クエリ
+		String sql = "DELETE FROM users WHERE loginId = ? ";
+
+		try {
+			conn = getConnection(); //DBとの接続
+			pstmt = conn.prepareStatement(sql); //preparedStatement
+			pstmt.setString(1, loginId);
+
+			//SQlの実行
+			result = pstmt.executeUpdate();
+
+		}catch (SQLException e) {
+			e.printStackTrace();
+
+		}finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return result;
+	}
 }

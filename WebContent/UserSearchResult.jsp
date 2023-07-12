@@ -21,6 +21,13 @@
 		</div>
 	</div>
 
+	<div class="alert">
+		<!-- チェックが付かず、削除ボタンが押された場合 -->
+		<c:if test="${requestScope.alertEmptyCheck != null && requestScope.alertEmptyCheck != ''}">
+				<c:out value="${requestScope.alertEmptyCheck}" /><br>
+		</c:if>
+	</div>
+
 	<form action=? method="post">
 		<c:choose>
 			<c:when test="${requestScope.alertEmpResult != null && requestScope.alertEmpResult != ''}">
@@ -131,12 +138,13 @@
 						<label for="whiteSpace"></label>
 					</th>
 				</tr>
+
 			</c:otherwise>
 		</c:choose>
-
 		<div class="padding-y-5 text-center"><!--戻るボタン -->
 			<div style="width: 40%" class="container padding-y-5 text-center">
-				<input class="btn" type="submit" value="削除" formaction=""> <a href="UserSearchInput.jsp" class="btn">戻る</a>
+				<input class="btn" type="submit" value="削除" formaction="./udc">
+				 <a href="UserSearchInput.jsp" class="btn">戻る</a>
 			</div>
 		</div>
 	</form>

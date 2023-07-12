@@ -13,16 +13,25 @@ import javax.servlet.http.HttpSession;
 import dao.DBManager;
 import dto.UserDTO;
 
-
-@WebServlet("/uic")
-public class UserInfoConfirmSvt extends HttpServlet {
+/**
+ * Servlet implementation class UserEditConfirmSvt
+ */
+@WebServlet("/uec")
+public class UserEditConfirmSvt extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public UserInfoConfirmSvt() {
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public UserEditConfirmSvt() {
         super();
         // TODO Auto-generated constructor stub
     }
 
+    //半角英数字かのチェックメソッド
+  	public boolean isHalfNumeric(String loginPass) { //半角であった場合true
+  		return java.util.regex.Pattern.matches("^[A-Za-z0-9]+$", loginPass);
+  	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -30,40 +39,43 @@ public class UserInfoConfirmSvt extends HttpServlet {
 	}
 
 
+	//入力値チェック
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//文字化け対策
 		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
 
-		//フォームから送られてきた情報の受け取り
+		// 登録画面フォームから送信された情報の取得
 		String loginId = request.getParameter("loginId"); //name属性値の値を指定しgetParameterで値の取得
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
 		String icon = request.getParameter("icon");
 		String profile = request.getParameter("profile");
+		int updateResult;
 
 		//フォワードの準備
 		RequestDispatcher dispatcher = null;
 
-		// ログイン認証を行い、ユーザー情報を取得
+		//DBの準備
 		DBManager dbm = new DBManager();
 
-		//DBManagerクラスのgetLoginUserメソッドで存在するユーザーが認証を行う
-		//userオブジェクトにinsertした件数の格納
-		dbm.setRegisterInfo(loginId, userName, password, icon, profile);
-
-		//セッションの準備
+		//更新の際に変更前のLoginIdが必要なため、sessionにセットする
 		HttpSession session = request.getSession();
+		String oldLoginId = (String)session.getAttribute("oldLoginId");
 
-		//insertした情報を表示させる
-		UserDTO showUser = dbm.getShowResult(loginId);
+		//ユーザー情報の更新
+		updateResult = dbm.editProfile(loginId, userName, password, icon, profile, oldLoginId);
 
-		// ログインユーザー情報、書き込み内容リストとしてセッションに保存
-		session.setAttribute("user", showUser); //属性値userで値showUserをrequestスコープに設定し保持させる
+		if(updateResult !=0) {
+			//新しい情報の抽出
+			UserDTO updateUser = dbm.getShowResult(loginId);
 
-		dispatcher = request.getRequestDispatcher("UserInfoResult.jsp"); //UserInforesult.jspに転送
-		dispatcher.forward(request, response);
+			//パラメーターにセット
+			request.setAttribute("updateUser", updateUser); //属性値userで値userをrequestスコープに設定する。
+			dispatcher = request.getRequestDispatcher("UserEditResult.jsp");
 
+			//フォワードで転送
+			dispatcher.forward(request, response);
+		}
 	}
-
 }
