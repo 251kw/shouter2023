@@ -55,7 +55,8 @@ public class UserSearchInputSvt extends HttpServlet {
 		String icon[] = request.getParameterValues("icon");	//2つあるので配列で受け取る
 		String profile = request.getParameter("profile");
 
-		HttpSession session = request.getSession();	//セッション開始
+		//検索条件をセッションに保存しておく。（編集完了画面、削除完了画面から検索結果一覧に戻るときに、前の検索条件で再検索するため。）
+		HttpSession session = request.getSession();
 		session.setAttribute("saveLoginId", loginId);
 		session.setAttribute("saveUserName", userName);
 		session.setAttribute("saveIcon", icon);
@@ -109,6 +110,7 @@ public class UserSearchInputSvt extends HttpServlet {
 			}
 		}
 		if(!(loginId.equals("") && userName.equals("") && icon==null && profile.equals(""))) {
+			//入力値チェックにひっかからなかったら、条件に応じて検索するメソッドを呼び出し
 			ArrayList<UserDTO> user = dbm.search(loginId, userName, icon, profile);
 			if(user.size() == 0) {	//userの長さがゼロ(検索結果がなかったら)
 				message = "検索結果に一致するユーザはいません";

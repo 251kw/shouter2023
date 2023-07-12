@@ -46,7 +46,7 @@ public class BbsServlet extends HttpServlet {
 			}
 
 			// ログインユーザ情報と書き込み内容を引数に、リストに追加するメソッドを呼び出し
-			dbm.setWriting(user, writing);
+			dbm.setWriting(user, writing);//ここおかしい
 			/*String writing = request.getParameter("shout"); /*top.jspで送信された値*/
 			/*UserDTO user = (UserDTO) session.getAttribute("user"); /*getAttributeはオブジェクト型。UseDTO型に変換*/
 

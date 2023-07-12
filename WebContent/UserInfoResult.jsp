@@ -12,18 +12,6 @@
 <link rel="stylesheet" href="./css/helper.css">
 </head>
 <body>
-	<%--<div class="bg-success padding-y-5">
-		<div class="container padding-y-5 text-center">
-			<h1>
-				Shouter&nbsp;<span class="icon-speaker"></span>
-			</h1>
-		</div>
-	</div>
-	<div class="padding-y-5 text-center">
-		<div style="width: 40%" class="container padding-y-5 text-left">
-			<strong class="color-main">ユーザ登録結果画面</strong>
-		</div>
-	</div>--%>
 
 		<div class="bg-main padding-y-5">
 	<div class="padding-y-5 text-center">
@@ -60,7 +48,7 @@
 						<td>
 						<%-- hiddenで送られた値を取得 --%>
 						<% String icon = request.getParameter("icon"); %>
-						<label for="icon"><span class = <%=icon%>></span></label>
+						<label for="icon"><span class = "<%=icon%> pe-2x pe-va"></span></label>
 						</td>
 					</tr>
 					<tr>

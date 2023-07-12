@@ -53,7 +53,7 @@
 					<tr>
 						<%-- ユーザー名 入力欄の名前は userName --%>
 						<td class="color-main text-left" nowrap><span class="icon-users pe-2x pe-va"></span>&nbsp;ユーザー名</td>
-						<td class="text-left"><input class="form-control" type="text" maxlength="15"
+						<td class="text-left"><input class="form-control input-zip" type="text" maxlength="15"
 							placeholder="15文字以内で入力" name="userName" value=""></td>
 					</tr>
 					<tr>

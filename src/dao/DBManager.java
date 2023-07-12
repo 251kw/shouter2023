@@ -107,7 +107,7 @@ public class DBManager extends SnsDAO {
 			conn = getConnection();
 
 			// INSERT 文の登録と実行
-			String sql = "INSERT INTO shouts(loginId,password,userName,icon,profile) VALUES(?, ?, ?, ?)";
+			String sql = "INSERT INTO shouts(userName,icon,date,writing) VALUES(?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user.getUserName());
 			pstmt.setString(2, user.getIcon());
@@ -163,7 +163,7 @@ public class DBManager extends SnsDAO {
 		return result;
 	}
 
-	/***書き込み内容リストの getter***/
+	/***ログインIDを引数にユーザを検索r***/
 	public UserDTO getNewuser(String loginId) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -483,6 +483,37 @@ public class DBManager extends SnsDAO {
 			// 実行結果が１なら更新成功。結果をtrueにする。
 			int cnt = pstmt.executeUpdate();
 			if (cnt == 1) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(pstmt);
+			close(conn);
+		}
+
+		return result;
+	}
+
+	/***削除***/
+	public boolean DeleteUser(String loginId) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		boolean result = false;
+
+		try {
+			conn = getConnection();
+
+			// delete文の登録と実行
+			String sql = "DELETE FROM users WHERE loginId=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, loginId);
+
+			// 実行結果が0じゃなければ削除成功。結果をtrueにする。
+			int cnt = pstmt.executeUpdate();
+			if (cnt != 0) {
 				result = true;
 			}
 		} catch (SQLException e) {

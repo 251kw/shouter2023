@@ -11,6 +11,16 @@
 <link rel="stylesheet" href="./css/helper.css">
 <link rel="stylesheet" href="./css/mycss.css">
 </head>
+<%
+	String CHECK = "";
+	//文字化け対策
+	request.setCharacterEncoding("UTF-8");
+	response.setContentType("text/html; charset=UTF-8");
+
+	if (request.getParameter("true") != null) {
+		CHECK = request.getParameter("true");
+	}
+%>
 <body>
 
 	<div class="bg-main padding-y-5">
@@ -18,6 +28,12 @@
 			<strong>ユーザ検索結果画面</strong><br>
 			<p style="display: inline">検索結果</p>
 		</div>
+	</div>
+	<%-- リクエストスコープに alert があれば リクエストスコープの alert の値を出力--%>
+	<div class = "color-error text-center">
+		<c:if test="${requestScope.alert != null && requestScope.alert != ''}">
+			<c:out value="${requestScope.alert}" /><br>
+		</c:if>
 	</div>
 	<div class="padding-y-5 text-center">
 		<div style="width: 40%" class="container padding-y-5 text-center">
@@ -38,8 +54,8 @@
 					<c:otherwise>
 						<jsp:useBean id="user2" scope="session" type="java.util.ArrayList<dto.UserDTO>" />
 						<div class="padding-y-5 text-left">
-							<input type="button" onClick="checkAll()" value="全選択"> <input
-								type="button" onClick="uncheckAll()" value="全解除">
+							<button type="submit" name="all" value="allcheck" formaction="./usr">全選択</button>
+							<button type="submit" name="all" value="allout" formaction="./usr">全解除</button>
 						</div>
 						<table border="1" style="width: 400px"
 							class="table table-striped table-bordered table-hover">
@@ -54,7 +70,8 @@
 							<c:forEach var="result" items="${user2}">
 								<tr>
 									<td><label class="fancy-checkbox">
-									<input type="checkbox" name="check" value="user2"><span></span></label></td>
+									<input type="checkbox" name="check" id="check" value="${result.loginId}">
+									<span></span></label></td>
 									<td nowrap>${result.loginId}</td>
 									<td nowrap>${result.userName}</td>
 									<td nowrap><span class="${result.icon}  pe-2x pe-va"></span></td>
@@ -65,13 +82,13 @@
 						</table>
 
 						<div class="text-left">
-							<input type="button" onClick="checkAll()" value="全選択"> <input
-								type="button" onClick="uncheckAll()" value="全解除">
+							<input type="button" onClick="checkAll()" value="全選択">
+							<input type="button" onClick="uncheckAll()" value="全解除">
 						</div>
 					</c:otherwise>
 				</c:choose>
-				<%-- 削除ボタンで?にとぶ --%>
-				<br> <input class="btn" type="submit" value="削除" name="delete" formaction="" />
+				<%-- 削除ボタンでudcにとぶ --%>
+				<br> <input class="btn" type="submit" value="削除" name="delete" formaction="./udc" />
 				<%-- 戻る時は送る値がないのでハイパーリンクでOK --%>
 				<a href="UserSearchInput.jsp" class="btn">戻る</a>
 
