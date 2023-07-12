@@ -29,10 +29,10 @@
 			<p style="display: inline">検索結果</p>
 		</div>
 	</div>
-	<%-- リクエストスコープに alert があれば リクエストスコープの alert の値を出力--%>
+	<%-- 削除確認画面からのリクエストスコープに alert があれば リクエストスコープの alert の値を出力--%>
 	<div class = "color-error text-center">
-		<c:if test="${requestScope.alert != null && requestScope.alert != ''}">
-			<c:out value="${requestScope.alert}" /><br>
+		<c:if test="${requestScope.delalert != null && requestScope.delalert != ''}">
+			<c:out value="${requestScope.delalert}" /><br>
 		</c:if>
 	</div>
 	<div class="padding-y-5 text-center">
