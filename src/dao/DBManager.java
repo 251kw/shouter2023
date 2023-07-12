@@ -1287,13 +1287,13 @@ public class DBManager extends SnsDAO {
 		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
 
 		String sql = "SELECT * FROM users where";
+
 		for (int i = 0; i < id.size(); i++) {
 			if (i == 0) {//最初はorいらない
 				sql += " loginId='" + id.get(i) + "'";
 			} else {
 				sql += " or loginId='" + id.get(i) + "'";
 			}
-
 		}
 
 		try {
@@ -1333,16 +1333,16 @@ public class DBManager extends SnsDAO {
 		PreparedStatement pstmt = null; // SQL 管理情報
 		boolean result = false;
 
-		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
+		// ArrayList<UserDTO> list = new ArrayList<UserDTO>();
 
 		String sql = "delete FROM users where";
+
 		for (int i = 0; i < id.size(); i++) {
 			if (i == 0) {//最初はorいらない
 				sql += " loginId='" + id.get(i) + "'";
 			} else {
 				sql += " or loginId='" + id.get(i) + "'";
 			}
-
 		}
 
 		try {
