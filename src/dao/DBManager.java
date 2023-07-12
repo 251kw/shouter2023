@@ -301,6 +301,7 @@ public class DBManager extends SnsDAO {
 		return user;
 
 	}
+
 	public boolean userUpdate(String loginId, String password, String userName, String icon, String profile) {
 
 		Connection conn = null;
@@ -332,5 +333,88 @@ public class DBManager extends SnsDAO {
 		}
 
 		return result;
+	}
+
+	public boolean userDelete(String loginId[]) {
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		boolean result = false;
+
+		String sql = "delete from users where loginId=";
+
+		sql += "'" + loginId[0] + "'";
+
+		for (int i = 1; i < loginId.length; i++) {
+			sql += " or loginId='" + loginId[i] + "'";
+		}
+
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+
+			int cnt = pstmt.executeUpdate();
+			if (cnt == 1) {
+				// INSERT 文の実行結果が１なら登録成功
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(pstmt);
+			close(conn);
+		}
+
+		return result;
+	}
+
+	public ArrayList<UserDTO> getDeleteEditUser(String loginId[]) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+
+		ArrayList<UserDTO> deleteList = new ArrayList<UserDTO>();
+
+		String sql = "SELECT * FROM users WHERE loginId=";
+
+		sql += "'" + loginId[0] + "'";
+
+		for (int i = 1; i < loginId.length; i++) {
+			sql += " or loginId='" + loginId[i] + "'";
+		}
+
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+
+			rset = pstmt.executeQuery();
+
+			// 検索結果があれば
+			while (rset.next()) {
+				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				UserDTO user = new UserDTO();
+				user.setLoginId(rset.getString(2));
+				user.setPassword(rset.getString(3));
+				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
+
+				deleteList.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return deleteList;
+
 	}
 }
