@@ -17,8 +17,11 @@
 	request.setCharacterEncoding("UTF-8");
 	response.setContentType("text/html; charset=UTF-8");
 
-	if (request.getParameter("true") != null) {
-		CHECK = request.getParameter("true");
+	if (request.getAttribute("true") != null) {
+		String param = (String)request.getAttribute("true");
+		if(param.equals("checked")){
+			CHECK = "checked";
+		}
 	}
 %>
 <body>
@@ -70,7 +73,7 @@
 							<c:forEach var="result" items="${user2}">
 								<tr>
 									<td><label class="fancy-checkbox">
-									<input type="checkbox" name="check" id="check" value="${result.loginId}">
+									<input type="checkbox" name="check" id="check" value="${result.loginId}" <%=CHECK%>>
 									<span></span></label></td>
 									<td nowrap>${result.loginId}</td>
 									<td nowrap>${result.userName}</td>
