@@ -61,7 +61,7 @@
 						test="${requestScope.alert != null && requestScope.alert != ''}">
 						<tr>
 							<%-- リクエストスコープの alert の値を出力 --%>
-							<td colspan="2" class="color-error text-left"><c:out
+							<td colspan="2" class ="color-error text-left"><c:out
 									value="${requestScope.alert}" /></td>
 						</tr>
 					</c:if>
@@ -75,19 +75,6 @@
 							<%-- クリック時にindex.jspに戻る --%>
 						</td>
 					</tr>
-
-
-
-					<%-- リクエストスコープ(userInput.Servlet:46)に alert があれば --%>
-<%--			<c:if
-						test="${requestScope.alert != null && requestScope.alert != ''}">
-						<tr>
-							<%-- リクエストスコープの alert の値を出力 --%>
-<%--							<td colspan="2" class="color-error text-left"><c:out
-									value="${requestScope.alert}" /></td>
-						</tr>
-					</c:if>
-					--%>
 				</table>
 			</form>
 		</div>
