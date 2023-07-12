@@ -198,7 +198,128 @@ public class DBManager extends SnsDAO {
 		return result;
 	}
 
-	// 複数表示
+	//編集
+	public boolean setUSER(UserDTO USER) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		boolean result = false;
+		try {
+			conn = getConnection();
+
+			// UPDATE 文と実行
+			String sql = "UPDATE users SET password=? , userName=? , icon=? , profile=? where loginId=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, USER.getPassword());
+			pstmt.setString(2, USER.getUserName());
+			pstmt.setString(3, USER.getIcon());
+			pstmt.setString(4, USER.getProfile());
+			pstmt.setString(5, USER.getLoginId());
+			int cnt = pstmt.executeUpdate();
+			if (cnt == 1) {
+				// INSERT 文の実行結果が１なら更新成功
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(pstmt);
+			close(conn);
+		}
+
+		return result;
+	}
+
+	// ログインID で登録ユーザ一覧に一致したものがあるか検索
+	public UserDTO getUserId(String loginId) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+
+		String sql = "SELECT * FROM users WHERE loginId=?";
+		UserDTO ID = null; // 登録ユーザ情報
+
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+			pstmt.setString(1, loginId);
+			rset = pstmt.executeQuery();
+
+			// 検索結果があれば
+			if (rset.next()) {
+				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				ID = new UserDTO();
+				ID.setLoginId(rset.getString(2));
+				ID.setPassword(rset.getString(3));
+				ID.setUserName(rset.getString(4));
+				ID.setIcon(rset.getString(5));
+				ID.setProfile(rset.getString(6));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return ID;
+	}
+
+	// ログインID で登録ユーザ一覧に一致したものがあるか検索
+	public ArrayList<UserDTO> getID(ArrayList<String> idlist) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+
+		String sql = "SELECT * FROM users WHERE ";
+		UserDTO ID = null; // 登録ユーザ情報
+		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
+
+		for (int i = 0; i < idlist.size(); i++) {
+			if (idlist.get(i).equals("")) {
+				sql += "loginId =" + "'" + idlist.get(i) + "'";
+			} else
+				sql += "or loginId =" + "'" + idlist.get(i) + "'";
+		}
+
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+			rset = pstmt.executeQuery();
+
+			// 検索結果があれば
+			while (rset.next()) {
+				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				ID = new UserDTO();
+				ID.setLoginId(rset.getString(2));
+				ID.setPassword(rset.getString(3));
+				ID.setUserName(rset.getString(4));
+				ID.setIcon(rset.getString(5));
+				ID.setProfile(rset.getString(6));
+				list.add(ID);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return list;
+	}
+
+	// 検索複数表示
 	public ArrayList<UserDTO> getUserList(String loginId, String userName, String icon, String icon2, String profile) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;

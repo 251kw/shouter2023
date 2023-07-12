@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="src.dto.UserDTO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ja">
@@ -11,6 +12,11 @@
 <link rel="stylesheet" href="./css/helper.css">
 </head>
 <body>
+	<%
+		//文字化け対策
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+	%>
 	<div class="bg-success padding-y-5">
 		<div class="container padding-y-5 text-center">
 			<h1>
@@ -18,27 +24,12 @@
 			</h1>
 		</div>
 	</div>
+
 	<div class="padding-y-5 text-center">
-		<div style="width: 40%" class="container padding-y-5 text-left">
-			<strong class="color-main"></strong>
-			<p>
-				<%-- エラー文の挿入 --%>
-				<%-- リクエストスコープに alert があれば --%>
-				<c:if
-					test="${requestScope.alert != null && requestScope.alert != ''}">
-					<%-- リクエストスコープの alert の値を出力 --%>
-					<p class="color-error text-left">
-						<c:out value="${requestScope.alert}" />
-					</p>
-				</c:if>
-			</p>
-		</div>
-	</div>
-	<div class="padding-y-5 text-center">
-		<div style="width: 60%" class="container padding-y-5 text-center">
+		<div style="width: 850px" class="container padding-y-5 text-center">
 			<%-- action 属性にサーブレットを指定 --%>
 			<form action="UserSearchInput.jsp" method="post">
-				<table style="width: 700px" class="table">
+				<table style="width: 850px" class="table">
 					<tr>
 						<td colspan="2" class="text-right"><input class="btn"
 							onclick="checkall(true)" type="button" value="全選択" /></td>
@@ -68,14 +59,17 @@
 					</tr>
 					<jsp:useBean id="users" scope="session"
 						type="java.util.ArrayList<src.controller.UserSearchInputSvt>" />
+					<%
+						int x = 1;
+					%>
 					<c:forEach var="user" items="${users}">
-
 
 						<%-- checkbox --%>
 						<tr>
 							<td><label class="fancy-checkbox"><input
-									type="checkbox" name="box"><span></span> </label></td>
-							<td class="text-left"><label>${user.loginId}</label></td>
+									type="checkbox" name="box" value="<%=x%>"><span></span> </label></td>
+							<td class="text-left"><label><input type=hidden
+									value="${user.loginId}" name="id<%=x%>">${user.loginId}</label></td>
 
 							<td class="text-left"><label>${user.userName}</label></td>
 
@@ -83,11 +77,16 @@
 
 							<td class="text-left"><label>${user.profile}</label></td>
 
+
 							<%--編集--%>
-							<td class="color-main text-left"><input
-								class="btn btn-success" type="submit" value="編集"
-								formaction="userEditInput.jsp" /></td>
+
+							<td class="color-main text-left"><button
+									class="btn btn-success" type="submit" value="<%=x%>" name="x"
+									formaction="./UserSearchResultSvt">編集</button></td>
 						</tr>
+						<%
+							x++;
+						%>
 
 					</c:forEach>
 					<tr>
@@ -97,12 +96,12 @@
 							onclick="checkall(false)" type="button" value="全解除" /></td>
 					</tr>
 					<tr>
-						<td colspan="2" class="text-right"><input
-							class="btn btn-error" type="submit" value="削除" /></td>
+						<td colspan="2" class="text-right"><button
+							class="btn btn-error" type="submit" value=""
+							formaction="./UserSearchResultDeleteSvt">削除</button></td>
 						<td class="text-right"><input class="btn" type="submit"
 							value="戻る" /></td>
 					</tr>
-
 				</table>
 				<script>
 					const checkbox = document.getElementsByName("box")

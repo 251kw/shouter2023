@@ -1,7 +1,6 @@
 package src.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,16 +14,16 @@ import src.dao.DBManager;
 import src.dto.UserDTO;
 
 /**
- * Servlet implementation class UserSearchInputSvt
+ * Servlet implementation class userEditConfirmSvt
  */
-@WebServlet("/UserSearchInputSvt")
-public class UserSearchInputSvt extends HttpServlet {
+@WebServlet("/userEditConfirmSvt")
+public class userEditConfirmSvt extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public UserSearchInputSvt() {
+	public userEditConfirmSvt() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -45,39 +44,44 @@ public class UserSearchInputSvt extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
+		//文字化け対策
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
+
+		//定義
 		String loginId = request.getParameter("loginId");
+		String password = request.getParameter("password");
 		String userName = request.getParameter("userName");
 		String icon = request.getParameter("icon");
-		String icon2 = request.getParameter("icon2");
 		String profile = request.getParameter("profile");
 		RequestDispatcher dispatcher = null;
 		String message = null;
 
+		//インスタンス化、DBManagerでつくった条件の分岐
+		UserDTO USER = new UserDTO(loginId, password, userName, icon, profile);
 		DBManager dbm = new DBManager();
-		HttpSession session = request.getSession();
+		/*
+		dbm.Logincheck(loginId);
+		if (dbm.Logincheck(loginId).equals("true")) {
+			// ログインID重複してたら
+			message = "ログインIDが重複しています";
 
-		session.setAttribute("login", loginId);//入力時をセッションに保存,再検索用＋更新する前のデータを表示
-		session.setAttribute("userName", userName);
-		session.setAttribute("icon", icon);
-		session.setAttribute("icon2", icon2);
-		session.setAttribute("profile", profile);
-		ArrayList<UserDTO> users = dbm.getUserList(loginId, userName, icon, icon2, profile);//更新前の検索
-		// ログインユーザ情報、書き込み内容リストとしてセッションに保存
-		session.setAttribute("users", users);
-
-		if (users.size() == 0) {//リストの中に要素がない
-			message = "検索結果はありません";
+			// エラーメッセージをリクエストオブジェクトに保存
 			request.setAttribute("alert", message);
+
 			// touroku.jsp に処理を転送
-			dispatcher = request.getRequestDispatcher("UserSearchResultAlert.jsp");
+			dispatcher = request.getRequestDispatcher("");
 			dispatcher.forward(request, response);
-		} else {
-			// 処理の転送先を .jsp に指定
-			dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
-			// 処理を転送
-			dispatcher.forward(request, response);
+
 		}
+		*/
+		HttpSession session = request.getSession();
+		//if以外ならDBMの値をもらう
+		dbm.setUSER(USER);
+		session.setAttribute("USER", USER);
+
+		// 処理を転送
+		dispatcher = request.getRequestDispatcher("userEditResult.jsp");
+		dispatcher.forward(request, response);
 	}
 }

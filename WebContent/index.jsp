@@ -49,12 +49,10 @@
 					<tr>
 						<td colspan="2" class="text-right"><input class="btn"
 							type="submit" value="ログイン" formaction="./login"/></td>
-						<td colspan="2" class="text-right"><input class="btn"
-							type="submit" value="登録" formaction="touroku.jsp" /></td>
+						<td colspan="2" class="text-right"><a href="touroku.jsp" class="btn">登録</a></td>
 					</tr>
 					<%-- リクエストスコープに alert があれば --%>
-					<c:if
-						test="${requestScope.alert != null && requestScope.alert != ''}">
+					<c:if test="${requestScope.alert != null && requestScope.alert != ''}">
 						<tr>
 							<%-- リクエストスコープの alert の値を出力 --%>
 							<td colspan="2" class="color-error text-left"><c:out
