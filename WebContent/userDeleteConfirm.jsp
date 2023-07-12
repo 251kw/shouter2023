@@ -5,7 +5,7 @@
 <html lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Shouter - ユーザー情報 -</title>
+<title>Shouter - ユーザー情報削除 -</title>
 <link rel="stylesheet" href="./css/skyblue.css">
 <link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 <link rel="stylesheet" href="./css/helper.css">
@@ -20,19 +20,13 @@ function checkAllBox(trueOrFalse) {
 </script> -->
 </head>
 <body>
-	<%
-		String check = "";
-		if (request.getParameter("allCheck") != null) {
-			check = "checked";
-		}
-	%>
 	<div class="bg-success padding-y-5">
 		<div class="container padding-y-5 text-center">
-			<h1>ユーザー検索結果画面</h1>
+			<h1>ユーザー削除確認画面</h1>
 		</div>
 	</div>
 	<%-- action 属性にサーブレットを指定 --%>
-	<form action="./usr" method="get">
+	<form action="./udc" method="post">
 		<!-- 全選択ボタンまたは全解除ボタンが押された場合の値の受け渡しのためにhiddenを使用 -->
 		<input type="hidden" name="loginId"
 			value="<%=request.getAttribute("loginId")%>"> <input
@@ -51,68 +45,27 @@ function checkAllBox(trueOrFalse) {
 		<div class="padding-y-5">
 			<div style="width: 60%" class="container padding-y-5">
 				<table class="table table-striped table-bordered">
-				<c:if
-					test="${requestScope.deleteAlert != null && requestScope.deleteAlert != ''}">
-					<tr>
-						<%-- リクエストスコープの alert の値を出力 --%>
-						<th colspan="2" class="color-error text-left"><c:out
-								value="${requestScope.deleteAlert}" /></th>
-					</tr>
-				</c:if>
-				<!-- 検索結果が存在しないときの処理 -->
-				<c:if
-					test="${requestScope.alert != null && requestScope.alert != ''}">
-					<tr>
-						<%-- リクエストスコープの alert の値を出力 --%>
-						<th colspan="2" class="color-error text-left"><c:out
-								value="${requestScope.alert}" /></th>
-					</tr>
-				</c:if>
-				<c:if test="${requestScope.alert == null || requestScope.alert == ''}"><!-- 検索結果が存在するときの処理 -->
-					<tr>
-						<th></th>
-						<th><input class="btn btn-success btn-sm" type="submit"
-							name="allCheck" value="全選択"></th>
-						<th><input class="btn btn-success btn-sm" type="submit"
-							name="allClear" value="全解除"></th>
-					</tr>
 					<tr>
 						<%-- ログインID 入力欄の名前は loginId --%>
-						<th class="color-main text-left"></th>
 						<th class="color-main text-left">ログインID</th>
 						<th class="color-main text-left">ユーザー名</th>
 						<th class="color-main text-left">アイコン</th>
 						<th class="color-main text-left">プロフィール</th>
-						<th class="color-main text-left"></th>
 					</tr>
 					<%-- リストにある要素の数だけ繰り返し --%>
-					<c:forEach var="searchUser" items="${searchUser}" varStatus="loop">
+					<c:forEach var="deleteUser" items="${deleteUser}">
 						<tr>
-							<th><label class="fancy-checkbox"><input
-									type="checkbox" name="checks" value="${searchUser.loginId}" <%=check%>><span></span></label></th>
-							<th>${searchUser.loginId}</th>
-							<th>${searchUser.userName}</th>
+							<th>${deleteUser.loginId}</th>
+							<th>${deleteUser.userName}</th>
 							<th class="text-center"><span
-								class="${searchUser.icon} pe-3x pe-va"></span></th>
-							<th>${searchUser.profile}</th>
-							<th><button class="btn btn-success btn-sm" type="submit"
-									name="edit" value="${loop.index}">編集</button></th>
+								class="${deleteUser.icon} pe-3x pe-va"></span></th>
+							<th>${deleteUser.profile}</th>
 						</tr>
+						<input type="hidden" name="deleteUser" value="${deleteUser.loginId}">
 					</c:forEach>
-					<tr>
-						<th></th>
-						<th><input class="btn btn-success btn-sm" type="submit"
-							name="allCheck" value="全選択"></th>
-						<th><input class="btn btn-success btn-sm" type="submit"
-							name="allClear" value="全解除"></th>
-						<th></th>
-						<th></th>
-						<th></th>
-					</tr>
-				</c:if>
 				</table>
 				<div class="text-center">
-					<input class="btn" type="submit" name="delete" value="削除">
+					<input class="btn" type="submit" name="delete" value="OK">
 					<input class="btn" type="submit" name="return" value="戻る">
 				</div>
 			</div>

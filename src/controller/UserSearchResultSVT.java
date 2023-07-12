@@ -38,6 +38,8 @@ public class UserSearchResultSVT extends HttpServlet {
 		String icon_bell = request.getParameter("icon-bell");
 		String icon_smile = request.getParameter("icon-smile");
 		String profile = request.getParameter("profile");
+		String[] delUser = request.getParameterValues("checks");
+		ArrayList<UserDTO> deleteUser = new ArrayList<UserDTO>();
 		request.setAttribute("loginId", loginId);
 		request.setAttribute("userName", userName);
 		request.setAttribute("icon-user-female", icon_user_female);
@@ -48,28 +50,40 @@ public class UserSearchResultSVT extends HttpServlet {
 		String allCheck = request.getParameter("allCheck");
 		String allClear = request.getParameter("allClear");
 		String edit = request.getParameter("edit");
+		String turnBack = request.getParameter("return");
 		request.setAttribute("edit", edit);
 		RequestDispatcher dispatcher;
 		DBManager db = new DBManager();
+
+		ArrayList<UserDTO> list = db.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell,
+				icon_smile, profile);
+		request.setAttribute("searchUser", list);
 
 		if (allCheck != null || allClear != null) {
 			if (allCheck != null) {
 				request.setAttribute("allCheck", allCheck);
 			}
-			ArrayList<UserDTO> list = db.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell,
-					icon_smile, profile);
-			request.setAttribute("searchUser", list);
 			dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
 		} else if (edit != null) {
 			int ed = Integer.parseInt(edit);
-			ArrayList<UserDTO> list = db.getUserList(loginId, userName, icon_user_female, icon_user, icon_bell,
-					icon_smile, profile);
 			UserDTO editUser = list.get(ed);
 			request.setAttribute("editUser", editUser);
 
 			dispatcher = request.getRequestDispatcher("userEditInput.jsp");
-		} else {
+		} else if(turnBack!=null){
 			dispatcher = request.getRequestDispatcher("UserSearchInput.jsp");
+		} else {
+			if(delUser == null) {
+				String msg = "削除対象を選択してください。";
+				request.setAttribute("deleteAlert", msg);
+				dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
+			}else {
+				for(int i = 0; i<delUser.length;i++) {
+					deleteUser.add(db.getDeleteUser(delUser[i]));
+				}
+				request.setAttribute("deleteUser", deleteUser);
+				dispatcher = request.getRequestDispatcher("userDeleteConfirm.jsp");
+			}
 		}
 		dispatcher.forward(request, response);
 	}
