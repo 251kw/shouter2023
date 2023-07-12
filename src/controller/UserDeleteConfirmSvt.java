@@ -56,12 +56,20 @@ public class UserDeleteConfirmSvt extends HttpServlet {
 		ArrayList<UserDTO> users  = dbm.SerchUser(loginId, userName, icon, prof);
 		ArrayList<UserDTO> new_user=new ArrayList<UserDTO>();
 
-		for(String number: check) {
-			int num = Integer.parseInt(number);
-			new_user.add(users.get(num));
+
+		if(check!=null) {
+			for(String number: check) {
+				int num = Integer.parseInt(number);
+				new_user.add(users.get(num));
+			}
+			request.setAttribute("users", new_user);
+			dispatcher = request.getRequestDispatcher("UserDeleteConfirm.jsp");
+		}else {
+			request.setAttribute("nocheck_error", "削除する項目を選択してください。");
+			request.setAttribute("users", users);
+			dispatcher = request.getRequestDispatcher("UserSerchResult.jsp");
 		}
-		request.setAttribute("users", new_user);
-		dispatcher = request.getRequestDispatcher("UserDeleteConfirm.jsp");
+
 		dispatcher.forward(request, response);
 
 	}

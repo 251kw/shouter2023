@@ -38,6 +38,12 @@
 				<div style="width: 40%" class="container color-error text-left">
 					${requestScope.noresult_error}</div>
 			</c:if>
+			<c:if
+				test="${requestScope.nocheck_error != null && requestScope.nocheck_error != ''}">
+				<%-- リクエストスコープの alert の値を出力 --%>
+				<div style="width: 40%" class="container color-error text-left">
+					${requestScope.nocheck_error}</div>
+			</c:if>
 
 
 			<form action="./udc" method="post">
