@@ -271,7 +271,7 @@ public class DBManager extends SnsDAO {
 		return ID;
 	}
 
-	// ログインID で登録ユーザ一覧に一致したものがあるか検索
+	// 検索結果画面から削除確認画面
 	public ArrayList<UserDTO> getID(ArrayList<String> idlist) {
 		Connection conn = null; // データベース接続情報
 		PreparedStatement pstmt = null; // SQL 管理情報
@@ -281,11 +281,14 @@ public class DBManager extends SnsDAO {
 		UserDTO ID = null; // 登録ユーザ情報
 		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
 
-		for (int i = 0; i < idlist.size(); i++) {
-			if (idlist.get(i).equals("")) {
-				sql += "loginId =" + "'" + idlist.get(i) + "'";
-			} else
-				sql += "or loginId =" + "'" + idlist.get(i) + "'";
+		for (int i = 0; i <= idlist.size(); i++) {
+			if (!idlist.get(i).equals("")) {
+				if (i == 0) {
+					sql += "loginId =" + "'" + idlist.get(0) + "'";
+				} else if (!idlist.get(i).equals("")) {
+					sql += " or loginId =" + "'" + idlist.get(i) + "'";
+				}
+			}
 		}
 
 		try {
@@ -297,7 +300,7 @@ public class DBManager extends SnsDAO {
 			rset = pstmt.executeQuery();
 
 			// 検索結果があれば
-			while (rset.next()) {
+			if (rset.next()) {
 				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
 				ID = new UserDTO();
 				ID.setLoginId(rset.getString(2));

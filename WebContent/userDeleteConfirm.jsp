@@ -89,7 +89,7 @@
 		</div>
 	</div>
 	<jsp:useBean id="ID" scope="session"
-						type="java.util.ArrayList<src.controller.userDeleteConfilmSvt>" />
+						type="java.util.ArrayList<src.controller.UserSearchResultDeleteSvt>" />
 	<div class="padding-y-5 text-center">
 		<div style="width: 50%" class="container padding-y-5 text-center">
 			<%-- action 属性にサーブレットを指定 --%>

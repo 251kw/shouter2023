@@ -48,12 +48,6 @@ public class UserSearchResultDeleteSvt extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 
-		String loginId = request.getParameter("loginId");
-		String userName = request.getParameter("userName");
-		String icon = request.getParameter("icon");
-		String icon2 = request.getParameter("icon2");
-		String profile = request.getParameter("profile");
-
 		//DBManager dbm = new DBManager();
 		//ArrayList<UserDTO> users = dbm.getUserList(loginId, userName, icon, icon2, profile);
 		//定義
