@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="dto.UserDTO" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -29,7 +31,13 @@
 		<div class="container padding-y-5 text-center">
 			<%-- action 属性にサーブレットを指定 --%>
 			<form action="usrdel" method="post" id="checkForm">
-
+				<%-- リクエストスコープに alert があれば --%>
+				<c:if
+					test="${requestScope.alert != null && requestScope.alert != ''}">
+					<%-- リクエストスコープの alert重複 の値を出力 --%>
+					<p class="color-error text-center">
+						<c:out value="${requestScope.alert}" />
+				</c:if>
 				<table class="table" border="1">
 					<tr>
 						<th class="color-main text-left"></th>
@@ -47,21 +55,41 @@
 						<th class="color-main text-center"></th>
 					</tr>
 					<%
-						int count=1;
+						int count = 1;
+						ArrayList<String> dellist = (ArrayList<String>)session.getAttribute("delIDlist");
+						String[] tt = (String[])session.getAttribute("check");
+
+						//削除されるユーザＩＤリスト
+						//if((ArrayList<String>)session.getAttribute("delIDlist")!=null){
+							//ArrayList<String> check= (ArrayList<String>)session.getAttribute("delIDlist");
+						//}
 					%>
 					<jsp:useBean id="userlist" scope="session"
 						type="java.util.ArrayList<dto.UserDTO>" />
 					<%-- リストにある要素の数だけ繰り返し --%>
 					<c:forEach var="users" items="${userlist}">
+					<% //if(check!=null){
+						//String id=check.get(count);
+						//}
+						/*if(dellist!=null){
+							String rrrr = dellist.get(count);
+						}*/
+						//String sample = String.valueOf(count);
+						//String t=dellist.get(count);
+					%>
 						<tr>
-							<td><label class="fancy-checkbox"><input type="checkbox" name="test1" value="<%= count%>" /> <span></span></label></td>
+							<td><label class="fancy-checkbox"><input
+									type="checkbox" name="test1" value="<%=count%>"
+
+									/>
+									<span></span></label></td>
 							<td><label class="form-control text-center">${users.loginId}</label>
-							<input type="hidden" name="<%= count%>" value="${users.loginId}"></td>
+								<input type="hidden" name="<%= count%>" value="${users.loginId}"></td>
 							<td><label class="form-control text-center">${users.userName}</label></td>
 							<td><span class="${users.icon} pe-3x pe-va" /></span></td>
 							<td><label class="form-control text-center">${users.profile}</label></td>
 							<td><button class="btn" type="submit" name="edit"
-								value="<%= count%>" size="20" formaction="usr" method="post">編集</button></td>
+									value="<%=count%>" size="20" formaction="usr" method="post">編集</button></td>
 						</tr>
 						<%
 							count++;
@@ -79,6 +107,7 @@
 							type="submit" value="削除" /> <input class="btn" type="submit"
 							formaction="./UserSearchInput.jsp" value="戻る" /></td>
 					</tr>
+					<tr><td><input class="btn" type="button" formaction="check"  method="post" value="全選択"></td></tr>
 				</table>
 			</form>
 		</div>
