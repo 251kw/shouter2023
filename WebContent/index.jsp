@@ -43,8 +43,8 @@
 					<tr>
 						<td colspan="2" class="text-right"><input class="btn"
 							type="submit" name="login" value="ログイン" /></td>
-						<td colspan="2" class="text-right"><input class="btn"
-							type="submit" name="register" value="ユーザー登録" /></td><!-- ユーザー登録ボタン -->
+						<td colspan="2" class="text-right"><button class="btn"
+							 name="register" value="ユーザー登録">ユーザー登録</button></td><!-- ユーザー登録ボタン -->
 					</tr>
 					<%-- リクエストスコープに alert があれば --%>
 					<c:if test="${requestScope.alert != null && requestScope.alert != ''}">

@@ -352,7 +352,7 @@ public class DBManager extends SnsDAO {
 			pstmt = conn.prepareStatement(sql);
 
 			int cnt = pstmt.executeUpdate();
-			if (cnt != 0) {
+			if (cnt == 0) {
 				// DELETE文の実行結果が1なら失敗
 				result = true;
 			} else {
