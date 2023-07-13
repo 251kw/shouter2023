@@ -64,6 +64,9 @@ public class UserEditResultSvt extends HttpServlet {
 		request.setAttribute("searchResult", list); //属性値userで値userをrequestスコープに設定する。
 		dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
 
+		// リストをセッションに保存
+		session.setAttribute("user2", list);
+
 		//フォワードで転送
 		dispatcher.forward(request, response);
 

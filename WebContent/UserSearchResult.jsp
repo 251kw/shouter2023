@@ -82,6 +82,7 @@
 											 <label class="fancy-checkbox"> <input type="checkbox" name="checkbox" value="${user.loginId}" class="checks">
 											 	<span></span>
 											</label>
+
 										</td>
 
 										<td class="text-left"><!--ログインID -->
@@ -138,7 +139,6 @@
 						<label for="whiteSpace"></label>
 					</th>
 				</tr>
-
 			</c:otherwise>
 		</c:choose>
 		<div class="padding-y-5 text-center"><!--戻るボタン -->
