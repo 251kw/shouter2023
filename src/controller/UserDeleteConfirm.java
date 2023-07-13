@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -74,6 +76,8 @@ public class UserDeleteConfirm extends HttpServlet {
 				String msg = "検索条件に一致する結果が見つかりません。";
 				request.setAttribute("alert", msg);
 			}
+			List<String> dUser = Arrays.asList(deleteUser);
+			request.setAttribute("deleteUser", dUser);
 			dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
 		}
 		dispatcher.forward(request, response);
