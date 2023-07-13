@@ -52,7 +52,7 @@
 
 				</table>
 
-				<input class="btn"  type="submit" value="戻る">
+				<input class="btn"  type="submit" value="戻る" autofocus>
 			</form>
 		</div>
 	</div>

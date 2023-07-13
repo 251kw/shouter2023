@@ -62,7 +62,7 @@
 
 				</table>
 
-<input class="btn"  type="submit" value="OK" formaction="./ucs">&nbsp;&nbsp;&nbsp;&nbsp;
+<input class="btn"  type="submit" value="OK" formaction="./ucs" autofocus>&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="hidden" name="hidden-loginID" value="${user.loginId }">
 				<input type="hidden" name="hidden-username" value="${user.userName }">
 				<input type="hidden" name="hidden-pass" value="${user.password }">

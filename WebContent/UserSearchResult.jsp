@@ -19,9 +19,27 @@
 			</h1>
 		</div>
 	</div>
+
+
 	<form action="?" method="post">
 	<div class="padding-y-5 text-center">
 		<div style="width: 100%" class="container padding-y-5 text-center">
+	<c:if
+						test="${requestScope.alert != null && requestScope.alert != ''}">
+					<table class="table table-striped table-bordered ">
+
+						<tr>
+							<%-- リクエストスコープの alert の値を出力 --%>
+							<td colspan="2" class="color-error"><h3><font color="red"><c:out
+									value="${requestScope.alert}" /></font></h3></td>
+						</tr>
+						</table>
+										<button type="button" class="btn"
+					onclick="location.href='./UserSearchInput.jsp'">戻る</button>
+					</c:if>
+
+					<c:if test="${requestScope.alert == null && requestScope.alert == null}">
+
 			<%-- action 属性にサーブレットを指定 --%>
 			<%-- action 属性は送信データの送信先の設定 --%>
 			<jsp:useBean id="userr" scope="session"
@@ -37,6 +55,7 @@
 					<%-- リストにある要素の数だけ繰り返し --%>
 
 					<table class="table table-striped table-bordered table-hover">
+
 						<tr>
 							<th class="result"></th>
 							<%-- ログインID 入力欄の名前は loginId --%>
@@ -52,7 +71,10 @@
 							<th class="result"><span class="icon-speaker pe-2x pe-va"></span>&nbsp;&nbsp;&nbsp;&nbsp;プロフィール</th>
 							<th class="result"></th>
 						</tr>
+
+
 						<c:forEach var="User" items="${userr}">
+
 							<tr>
 								<td><label class="fancy-checkbox"><input
 										type="checkbox" name="delete-ID-checkbox" class="cla"
@@ -102,6 +124,7 @@
 				<button type="button" class="btn"
 					onclick="location.href='./UserSearchInput.jsp'">戻る</button>
 				<%-- クリック時にindex.jspに戻る --%>
+		</c:if>
 		</div>
 	</div>
 
