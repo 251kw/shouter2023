@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="dto.UserDTO,java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -88,8 +89,19 @@ function checkAllBox(trueOrFalse) {
 					<%-- リストにある要素の数だけ繰り返し --%>
 					<c:forEach var="searchUser" items="${searchUser}" varStatus="loop">
 						<tr>
+						<!-- el式内でel式を使えないので、setを使って使用できるようにする -->
+						<c:set var="deleteUser" value="${deleteUser}" />
+						<c:set var="loginId" value="${searchUser.loginId}" />
+						<c:choose>
+						<c:when test="${fn:contains(deleteUser,loginId)}"><!--  削除確認ボタンを押す際に選択されていたユーザーだった場合-->
+							<th><label class="fancy-checkbox"><input
+									type="checkbox" name="checks" value="${searchUser.loginId}" <%=check%>checked><span></span></label></th>
+						</c:when>
+						<c:otherwise><!-- 削除ボタンを押す際にチェックがされていなかった場合 -->
 							<th><label class="fancy-checkbox"><input
 									type="checkbox" name="checks" value="${searchUser.loginId}" <%=check%>><span></span></label></th>
+						</c:otherwise>
+						</c:choose>
 							<th>${searchUser.loginId}</th>
 							<th>${searchUser.userName}</th>
 							<th class="text-center"><span
