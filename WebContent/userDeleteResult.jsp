@@ -45,7 +45,7 @@
 						</tr>
 					</c:if>
 					<c:if
-						test="${requestScope.alert == null || requestScope.alert == ''}">
+						test="${requestScope.deleteAlert == null || requestScope.deleteAlert == ''}">
 						<tr>
 							<%-- リクエストスコープの alert の値を出力 --%>
 							<td colspan="2" class="color-error text-left">
