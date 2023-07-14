@@ -75,15 +75,15 @@ thead {
 	request.setCharacterEncoding("UTF-8");
 	response.setContentType("text/html;charset=UTF-8");
 
-	String[] deleteUsers = request.getParameterValues("deleteUsers");
+	String[] deleteUsers = request.getParameterValues("deleteUsers");//削除確認画面から削除配列をもらう
 
 	if (deleteUsers != null) {
-		ArrayList<String> deleteUsersList = new ArrayList<>();
+		ArrayList<String> deleteUsersList = new ArrayList<>();//ArrayListに変更するため用意
 
-		for (String str : deleteUsers) {
+		for (String str : deleteUsers) {//ArrayをArrayListに変更する
 			deleteUsersList.add(str);
 		}
-		pageContext.setAttribute("deleteUsersList", deleteUsersList);
+		pageContext.setAttribute("deleteUsersList", deleteUsersList);//pageContextにオブジェクト化
 	}
 %>
 
@@ -110,7 +110,6 @@ input[name="password"]:focus {
 }
 </style>
 </c:if>
-
 <body>
 	<div class="bg-success padding-y-5">
 		<div class="container padding-y-5 text-center">
@@ -177,7 +176,7 @@ input[name="password"]:focus {
 								<td style="width: 50px"><label class="fancy-checkbox">
 										<input name="check" type="checkbox" value="${user.loginId}"
 										id="checkbox${user.loginId}"
-										${deleteUsersList.contains(user.loginId) ? 'checked' : ''}>
+										${deleteUsersList.contains(user.loginId) ? 'checked' : ''}><%-- deleteUsersListをpageContextからもらって、contains()で比較 --%>
 										<span></span>
 								</label></td>
 								<td style="width: 120px">${user.loginId}</td>

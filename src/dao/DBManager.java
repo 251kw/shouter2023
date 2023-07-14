@@ -237,39 +237,6 @@ public class DBManager extends SnsDAO {
 				sql = sql + ")";
 			}
 
-			/*
-			if (iconcheck == 0) {
-				if ((icon1 != null && !icon1.trim().isEmpty()) && (icon2 != null && !icon2.trim().isEmpty())) {
-					//"男"と"女"両方チェックされた場合
-					iconcheck = 1;
-				} else if ((icon1 != null && !icon1.trim().isEmpty()) || (icon2 != null && !icon2.trim().isEmpty())) {
-					//"男"と"女"片方チェックされた場合
-					if (icon1 != null && !icon1.trim().isEmpty()) {
-						//"男"だけチェックされた場合
-						iconcheck = 2;
-					} else {
-						//"女"だけチェックされた場合
-						iconcheck = 3;
-					}
-				}
-			}
-
-			switch (iconcheck) {
-			case 1://"男"と"女"両方チェックされた場合
-				break;
-			case 2://"男"だけチェックされた場合
-				sql = sql + " and icon = ?";
-				countIcon1 = stringMatch(sql, countIcon1);//iconの入れる場所探す
-				break;
-			case 3://"女"だけチェックされた場合
-				sql = sql + " and icon = ?";
-				countIcon2 = stringMatch(sql, countIcon2);//iconの入れる場所探す
-				break;
-			default:
-				break;
-			}
-			*/
-
 			if (profile != null && !profile.trim().isEmpty()) {//profileが入力された場合
 				sql = sql + " and profile like ?";
 				countProfile = stringMatch(sql, countProfile);//profileの入れる場所探す
@@ -295,8 +262,6 @@ public class DBManager extends SnsDAO {
 				}
 			}
 
-			//if (countIcon2 != 0)//iconの入れる場所が分かる場合
-			//	pstmt.setString(countIcon2, icon2);
 			if (countProfile != 0)//profileの入れる場所が分かる場合
 				pstmt.setString(countProfile, "%" + profile + "%");
 
@@ -415,7 +380,7 @@ public class DBManager extends SnsDAO {
 		}
 		return user;
 	}
-	public void deleteUser(String loginId) {
+	public void deleteUser(String loginId) {//削除メソッド
 		Connection conn = null; // データベース接続情報
 		PreparedStatement pstmt = null; // SQL 管理情報
 		String sql = "DELETE FROM users WHERE loginId = ?";
@@ -424,7 +389,7 @@ public class DBManager extends SnsDAO {
 			// データベース接続情報取得
 			conn = getConnection();
 
-			// SELECT 文の登録と実行
+			//削除文の登録と実行
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, loginId);
 			pstmt.executeUpdate();
