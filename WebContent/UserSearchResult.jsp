@@ -3,6 +3,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="dto.UserDTO" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -56,13 +57,9 @@
 					</tr>
 					<%
 						int count = 1;
-						ArrayList<String> dellist = (ArrayList<String>)session.getAttribute("delIDlist");
-						String[] tt = (String[])session.getAttribute("check");
-
-						//削除されるユーザＩＤリスト
-						//if((ArrayList<String>)session.getAttribute("delIDlist")!=null){
-							//ArrayList<String> check= (ArrayList<String>)session.getAttribute("delIDlist");
-						//}
+						ArrayList<String> dellist = (ArrayList<String>)request.getAttribute("delIDlist2");//戻ってきたとき
+						pageContext.setAttribute("delidlist",dellist);
+						//String[] tt = (String[])session.getAttribute("check");
 					%>
 					<jsp:useBean id="userlist" scope="session"
 						type="java.util.ArrayList<dto.UserDTO>" />
@@ -77,11 +74,11 @@
 						//String sample = String.valueOf(count);
 						//String t=dellist.get(count);
 					%>
+
 						<tr>
 							<td><label class="fancy-checkbox"><input
 									type="checkbox" name="test1" value="<%=count%>"
-
-									/>
+									${delidlist.contains(users.loginId)?"checked":""}/>
 									<span></span></label></td>
 							<td><label class="form-control text-center">${users.loginId}</label>
 								<input type="hidden" name="<%= count%>" value="${users.loginId}"></td>
@@ -91,9 +88,9 @@
 							<td><button class="btn" type="submit" name="edit"
 									value="<%=count%>" size="20" formaction="usr" method="post">編集</button></td>
 						</tr>
-						<%
-							count++;
-						%>
+							<%
+								count++;
+							%>
 					</c:forEach>
 					<tr>
 						<th class="color-main text-left"></th>
@@ -107,7 +104,6 @@
 							type="submit" value="削除" /> <input class="btn" type="submit"
 							formaction="./UserSearchInput.jsp" value="戻る" /></td>
 					</tr>
-					<tr><td><input class="btn" type="button" formaction="check"  method="post" value="全選択"></td></tr>
 				</table>
 			</form>
 		</div>
