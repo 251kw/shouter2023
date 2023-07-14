@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="dto.UserDTO"%>
+<%@ page import="java.util.Arrays"%>
+<%@ page import="java.util.List"%>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -19,8 +21,6 @@
 			</h1>
 		</div>
 	</div>
-
-
 	<form action="?" method="post">
 	<div class="padding-y-5 text-center">
 		<div style="width: 100%" class="container padding-y-5 text-center">
@@ -38,7 +38,7 @@
 					onclick="location.href='./UserSearchInput.jsp'">戻る</button>
 					</c:if>
 
-					<c:if test="${requestScope.alert == null && requestScope.alert == null}">
+					<c:if test="${requestScope.alert == null}">
 
 			<%-- action 属性にサーブレットを指定 --%>
 			<%-- action 属性は送信データの送信先の設定 --%>
@@ -53,9 +53,8 @@
 				<%-- セッションスコープにある ArrayList 型のオブジェクトを参照 --%>
 				<div style="width: 100%" class="container padding-y-5">
 					<%-- リストにある要素の数だけ繰り返し --%>
-
-					<table class="table table-striped table-bordered table-hover">
-
+						</c:if>
+					<table class="table table-striped table-bordered ">
 						<tr>
 							<th class="result"></th>
 							<%-- ログインID 入力欄の名前は loginId --%>
@@ -72,13 +71,22 @@
 							<th class="result"></th>
 						</tr>
 
-
 						<c:forEach var="User" items="${userr}">
+<%
+
+		String[] DELETEreID = request.getParameterValues("delete-ID");
+if(DELETEreID!=null){
+List<String> deletereid = Arrays.asList(DELETEreID);
+pageContext.setAttribute("deletereid",deletereid);
+}
+				 		  //listに Arrays.asList(DELETEreID);を使ってDELETEreIDをListにする
+
+%>
 
 							<tr>
 								<td><label class="fancy-checkbox"><input
 										type="checkbox" name="delete-ID-checkbox" class="cla"
-										value="${User.loginId}"><span></span></label></td>
+										value="${User.loginId}" ${deletereid.contains(User.loginId)?"checked":""}><span></span></label></td>
 								<td class="result">${User.loginId}</td>
 								<td class="result">${User.userName}</td>
 								<td class="result"><span class="${User.icon} pe-2x pe-va"></span></td>
@@ -91,7 +99,7 @@
 				</div>
 
 				<p>
-					<a id="btn1" onclick="checked()" class="btn btn-empty">全選択</a> <a
+									<a id="btn1" onclick="checked()" class="btn btn-empty">全選択</a><a
 						id="btn２" onclick="unChecked()" class="btn btn-empty">全解除</a>
 				</p>
 				<script>
@@ -124,8 +132,7 @@
 				<button type="button" class="btn"
 					onclick="location.href='./UserSearchInput.jsp'">戻る</button>
 				<%-- クリック時にindex.jspに戻る --%>
-		</c:if>
-		</div>
+				</div>
 	</div>
 
 	</form>
