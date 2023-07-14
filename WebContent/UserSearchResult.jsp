@@ -23,7 +23,7 @@ function checkAllBox(trueOrFalse) {
 <body>
 	<%
 		String check = "";
-		if (request.getParameter("allCheck") != null) {
+		if (request.getAttribute("allCheck") != null) {
 			check = "checked";
 		}
 	%>
@@ -90,13 +90,13 @@ function checkAllBox(trueOrFalse) {
 					<c:forEach var="searchUser" items="${searchUser}" varStatus="loop">
 						<tr>
 						<c:choose>
-						<c:when test="${fn:contains(deleteUser,loginId)}"><!--  削除確認ボタンを押す際に選択されていたユーザーだった場合-->
+						<c:when test="${fn:contains(deleteUser,searchUser.loginId)}"><!--  削除確認ボタンを押す際に選択されていたユーザーだった場合-->
 							<th><label class="fancy-checkbox"><input
-									type="checkbox" name="checks" value="${searchUser.loginId}" <%=check%>checked><span></span></label></th>
+									type="checkbox" name="checks" value="${searchUser.loginId}" <%=check %>checked><span></span></label></th>
 						</c:when>
 						<c:otherwise><!-- 削除ボタンを押す際にチェックがされていなかった場合 -->
 							<th><label class="fancy-checkbox"><input
-									type="checkbox" name="checks" value="${searchUser.loginId}" <%=check%>><span></span></label></th>
+									type="checkbox" name="checks" value="${searchUser.loginId}" <%=check %>><span></span></label></th>
 						</c:otherwise>
 						</c:choose>
 							<th>${searchUser.loginId}</th>
