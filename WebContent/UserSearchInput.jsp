@@ -23,16 +23,6 @@
 			<%-- action 属性にサーブレットを指定 --%>
 			<form action="./usi" method="post">
 				<table style="width: 400px" class="table">
-
-					<%-- リクエストスコープに sql があれば --%>
-					<c:if
-						test="${requestScope.sql  != null && requestScope.sql  != ''}">
-						<tr>
-							<%-- リクエストスコープの noEnterd の値を出力 --%>
-							<td colspan="2" class="color-error text-left"><c:out
-									value="${requestScope.sql }" /></td>
-						</tr>
-					</c:if>
 					<%
 						//文字化け対策
 						request.setCharacterEncoding("UTF-8");

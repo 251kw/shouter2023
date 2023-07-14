@@ -57,7 +57,6 @@ public class UserSearchInputSvt extends HttpServlet {
 		String icon2 = request.getParameter("icon2");
 		String profile = request.getParameter("profile");
 
-
 		if (dbm == null) {
 			dbm = new DBManager();
 		}
@@ -77,11 +76,11 @@ public class UserSearchInputSvt extends HttpServlet {
 
 		ServletContext sc = getServletContext();
 
-		if(list.size() == 0) {
+		if (list.size() == 0) {
 			sql = "検索結果がありません";
 
 			request.setAttribute("sql", sql);
-			RequestDispatcher rd = sc.getRequestDispatcher("/UserSearchInput.jsp");
+			RequestDispatcher rd = sc.getRequestDispatcher("/UserSearchResult.jsp");
 			rd.forward(request, response);
 		}
 
