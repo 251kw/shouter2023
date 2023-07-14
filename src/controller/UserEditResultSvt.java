@@ -42,6 +42,7 @@ public class UserEditResultSvt extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		/****削除、編集から検索結果画面にもどるときの再検索サーブレット！！****/
 		// 文字化け対策
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");

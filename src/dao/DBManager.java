@@ -163,7 +163,7 @@ public class DBManager extends SnsDAO {
 		return result;
 	}
 
-	/***ログインIDを引数にユーザを検索r***/
+	/***ログインIDを引数にユーザを検索***/
 	public UserDTO getNewuser(String loginId) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;

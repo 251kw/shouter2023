@@ -49,12 +49,14 @@ public class UserDeleteConfirm extends HttpServlet {
 		RequestDispatcher dispatcher = null;
 		String message = null;
 
+		String[] checkeduser = null;
+
 		//削除ボタンのパラメータを受け取る
 		String deluser = request.getParameter("delete");
 		if (deluser!=null) {
 
 			//選択されたチェックボックスのデータを取得し、変数checkeduserに代入する。チェックされているユーザのloginIdがvalueでとれる。
-			String[] checkeduser = request.getParameterValues("check");
+			checkeduser = request.getParameterValues("check");
 
 			if(checkeduser==null) {
 				//checkeduserの中身が空だったらアラートを設定。エラーメッセージをリクエストオブジェクトに保存。
@@ -62,6 +64,7 @@ public class UserDeleteConfirm extends HttpServlet {
 				request.setAttribute("delalert", message);
 				//UserSearchResult.jsp に処理を転送
 				dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
+				dispatcher.forward(request, response);
 			}
 			else {
 				DBManager dbm = new DBManager();
@@ -69,8 +72,8 @@ public class UserDeleteConfirm extends HttpServlet {
 
 				//loginIdを引数にユーザを検索するgetNewuserメソッドを呼び出し、検索されたユーザをリストに追加(checkeduseリストrの長さ分繰り返す)
 				for(int i= 0; i<checkeduser.length; i++){
-					    String loginId = checkeduser[i];
-					    userlist.add(dbm.getNewuser(loginId));
+					String loginId = checkeduser[i];
+					userlist.add(dbm.getNewuser(loginId));
 				}
 				//リストをリクエストスコープに登録
 				request.setAttribute("deletelist", userlist);
@@ -81,10 +84,37 @@ public class UserDeleteConfirm extends HttpServlet {
 
 				//UserDeleteConfirm.jsp に処理を転送
 				dispatcher = request.getRequestDispatcher("UserDeleteConfirm.jsp");
+				dispatcher.forward(request, response);
 			}
 		}
-		dispatcher.forward(request, response);
+
+		/**削除確認画面でキャンセルが押されたときの記述**/
+		String cancel = request.getParameter("cancel");
+		if(cancel != null) {
+			if(cancel.equals("cancel")) {
+					//セッションに保存している、チェックがつけられたユーザのログインIDをここでとってくる
+					HttpSession session = request.getSession();
+					String[] keeplogId = (String[])session.getAttribute("keepLogId");
+					//とれたら、この配列をリクエストスコープに入れて検索結果画面に戻る
+					//セッションのまま結果画面で取るとずっと保持されて、最初に結果画面に入った時にもチェックついちゃう
+					if(keeplogId != null) {
+						request.setAttribute("checklist", keeplogId);
+
+						//このサーブレットを通ったことを証明するためのflag
+						String flag = "OK";
+						request.setAttribute("flag", flag);
+
+					// 問題なければ、処理の転送先を UserSearchResult.jsp に指定。検索結果画面表示される。
+					dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
+					dispatcher.forward(request, response);
+					}
+				}
+			}
+		}
 	}
-}
+
+
+
+
 
 

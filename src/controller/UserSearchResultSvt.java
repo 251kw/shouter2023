@@ -48,20 +48,23 @@ public class UserSearchResultSvt extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 
-		String param = "";
+		/**全選択・全解除ボタンにかかわる記述**/
+		//全選択・全解除ボタンが押されたら、allというnameでそれぞれのvalueが送られてくる
 		String checkbox = request.getParameter("all");
+		String param = "";
 		if(checkbox != null) {
-			if(checkbox.equals("allcheck")) {
+			if(checkbox.equals("allcheck")) {	//全選択のときはvalueがallcheck。
 				param = "checked";
-				request.setAttribute("true", param);
+				request.setAttribute("true", param);	//checkedという文字列を、trueというnameでリクエストスコープにセット
 			}
-			else if(checkbox.equals("allout")){
+			else if(checkbox.equals("allout")){ //全解除のときはvalueがallout。別に何もしない
 			}
-			RequestDispatcher dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");//検索結果画面に推移
 			dispatcher.forward(request, response);
 		}
 
-		//編集ボタンを押すと、editというnameでそのユーザのログインIDが返ってくる
+		/**編集ボタンにかかわる記述**/
+		//編集ボタンを押すと、editというnameでそのユーザのログインIDがvalueとして返ってくる
 		String edituserId = request.getParameter("edit");
 		if(edituserId != null) {
 
@@ -79,5 +82,4 @@ public class UserSearchResultSvt extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 	}
-
 }

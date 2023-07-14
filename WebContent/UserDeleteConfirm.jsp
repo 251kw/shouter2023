@@ -48,10 +48,9 @@
 				</table>
 				<div class="text-center">
 					<%--削除のサーブレットへ--%>
-					<button class="btn" type="submit" name="delete" value="delete"
-						formaction="./udr">削除</button>
+					<button class="btn" type="submit" name="delete" value="delete" formaction="./udr">削除</button>
 					<%--再検索する--%>
-					<button class="btn" type="submit" formaction="./uer">キャンセル</button>
+					<button class="btn" type="submit" name="cancel" value="cancel" formaction="./udc">キャンセル</button>
 				</div>
 			</form>
 		</div>
