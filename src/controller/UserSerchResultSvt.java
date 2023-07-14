@@ -74,6 +74,27 @@ public class UserSerchResultSvt extends HttpServlet {
 			UserDTO editUser=users.get(editIndex);
 			session.setAttribute("olduser", editUser);
 			dispatcher = request.getRequestDispatcher("UserEditInput.jsp");
+		}else if(request.getParameterValues("indexId")!=null) {
+			String[] indexId = request.getParameterValues("indexId");
+
+			ArrayList<String> checkList=new ArrayList<String>();
+			int num = 0;
+			for(int i = 0; i<users.size();i++ ){
+				if(indexId.length>num) {
+					if(users.get(i).getLoginId().equals(indexId[num])) {
+						checkList.add("checked");
+						num++;
+					}else {
+						checkList.add("");
+					}
+				}else {
+					checkList.add("");
+				}
+			}
+			request.setAttribute("checkedIndex", checkList);
+			request.setAttribute("users",users);
+			dispatcher = request.getRequestDispatcher("UserSerchResult.jsp");
+
 		}else {
 			if(users.size() == 0) {
 				request.setAttribute("noresult_error", "条件に一致する結果は存在しません。");

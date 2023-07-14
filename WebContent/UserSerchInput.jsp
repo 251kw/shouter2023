@@ -51,7 +51,7 @@
 						<td class="color-main text-left"><span
 							class="icon-angle-up-circle pe-2x pe-va"></span> <nobr>アイコン</nobr></td>
 						<td class="text-left">
-							<%--　アイコン入力欄の名前は icon --%>
+							<%--　アイコン入力欄の名前は icon 各iconを表示--%>
 							<div class="parent">
 
 								<label class="fancy-checkbox"><input type="checkbox"

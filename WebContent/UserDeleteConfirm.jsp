@@ -51,12 +51,11 @@
 
 							<td>${u.userName}</td>
 							<td><span class="${u.icon} pe-2x pe-va"></span></td>
-							<td>${u.profile}</td>
-						</tr>
-						<tr>
-							<td><input type="hidden" name="${s.index}"
+							<td>${u.profile}<input type="hidden" name="${s.index}"
+								value="${u.loginId}" /><input type="hidden" name="indexId"
 								value="${u.loginId}" /></td>
 						</tr>
+
 						<c:if test="${s.last}">
 							<tr>
 								<td><input type="hidden" name="max_num" value="${s.index}" /></td>

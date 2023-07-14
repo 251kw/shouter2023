@@ -45,12 +45,13 @@ public class UserSerchInputSvt extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		HttpSession session = request.getSession();
-
+		//打ち込まれた検索条件を取得。
 		String loginId = request.getParameter("loginId");
 		String userName = request.getParameter("userName");
 		String[] icon = request.getParameterValues("icon");
 		String prof = request.getParameter("prof");
 
+		//検索条件をセッションに登録
 		session.setAttribute("loginId", loginId);
 		session.setAttribute("userName", userName);
 		session.setAttribute("icon", icon);

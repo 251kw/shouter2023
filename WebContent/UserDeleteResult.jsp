@@ -23,9 +23,12 @@
 				Shouter&nbsp;<span class="icon-speaker"></span>
 			</h1>
 			<div class="padding-y-5 text-center">
-				<div style="width: 40%" class="container padding-y-5 text-center">
-					<div class="color-Light">削除が完了しました。</div>
-				</div>
+				<c:if
+					test="${requestScope.alert_delete == null || requestScope.alert_delete == ''}">
+					<div style="width: 40%" class="container padding-y-5 text-center">
+						<div class="color-Light">削除が完了しました。</div>
+					</div>
+				</c:if>
 				<c:if
 					test="${requestScope.alert_delete != null && requestScope.alert_delete != ''}">
 					<%-- リクエストスコープの alert の値を出力 --%>

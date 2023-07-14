@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="dto.UserDTO"%>
+<%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html PUBLIC >
 <%--"-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> --%>
 <html>
@@ -69,9 +70,19 @@
 					</tr>
 
 					<c:forEach items="${users}" var="u" varStatus="s">
+						<c:set var="index" value="${s.index}" />
 						<tr>
-							<td><label class="fancy-checkbox"><input
-									type="checkbox" name="user_check" value="${s.index}" <%=check%> /><span></span></label></td>
+							<c:if test="${requestScope.checkedIndex == null}">
+								<td><label class="fancy-checkbox"><input
+										type="checkbox" name="user_check" value="${s.index}"
+										<%=check%> /><span></span></label></td>
+							</c:if>
+							<c:if test="${requestScope.checkedIndex != null}">
+								<td><label class="fancy-checkbox"><input
+										type="checkbox" name="user_check" value="${s.index}"
+										${checkedIndex[index]}/><span></span></label></td>
+							</c:if>
+
 							<td>${u.loginId}</td>
 							<td>${u.userName}</td>
 							<td><span class="${u.icon} pe-2x pe-va"></span></td>
