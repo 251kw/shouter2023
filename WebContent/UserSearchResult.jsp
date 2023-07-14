@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="src.dto.UserDTO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -24,7 +26,17 @@
 			</h1>
 		</div>
 	</div>
-
+	<p>
+		<%-- エラー文の挿入 --%>
+		<%-- リクエストスコープに alert があれば --%>
+		<c:if
+			test="${requestScope.alert != null && requestScope.alert != ''}">
+			<%-- リクエストスコープの alert の値を出力 --%>
+			<p class="color-error text-center">
+				<c:out value="${requestScope.alert}" />
+			</p>
+		</c:if>
+	</p>
 	<div class="padding-y-5 text-center">
 		<div style="width: 850px" class="container padding-y-5 text-center">
 			<%-- action 属性にサーブレットを指定 --%>
@@ -63,13 +75,24 @@
 						int x = 1;
 					%>
 					<c:forEach var="user" items="${users}">
-
+						<c:set var="loginId" value="${user.loginId}" />
+						<c:set var="idlist" value="${idlist}" />
+						<c:choose>
+							<c:when test="${fn:contains(idlist,loginId)}">
 						<%-- checkbox --%>
 						<tr>
 							<td><label class="fancy-checkbox"><input
-									type="checkbox" name="box" value="<%=x%>"><span></span> </label></td>
+									type="checkbox" name="box" value="<%=x %>" checked><span></span>
+							</label></td>
+							</c:when>
+							<c:otherwise>
+							<td><label class="fancy-checkbox"><input
+									type="checkbox" name="box" value="<%=x %>" ><span></span>
+							</label></td>
+							</c:otherwise>
+						</c:choose>
 							<td class="text-left"><label><input type=hidden
-									value="${user.loginId}" name="id<%=x%>">${user.loginId}</label></td>
+									value="${user.loginId}" name="id<%=x %>">${user.loginId}</label></td>
 
 							<td class="text-left"><label>${user.userName}</label></td>
 
@@ -97,8 +120,8 @@
 					</tr>
 					<tr>
 						<td colspan="2" class="text-right"><button
-							class="btn btn-error" type="submit" value=""
-							formaction="./UserSearchResultDeleteSvt">削除</button></td>
+								class="btn btn-error" type="submit" value="" name="delete"
+								formaction="./UserSearchResultDeleteSvt">削除</button></td>
 						<td class="text-right"><input class="btn" type="submit"
 							value="戻る" /></td>
 					</tr>

@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import src.dto.ShoutDTO;
 import src.dto.UserDTO;
@@ -198,7 +199,7 @@ public class DBManager extends SnsDAO {
 		return result;
 	}
 
-	//編集
+	//更新
 	public boolean setUSER(UserDTO USER) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -272,7 +273,7 @@ public class DBManager extends SnsDAO {
 	}
 
 	// 検索結果画面から削除確認画面
-	public ArrayList<UserDTO> getID(ArrayList<String> idlist) {
+	public ArrayList<UserDTO> getID(List<String> idlist) {
 		Connection conn = null; // データベース接続情報
 		PreparedStatement pstmt = null; // SQL 管理情報
 		ResultSet rset = null; // 検索結果
@@ -281,7 +282,7 @@ public class DBManager extends SnsDAO {
 		UserDTO ID = null; // 登録ユーザ情報
 		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
 
-		for (int i = 0; i <= idlist.size(); i++) {
+		for (int i = 0; i < idlist.size(); i++) {
 			if (!idlist.get(i).equals("")) {
 				if (i == 0) {
 					sql += "loginId =" + "'" + idlist.get(0) + "'";
@@ -296,11 +297,10 @@ public class DBManager extends SnsDAO {
 			conn = getConnection();
 
 			// SELECT 文の登録と実行
-			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+			pstmt = conn.prepareStatement(sql);// SELECT 構文登録
 			rset = pstmt.executeQuery();
-
 			// 検索結果があれば
-			if (rset.next()) {
+			while (rset.next()) {
 				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
 				ID = new UserDTO();
 				ID.setLoginId(rset.getString(2));
@@ -320,6 +320,65 @@ public class DBManager extends SnsDAO {
 		}
 
 		return list;
+	}
+
+	//削除
+		public void setDelete(ArrayList<String> idlist) {
+		Connection conn = null; // データベース接続情報
+		PreparedStatement pstmt = null; // SQL 管理情報
+		ResultSet rset = null; // 検索結果
+
+		String sql = "DELETE FROM users WHERE ";
+		//UserDTO Delete = null; // 登録ユーザ情報
+		//ArrayList<UserDTO> list = new ArrayList<UserDTO>();
+
+		for (int i = 0; i < idlist.size(); i++) {
+			if (!idlist.get(i).equals("")) {
+				if (i == 0) {
+					sql += "loginId IN('" +idlist.get(0) + "'";
+				} else if (!idlist.get(i).equals("")) {
+					sql += ",'" + idlist.get(i) + "'";
+				}
+				if(i==(idlist.size()-1)) {
+					sql += ")";
+				}
+			}
+		}
+
+		try {
+			// データベース接続情報取得
+			conn = getConnection();
+
+			// SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql); // SELECT 構文登録
+			//pstmt.setString(1, Delete.getLoginId());
+			//pstmt.setString(2, Delete.getPassword());
+			//pstmt.setString(3, Delete.getUserName());
+			//pstmt.setString(4, Delete.getIcon());
+			//pstmt.setString(5, Delete.getProfile());
+			//pstmt.setString(6, Delete.getLoginId());
+			int cnt = pstmt.executeUpdate();
+
+			// 検索結果があれば
+			/*while (rset.next()) {
+				// 必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				Delete = new UserDTO();
+				Delete.setLoginId(rset.getString(2));
+				Delete.setPassword(rset.getString(3));
+				Delete.setUserName(rset.getString(4));
+				Delete.setIcon(rset.getString(5));
+				Delete.setProfile(rset.getString(6));
+				list.add(Delete);
+			}*/
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
 	}
 
 	// 検索複数表示

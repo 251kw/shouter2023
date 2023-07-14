@@ -50,25 +50,53 @@ public class UserSearchResultDeleteSvt extends HttpServlet {
 
 		//DBManager dbm = new DBManager();
 		//ArrayList<UserDTO> users = dbm.getUserList(loginId, userName, icon, icon2, profile);
-		//定義
-		String x[] = request.getParameterValues("box");
-		ArrayList<String> idlist = new ArrayList<String>();
-		for (int i = 0; i < x.length; i++) {
-			String number = "id" + x[i];
-			String id = request.getParameter(number);
-			idlist.add(id);
-		}
-		RequestDispatcher dispatcher = null;
 
+		//定義
 		DBManager dbm = new DBManager();
-		ArrayList<UserDTO> list = dbm.getID(idlist);
+		HttpSession session = request.getSession();
+		//String[] idList = request.getParameterValues("id");
+		//List<String> idlist = Arrays.asList(idList);
+		String message = null;
+		RequestDispatcher dispatcher = null;
+		String x[] = request.getParameterValues("box");
+		String delete=request.getParameter("delete");
+
+		if (x==null)
+
+			{
+				message = "削除項目を選択してください。";
+				// エラーメッセージをリクエストオブジェクトに保存
+				request.setAttribute("alert", message);
+				dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
+				dispatcher.forward(request, response);
+
+			} else {
+
+		if (delete != null) {
+			ArrayList<String> idlist = new ArrayList<String>();
+			for (int i = 0; i < x.length; i++) {
+				String number = "id" + x[i];
+				String id = request.getParameter(number);
+				idlist.add(id);
+				session.setAttribute("idlist", idlist);
+				ArrayList<UserDTO> list = dbm.getID(idlist);
+				session.setAttribute("ID", list);
+				dispatcher = request.getRequestDispatcher("userDeleteConfirm.jsp");
+			}
+		} else {
+			/*String[] idList = request.getParameterValues("id");
+			List<String> idlist = Arrays.asList(idList);
+			session.setAttribute("idlist", idlist);
+			ArrayList<UserDTO> list = dbm.getID(idlist);
+			session.setAttribute("ID", list);*/
+			dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
+		}
 
 		// 処理の転送先を .jsp に指定
-		HttpSession session = request.getSession();
-		session.setAttribute("ID", list);
-		dispatcher = request.getRequestDispatcher("userDeleteConfirm.jsp");
+
 		// 処理を転送
 		dispatcher.forward(request, response);
-
 	}
 }
+}
+//}

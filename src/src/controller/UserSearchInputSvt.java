@@ -65,8 +65,8 @@ public class UserSearchInputSvt extends HttpServlet {
 		session.setAttribute("profile", profile);
 		ArrayList<UserDTO> users = dbm.getUserList(loginId, userName, icon, icon2, profile);//更新前の検索
 		// ログインユーザ情報、書き込み内容リストとしてセッションに保存
+		//session.setAttribute("users", users);
 		session.setAttribute("users", users);
-
 		if (users.size() == 0) {//リストの中に要素がない
 			message = "検索結果はありません";
 			request.setAttribute("alert", message);

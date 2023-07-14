@@ -7,7 +7,7 @@
 <html lang="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>更新入力</title>
+<title>削除確認</title>
 <link rel="stylesheet" href="./css/skyblue.css">
 <link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 <link rel="stylesheet" href="./css/helper.css">
@@ -81,43 +81,56 @@
 				<c:if
 					test="${requestScope.alert4 != null && requestScope.alert4 != ''}">
 					<%-- リクエストスコープの alert の値を出力 --%>
-					<p class="color-error text-left">
+					<p class="color-error text-center">
 						<c:out value="${requestScope.alert4}" />
 					</p>
 				</c:if>
 			</p>
 		</div>
 	</div>
-	<jsp:useBean id="ID" scope="session"
-						type="java.util.ArrayList<src.controller.UserSearchResultDeleteSvt>" />
 	<div class="padding-y-5 text-center">
 		<div style="width: 50%" class="container padding-y-5 text-center">
 			<%-- action 属性にサーブレットを指定 --%>
-			<form action="./userEditInputSvt" method="post">
+			<form action="./userDeleteConfirmSvt" method="post">
 				<table style="width: 700px" class="table">
+					<tr>
+						<td class="color-main text-left"><span
+							class="icon-smile pe-2x pe-va"></span> ログインID</td>
+
+						<td class="color-main text-left"><span
+							class="icon-users pe-2x pe-va"></span> ユーザー名</td>
+
+						<td class="color-main text-left"><span
+							class="icon-joy pe-2x pe-va"></span> アイコン</td>
+
+						<td class="color-main text-left"><span
+							class="icon-note2 pe-2x pe-va"></span> プロフィール</td>
+					</tr>
+
+					<jsp:useBean id="ID" scope="session"
+						type="java.util.ArrayList<src.controller.UserSearchResultDeleteSvt>" />
+
+					<c:forEach var="ID" items="${ID}">
 					<tr>
 						<%-- ログインID 入力欄の名前は loginId --%>
 						<%-- 半角空白禁止 --%>
 						<td class="text-left"><label>${ID.loginId}</label></td>
-					</tr>
-					<tr>
-						<%-- パスワード入力欄の名前は password --%>
-						<%-- 半角空白禁止 --%>
-						<td class="text-left"><label>${ID.password}</label></td>
-					</tr>
-					<tr>
+
 						<td class="text-left"><label>${ID.userName}</label></td>
-					</tr>
-					<tr>
+
 						<td><span class="${ID.icon} pe-2x pe-va"></span></td>
-					</tr>
-					<tr>
+
 						<td class="text-left"><label>${ID.profile}</label></td>
+
 					</tr>
+
+					</c:forEach>
+
 					<tr>
 						<td colspan="2" class="text-right"><input class="btn"
 							type="submit" value="OK" /></td>
-						<td colspan="2"><a href="UserSearchResult.jsp" class="btn">戻る</a></td>
+						<td colspan="2" class="text-right"><input class="btn"
+							type="submit" value="戻る" formaction="./UserSearchResultDeleteSvt" /></td>
 					</tr>
 				</table>
 			</form>
