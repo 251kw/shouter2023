@@ -48,9 +48,17 @@ public class UserSearchResultSvt extends HttpServlet {
 		//DBの準備
 		DBManager dbm = new DBManager();
 
-		//更新の際に使用する為、編集ボタンを押下した際に登録されているloginIdをパラメーターで取得
+		//編集ボタンを押下した際に登録されているloginIdをパラメーターで取得
 		String editBtn = request.getParameter("edit");
 
+		//全選択・全解除ボタンが押下された際のvalue値をパラメーターで取得
+		String allBtn = request.getParameter("All");
+
+		String check;
+
+
+		//編集ボタンが押下されたときの処理
+		if(editBtn != null) {
 		UserDTO user = dbm.getShowResult(editBtn);
 
 		request.setAttribute("editResult", user); //属性値userで値userをrequestスコープに設定する。
@@ -59,6 +67,22 @@ public class UserSearchResultSvt extends HttpServlet {
 		//更新の際に変更前のLoginIdが必要なため、sessionにセットする
 		HttpSession session = request.getSession();
 		session.setAttribute("oldLoginId",editBtn);
+		}
+
+		//全選択・全解除ボタンが押されたとき
+		if(allBtn != null) {
+			//全選択ボタンであった時
+			if(allBtn.equals("all")) {
+				check = "checked";
+				request.setAttribute("check", check);
+				dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
+
+			}else if(allBtn.equals("notAll")) {
+				check = "";
+				request.setAttribute("check", check);
+				dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
+			}
+		}
 
 
 		//フォワードで転送

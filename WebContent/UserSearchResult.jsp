@@ -17,6 +17,24 @@
 </head>
 
 <body>
+<%
+	//文字化け対策
+	request.setCharacterEncoding("UTF-8");
+	response.setContentType("text/html;charset=UTF-8");
+
+	String check = "";
+
+	if(request.getAttribute("check") != null){
+		String checkNum = (String)request.getAttribute("check");
+		if(checkNum.equals("checked")){
+			check = "checked";
+		}else if(checkNum.equals("")){
+			check = "";
+		}
+
+	}
+
+%>
 	<div class="bg-success padding-y-5">
 		<div class="container padding-y-5 text-center">
 			<h1>
@@ -49,11 +67,10 @@
 					</th>
 
 					<th nowrap>
-						<button class="checkBtn" type="button" id="check-btn" onclick="checked()">全選択</button>
+						<button class="checkBtn" type="submit" id="check-btn"  name="All" value="all" formaction="./usr">全選択</button>
 					</th>
-
 					<th nowrap>
-						<button class="uncheckBtn" type="button" id="uncheck-btn" onclick="unChecked()">全解除</button>
+						<button class="uncheckBtn" type="submit" id="uncheck-btn" name="All"  value="notAll" formaction="./usr">全解除</button>
 					</th>
 				</tr>
 
@@ -88,7 +105,7 @@
 											<c:when  test = "${fn:contains(checkList, loginId)}">
 												<td><!-- チェックボックス -->
 													 <label class="fancy-checkbox">
-													 <input type="checkbox" name="checkbox" value="${user.loginId}" class="checks"  checked="checked" >
+													 <input type="checkbox" name="checkbox" value="${user.loginId}" class="checks"  checked="checked"  <%= check %>>
 													 	<span></span>
 													</label>
 												</td>
@@ -97,7 +114,7 @@
 											<c:otherwise>
 												<td>
 													 <label class="fancy-checkbox">
-													 <input type="checkbox" name="checkbox" value="${user.loginId}" class="checks"  >
+													 <input type="checkbox" name="checkbox" value="${user.loginId}" class="checks"  <%= check %> >
 													 	<span></span>
 													</label>
 												</td>
