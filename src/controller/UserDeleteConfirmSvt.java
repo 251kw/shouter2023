@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -50,31 +52,53 @@ public class UserDeleteConfirmSvt extends HttpServlet {
 
 		//getDeleteConfirmメソッドで取得したデータを格納するリスト
 		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
+		String[] checkBoxes;
+		String delete = request.getParameter("delete");
+		String cancel = request.getParameter("cancel");
 
-		//チェックボタン(loginId)にチェックが入っている行を配列で取得
-		String[] checkBoxes = request.getParameterValues("checkbox");
 
-		//チェックせず削除ボタンが押された際のエラーメッセージ
-		String emptyMessage = null;
+		//削除ボタンが押されたとき
+		if(delete !=null) {
+			//チェックボタン(loginId)にチェックが入っている行を配列で取得
+			checkBoxes = request.getParameterValues("checkbox");
 
-		if(checkBoxes == null) {  //チェックが１つも付いていないとき
-			emptyMessage = "チェックをつけて削除ボタンを押下してください。";
-			request.setAttribute("alertEmptyCheck", emptyMessage); //属性値userで値userをrequestスコープに設定する。
-			dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
+			//チェックせず削除ボタンが押された際のエラーメッセージ
+			String emptyMessage = null;
 
-		}else { //チェックがついているとき
-			for(int i=0; i<checkBoxes.length; i++) {
-				UserDTO result = dbm.getDeleteConfirm(checkBoxes[i]);
-				list.add(result);
-				request.setAttribute("deleteConList", list); //属性値userで値userをrequestスコープに設定する。
-				dispatcher = request.getRequestDispatcher("UserDeleteConfirm.jsp");
+			if(checkBoxes == null) {  //チェックが１つも付いていないとき
+				emptyMessage = "チェックをつけて削除ボタンを押下してください。";
+				request.setAttribute("alertEmptyCheck", emptyMessage);
+				dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
 
-				//削除する際にLoginIdが必要なため、sessionにセットする
-				HttpSession session = request.getSession();
-				session.setAttribute("checkBoxes",checkBoxes);
+			}else { //チェックがついているとき
+				for(int i=0; i<checkBoxes.length; i++) { //チェックの数だけfor文で回しチェックの付いたデータを取得する
+					UserDTO result = dbm.getDeleteConfirm(checkBoxes[i]);
+
+					list.add(result); //UserDTO型のArrayListに保存
+
+					request.setAttribute("deleteConList", list);
+					dispatcher = request.getRequestDispatcher("UserDeleteConfirm.jsp");
+
+					//削除する際にLoginIdが必要なため、sessionにセットする
+					HttpSession session = request.getSession();
+					session.setAttribute("checkBoxes",checkBoxes);
+				}
 			}
 		}
 
+		//削除確認画面でキャンセルボタンを押下したとき
+		if(cancel != null) {
+			HttpSession session = request.getSession();
+			//チェックボックス(loginId)の値をセッションから取得
+			String[] checks = (String[]) session.getAttribute("checkBoxes");
+
+			//配列のままだとjspでcontainsメソッドを使用出来ない為、リスト型に変換する
+			List<String> checkList = Arrays.asList(checks);
+			//リクエストスコープで送信する
+			request.setAttribute("checkList", checkList);
+			dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
+
+		}
 		//フォワードで転送
 		dispatcher.forward(request, response);
 	}

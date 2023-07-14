@@ -1,6 +1,10 @@
+<%@page import="java.util.List"%>
+<%@page import="dto.UserDTO"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html >
 <html>
 <head>
@@ -78,12 +82,27 @@
 							<tbody>
 								<c:forEach var="user" items="${user2}">
 									<tr>
-										<td><!-- チェックボックス -->
-											 <label class="fancy-checkbox"> <input type="checkbox" name="checkbox" value="${user.loginId}" class="checks">
-											 	<span></span>
-											</label>
+										<c:set var ="loginId" value="${user.loginId }" />
+										<c:set var ="checkList" value="${checkList}" />
+										<c:choose>
+											<c:when  test = "${fn:contains(checkList, loginId)}">
+												<td><!-- チェックボックス -->
+													 <label class="fancy-checkbox">
+													 <input type="checkbox" name="checkbox" value="${user.loginId}" class="checks"  checked="checked" >
+													 	<span></span>
+													</label>
+												</td>
+											</c:when>
 
-										</td>
+											<c:otherwise>
+												<td>
+													 <label class="fancy-checkbox">
+													 <input type="checkbox" name="checkbox" value="${user.loginId}" class="checks"  >
+													 	<span></span>
+													</label>
+												</td>
+											</c:otherwise>
+										</c:choose>
 
 										<td class="text-left"><!--ログインID -->
 											<input class="form-control" type="hidden" name="loginId" value="${user.loginId}" size="20" autofocus>
@@ -143,7 +162,7 @@
 		</c:choose>
 		<div class="padding-y-5 text-center"><!--戻るボタン -->
 			<div style="width: 40%" class="container padding-y-5 text-center">
-				<input class="btn" type="submit" value="削除" formaction="./udc">
+				<input class="btn" type="submit" value="削除" formaction="./udc" name ="delete">
 				 <a href="UserSearchInput.jsp" class="btn">戻る</a>
 			</div>
 		</div>

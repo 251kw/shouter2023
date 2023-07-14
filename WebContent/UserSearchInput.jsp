@@ -12,6 +12,45 @@
 <link rel="stylesheet" href="./css/stylesheet.css">
 </head>
 <body>
+<%
+		//文字化け対策
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+
+		//空文字を挿入
+		String loginId1 = "";
+		String userName1 = "";
+		String icon1 ="icon-smile";
+		String profile1 = "";
+		String checkSmile="";
+	 	String checkJoy="";
+
+		//戻るボタンを押下時、nullではない場合は値を空文字から更新する
+		if (request.getParameter("loginId") != null) {
+			 loginId1 = request.getParameter("loginId");
+		}
+
+		
+		if (request.getParameter("userName") != null) {
+			 userName1 = request.getParameter("userName");
+		}
+
+		
+		if (request.getParameter("icon") != null) {
+			 icon1 = request.getParameter("icon");
+			 if(icon1.equals("icon-smile")){
+				checkSmile = "checked";
+			 }else{
+				 checkJoy = "checked";
+			 }
+		}
+
+		if (request.getParameter("profile") != null) {
+			 profile1 = request.getParameter("profile");
+		}
+	%>
+
+
 	<div class="bg-success padding-y-5">
 		<div class="container padding-y-5 text-center">
 			<h1>
@@ -35,7 +74,7 @@
 							<label for="loginId"><span class="icon-smile pe-2x pe-va"> </span>&nbsp;ログインID</label>
 						</th>
 						<td class="text-left">
-							<input class="form-control" type="text" name="loginId" size="20" autofocus value="" maxlength="10" />
+							<input class="form-control" type="text" name="loginId" size="20" autofocus value="<%=loginId1%>" maxlength="10" />
 						</td>
 					</tr>
 
@@ -44,7 +83,7 @@
 							<label for="userName"><span class="icon-note pe-2x pe-va"></span>&nbsp;ユーザー名</label>
 						</th>
 						<td class="text-left">
-							<input class="form-control" type="text" name="userName" size="20" value="" maxlength="30" pattern="\S|\S.*?\S" />
+							<input class="form-control" type="text" name="userName" size="20" value=""<%=userName1%> maxlength="30" pattern="\S|\S.*?\S" />
 						</td>
 					</tr>
 
@@ -54,14 +93,14 @@
 							<div class="child">
 								<span class="icon-smile pe-2x pe-va"></span>
 								<label class="fancy-checkbox">
-									<input type="checkbox" name="icon" id="icon" value="icon-smile" ><span></span>
+									<input type="checkbox" name="icon" id="icon" value="icon-smile"  <%=checkSmile %> ><span></span>
 								</label>
 							</div>
 
 							<div class="child">
 								<span class="icon-joy pe-2x pe-va"></span>
 								<label class="fancy-checkbox" >
-									<input type="checkbox" name="icon" id="icon" value="icon-joy" ><span></span>
+									<input type="checkbox" name="icon" id="icon" value="icon-joy"  <%= checkJoy %> ><span></span>
 								</label>
 							</div>
 						</td>
@@ -72,7 +111,7 @@
 							<label for="profile"><span class="icon-note pe-2x pe-va"></span>&nbsp;プロフィール</label>
 						</th>
 						<td class="text-left">
-							<input class="form-control" type="text" name="profile" size="20" value="" maxlength="100"  />
+							<input class="form-control" type="text" name="profile" size="20" value="<%=profile1%>" maxlength="100"  />
 						</td>
 					</tr>
 

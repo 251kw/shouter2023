@@ -66,7 +66,7 @@
 			</table>
 
 			<button class="btn" type="submit" value="OK"  formaction="./udr">OK</button>
-			<button class="btn" type="submit" value="キャンセル" formaction="UserSearchResult.jsp">キャンセル</button>
+			<button class="btn" type="submit" value="キャンセル" formaction="./udc" name="cancel">キャンセル</button>
 		</form>
 		</div>
 	</div>

@@ -28,7 +28,7 @@
 
 	<form action="./uer" method="post">
 		<div class="padding-y-5 text-center">
-			<button class="btn" type="submit" value="戻る" >戻る</button>
+			<button class="btn" type="submit" value="戻る"  name ="back">戻る</button>
 		</div>
 	</form>
 </body>

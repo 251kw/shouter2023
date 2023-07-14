@@ -464,4 +464,7 @@ public class DBManager extends SnsDAO {
 
 		return result;
 	}
+
+
+
 }
