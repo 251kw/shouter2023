@@ -89,9 +89,6 @@ function checkAllBox(trueOrFalse) {
 					<%-- リストにある要素の数だけ繰り返し --%>
 					<c:forEach var="searchUser" items="${searchUser}" varStatus="loop">
 						<tr>
-						<!-- el式内でel式を使えないので、setを使って使用できるようにする -->
-						<c:set var="deleteUser" value="${deleteUser}" />
-						<c:set var="loginId" value="${searchUser.loginId}" />
 						<c:choose>
 						<c:when test="${fn:contains(deleteUser,loginId)}"><!--  削除確認ボタンを押す際に選択されていたユーザーだった場合-->
 							<th><label class="fancy-checkbox"><input
