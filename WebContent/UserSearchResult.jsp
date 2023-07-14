@@ -53,7 +53,7 @@
 				<%-- セッションスコープにある ArrayList 型のオブジェクトを参照 --%>
 				<div style="width: 100%" class="container padding-y-5">
 					<%-- リストにある要素の数だけ繰り返し --%>
-						</c:if>
+
 					<table class="table table-striped table-bordered ">
 						<tr>
 							<th class="result"></th>
@@ -132,8 +132,10 @@ pageContext.setAttribute("deletereid",deletereid);
 				<button type="button" class="btn"
 					onclick="location.href='./UserSearchInput.jsp'">戻る</button>
 				<%-- クリック時にindex.jspに戻る --%>
+				</c:if>
 				</div>
 	</div>
+
 
 	</form>
 </body>
